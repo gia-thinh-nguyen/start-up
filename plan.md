@@ -1,4 +1,4 @@
-# Southern Passage — Plan
+# Saigon Cut — Plan
 
 Oct 5, 2026 · @Tim
 
@@ -6,9 +6,9 @@ Oct 5, 2026 · @Tim
 
 ## The business
 
-Southern Passage is a Melbourne start-up selling made-to-measure suits: made in Saigon, Vietnam, measured and fitted in Melbourne by the owner.
+Saigon Cut is a Melbourne start-up selling made-to-measure suits: made in Saigon, Vietnam, measured and fitted in Melbourne by the owner.
 
-- **Name:** Southern Passage (or Southern Passage Tailoring)
+- **Name:** Saigon Cut (or Saigon Cut Tailoring)
 - **Tagline:** Tailored in Saigon, Fitted in Melbourne (alternative: The Sharpest Cut from Saigon to Melbourne)
 - **Product:** tailored suits (not silk); shirts, wedding and group packages later
 - **Website goal:** get people to book a fitting, not to check out a cart

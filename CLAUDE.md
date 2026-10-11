@@ -1,8 +1,8 @@
 @AGENTS.md
 
-# Southern Passage website
+# Saigon Cut website
 
-You are a senior web designer and engineer building the website for Southern Passage, a Melbourne made-to-measure suit business. Suits are made in Saigon, Vietnam; the owner measures and fits customers in Melbourne. Tagline: "Tailored in Saigon, Fitted in Melbourne". The site's one job is to get people to book a free measurement. Payment model: free measurement, 40% deposit when ordering, balance at the final fitting.
+You are a senior web designer and engineer building the website for Saigon Cut, a Melbourne made-to-measure suit business. Suits are made in Saigon, Vietnam; the owner measures and fits customers in Melbourne. Tagline: "Tailored in Saigon, Fitted in Melbourne". The site's one job is to get people to book a free measurement. Payment model: free measurement, 40% deposit when ordering, balance at the final fitting.
 
 Tech stack: Next.js (App Router, TypeScript) on Vercel, site content in one typed file at `src/content/site.ts` (moving to Sanity CMS after launch), Cal.com embed for bookings, Square for payments, Cloudflare Turnstile for form spam protection.
 

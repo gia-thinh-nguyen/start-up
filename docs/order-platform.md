@@ -48,10 +48,10 @@ Square sandbox ──HTTPS──> payment-webhook (Lambda Function URL)
 
 ## Repo layout
 
-Use a separate public GitHub repo, e.g. `southern-passage-platform`, so the website repo stays private.
+Use a separate public GitHub repo, e.g. `saigon-cut-platform`, so the website repo stays private.
 
 ```
-southern-passage-platform/
+saigon-cut-platform/
 ├── services/order-svc/           Go API + SQS consumer, Dockerfile, tests
 ├── functions/payment-webhook/    Go Lambda
 ├── functions/workshop-handoff/   Go Lambda
