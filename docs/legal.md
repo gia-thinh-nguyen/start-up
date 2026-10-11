@@ -1,8 +1,8 @@
 # Legal and business setup
 
-- **ABN and business name:** get an ABN and register "Southern Passage" (or "Southern Passage Tailoring") with ASIC.
+- **ABN and business name:** get an ABN and register "Saigon Cut" (or "Saigon Cut Tailoring") with ASIC.
 - **Trademark check:** search IP Australia before buying the domain and printing anything.
-- **Domains:** southernpassage.com.au (needs an ABN), plus the .com if available.
+- **Domains:** saigoncut.com.au (needs an ABN), plus the .com if available.
 - **GST:** register once turnover reaches A$75,000 (or earlier if it suits you).
 - **Insurance:** public liability, especially for home and office visits.
 - **Order terms:**

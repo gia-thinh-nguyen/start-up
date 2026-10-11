@@ -1,6 +1,6 @@
 # Website MVP guide
 
-Your step-by-step to-do list for getting the Southern Passage website live. Work from top to bottom and tick boxes as you go. Finish each step before starting the next.
+Your step-by-step to-do list for getting the Saigon Cut website live. Work from top to bottom and tick boxes as you go. Finish each step before starting the next.
 
 **MVP goal:** a live site where people can see prices and book a free fitting. Everything else waits until after launch.
 
@@ -28,7 +28,7 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 - [ ] Studio address or home-based? Home-visit service area and any travel fee
 - [ ] Fit guarantee terms (e.g. free alterations within X days of the final fitting)
 - [ ] When the deposit becomes non-refundable
-- [ ] Trading name: Southern Passage or Southern Passage Tailoring
+- [ ] Trading name: Saigon Cut or Saigon Cut Tailoring
 - [ ] Tagline: "Tailored in Saigon, Fitted in Melbourne" or "The Sharpest Cut from Saigon to Melbourne"
 
 **Materials**
@@ -46,7 +46,7 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 
 - [ ] Search the name on IP Australia (trademark check) before buying or printing anything
 - [ ] Get an ABN and register the business name with ASIC
-- [ ] Buy southernpassage.com.au (needs the ABN), plus the .com if available
+- [ ] Buy saigoncut.com.au (needs the ABN), plus the .com if available
 - [ ] Set up Google Workspace with a hello@ address
 - [ ] Set up a Google Business Profile: photos, hours, service area
 - [ ] Get public liability insurance before the first home visit
