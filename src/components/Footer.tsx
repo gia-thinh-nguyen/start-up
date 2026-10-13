@@ -49,8 +49,7 @@ export function Footer() {
 
           <section>
             <FooterHeading>Where we fit</FooterHeading>
-            <p>{serviceArea.studio}</p>
-            <p className="mt-2 text-paper/80">{serviceArea.summary}</p>
+            <p>{serviceArea.summary}</p>
           </section>
 
           <section>

@@ -56,7 +56,20 @@ export type Site = {
   tagline: string;
   origin: string;
   description: string;
-  booking: Link & { note: string };
+  booking: Link & {
+    note: string;
+    /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
+    calUsername: string | null;
+    /** The Cal.com event type shown on the booking page. */
+    event: {
+      /** Must match the event's URL slug in Cal.com. */
+      slug: string;
+      name: string;
+      /** Must match the event's length in Cal.com. */
+      minutes: number;
+      where: string;
+    };
+  };
   nav: Link[];
   policies: {
     privacy: Link;
@@ -69,7 +82,6 @@ export type Site = {
     instagram: Link;
   };
   serviceArea: {
-    studio: string;
     summary: string;
     suburbs: string[];
     travelFee: string;
@@ -103,6 +115,13 @@ export const site: Site = {
     label: "Book a fitting",
     href: "/book",
     note: "Measurement is free",
+    calUsername: "gia-thinh-nguyen",
+    event: {
+      slug: "home-visit",
+      name: "Home or office visit",
+      minutes: 45,
+      where: "Your home or office in Melbourne",
+    },
   },
 
   nav: [
@@ -126,7 +145,6 @@ export const site: Site = {
   },
 
   serviceArea: {
-    studio: "[TODO: studio address, or remove if home-based]",
     summary: "[TODO: e.g. Home and office visits across Melbourne]",
     suburbs: [],
     travelFee: "[TODO: travel fee, or remove if none]",
