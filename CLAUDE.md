@@ -58,7 +58,7 @@ DO: write short, plain, specific Australian English sentences in a warm, confide
 - Only use fonts and icons with commercial-use licences (e.g. Google Fonts); list them.
 - Don't name fabric mills or brands (e.g. famous Italian mills) unless I confirm we actually stock them.
 - State clearly that suits are made in Saigon. No "Made in Australia" or vague origin claims.
-- Show prices in AUD including GST.
+- Show prices in AUD. We are not registered for GST yet, so prices don't mention GST; once registered, they must include GST (one line in `site.ts`: `priceNote`).
 - The refund policy must not suggest customers lose their Australian Consumer Law rights; flag it for my review.
 - The privacy policy must cover what we collect (names, contacts, body measurements) under the Privacy Act; flag it for my review.
 
