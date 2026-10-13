@@ -25,6 +25,7 @@ Read these yourself when a task needs them:
 
 - Before writing code, give me a short plan: pages, sections, components and packages. Wait for my OK.
 - Explain any decision that has a trade-off, and list anything I must set up myself (accounts, keys, DNS).
+- Commits and PRs: never add a `Co-Authored-By: Claude` line or a "Generated with Claude Code" footer.
 
 ## 1. Design: avoid the "AI-generated" look
 
