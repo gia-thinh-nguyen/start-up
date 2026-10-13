@@ -25,7 +25,7 @@ Every page should lead to the "Book a fitting" button.
 |---|---|---|---|
 | 1 | Hero section | One strong photo of a finished suit, the name and tagline, a "Book a fitting" button | MVP |
 | 2 | How it works | Book → measure → choose fabric → made in Saigon → final fitting and adjustments in Melbourne, with turnaround time | MVP |
-| 3 | Pricing | Transparent "from $X" prices (AUD, including GST) for suits, shirts and wedding packages, plus what's included and that measurement is free | MVP |
+| 3 | Pricing | Transparent "from $X" prices (AUD; including GST once registered) for suits, shirts and wedding packages, plus what's included and that measurement is free | MVP |
 | 4 | Booking | Cal.com embed: free measurement booking (studio or home/office visit), calendar, SMS reminders; no payment at booking | MVP |
 | 5 | Contact and location | Address or service area, map, phone/email, Instagram link, short enquiry form for people not ready to book | MVP |
 | 6 | Policies | Privacy policy, a refund policy that follows Australian Consumer Law for custom-made goods, and order terms | MVP |

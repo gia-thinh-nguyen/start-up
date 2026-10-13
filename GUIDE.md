@@ -23,7 +23,7 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 
 **Decisions**
 
-- [ ] Starting prices ("from $X", AUD including GST) for suits, shirts and wedding packages
+- [ ] Starting prices ("from $X", AUD) for suits, shirts and wedding packages
 - [ ] Standard turnaround (weeks) and the minimum lead time for weddings
 - [ ] Studio address or home-based? Home-visit service area and any travel fee
 - [ ] Fit guarantee terms (e.g. free alterations within X days of the final fitting)
@@ -96,7 +96,7 @@ Done when: someone who reads the page for 10 seconds knows what you sell, where 
 
 ### Step 3. Pricing page
 
-- [ ] "From $X" prices in AUD including GST, and what each price includes
+- [ ] "From $X" prices in AUD, and what each price includes
 - [ ] Measurement is free
 - [ ] Payment terms: free measurement, 40% deposit when ordering, balance at the final fitting
 - [ ] Short FAQ: turnaround, alterations, fit guarantee

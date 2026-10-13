@@ -38,7 +38,7 @@ Act as a security reviewer. Audit the code for: exposed secrets or keys, missing
 **Legal, honesty and copyright audit**
 
 ```text
-Check the site for: invented reviews, ratings, customer numbers, awards or press mentions; text or images copied or closely imitated from other brands; images or fonts without a commercial licence; brand or mill names we haven't confirmed; unclear or misleading country-of-origin claims; prices that don't show AUD including GST; refund wording that conflicts with Australian Consumer Law; and a privacy policy that doesn't cover body measurements. List each issue with the exact location and a suggested fix. Mark anything I should check with a lawyer.
+Check the site for: invented reviews, ratings, customer numbers, awards or press mentions; text or images copied or closely imitated from other brands; images or fonts without a commercial licence; brand or mill names we haven't confirmed; unclear or misleading country-of-origin claims; prices not in AUD (or, once GST-registered, not including GST); refund wording that conflicts with Australian Consumer Law; and a privacy policy that doesn't cover body measurements. List each issue with the exact location and a suggested fix. Mark anything I should check with a lawyer.
 ```
 
 ## Pre-launch checklist
@@ -49,7 +49,7 @@ Check these yourself before the site goes live. AI review can miss things.
 - [ ] No made-up reviews, ratings, customer numbers or awards anywhere
 - [ ] All photos are your own or properly licensed, with sources recorded
 - [ ] The site says clearly that suits are made in Saigon
-- [ ] Prices are in AUD including GST, and payment terms match: free measurement, 40% deposit, balance at final fitting
+- [ ] Prices are in AUD (including GST once registered), and payment terms match: free measurement, 40% deposit, balance at final fitting
 - [ ] A lawyer or a template service has checked the privacy policy and refund policy
 - [ ] A test booking works end to end, including the confirmation email and SMS
 - [ ] A test deposit in Square sandbox mode works, and no card details touch your own site

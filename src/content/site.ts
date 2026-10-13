@@ -13,9 +13,22 @@ export type Link = {
 
 export type Price = {
   item: string;
-  /** "From" price in whole AUD, including GST. null until decided. */
+  /** "From" price in whole AUD. null until decided. */
   fromAud: number | null;
-  includes: string;
+  /** Shown under the price when it isn't per item, e.g. "per suit". */
+  unit?: string;
+  includes: string[];
+};
+
+export type PaymentTerm = {
+  label: string;
+  value: string;
+  detail: string;
+};
+
+export type Question = {
+  question: string;
+  answer: string;
 };
 
 export type Photo = {
@@ -45,7 +58,11 @@ export type Site = {
   description: string;
   booking: Link & { note: string };
   nav: Link[];
-  policies: Link[];
+  policies: {
+    privacy: Link;
+    refunds: Link;
+    orderTerms: Link;
+  };
   contact: {
     phone: string;
     email: string;
@@ -66,13 +83,14 @@ export type Site = {
     workshop: Photo;
   };
   prices: Price[];
-  payment: {
-    measurement: string;
-    deposit: string;
-    balance: string;
-  };
+  priceNote: string;
+  payment: PaymentTerm[];
+  faq: Question[];
   abn: string;
 };
+
+const turnaroundWeeks = "[TODO: standard turnaround, e.g. 4–6 weeks]";
+const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
 
 export const site: Site = {
   name: "Saigon Cut",
@@ -92,11 +110,11 @@ export const site: Site = {
     { label: "Contact", href: "/contact" },
   ],
 
-  policies: [
-    { label: "Privacy", href: "/policies/privacy" },
-    { label: "Refunds", href: "/policies/refunds" },
-    { label: "Order terms", href: "/policies/order-terms" },
-  ],
+  policies: {
+    privacy: { label: "Privacy", href: "/policies/privacy" },
+    refunds: { label: "Refunds", href: "/policies/refunds" },
+    orderTerms: { label: "Order terms", href: "/policies/order-terms" },
+  },
 
   contact: {
     phone: "[TODO: phone number]",
@@ -114,8 +132,8 @@ export const site: Site = {
     travelFee: "[TODO: travel fee, or remove if none]",
   },
 
-  turnaroundWeeks: "[TODO: standard turnaround, e.g. 4–6 weeks]",
-  weddingLeadTime: "[TODO: minimum wedding lead time]",
+  turnaroundWeeks,
+  weddingLeadTime,
 
   process: [
     {
@@ -166,21 +184,78 @@ export const site: Site = {
     },
   },
 
+  // TODO: draft prices to get the page built. Confirm every number before launch.
   prices: [
-    { item: "Suits", fromAud: null, includes: "[TODO: what the suit price includes]" },
-    { item: "Shirts", fromAud: null, includes: "[TODO: what the shirt price includes]" },
+    {
+      item: "Suits",
+      fromAud: 890,
+      includes: [
+        "Two-piece suit: jacket and trousers",
+        "Cut and sewn to your measurements in Saigon",
+        "Your choice of lapels, buttons and lining",
+        "Final fitting and adjustments in Melbourne",
+      ],
+    },
+    {
+      item: "Shirts",
+      fromAud: 129,
+      includes: [
+        "Made to your measurements in Saigon",
+        "Your choice of collar and cuffs",
+        "Measured at the same free appointment as your suit",
+      ],
+    },
     {
       item: "Wedding packages",
-      fromAud: null,
-      includes: "[TODO: what the wedding package includes]",
+      fromAud: 790,
+      unit: "per suit, for 4 or more",
+      includes: [
+        "Suits for the groom and groomsmen in matching fabric",
+        "Everyone measured and fitted in Melbourne",
+        `Book at least ${weddingLeadTime} before the wedding`,
+      ],
     },
   ],
 
-  payment: {
-    measurement: "Free",
-    deposit: "40% when you place your order",
-    balance: "The rest at your final fitting",
-  },
+  // Not registered for GST yet. Once registered, prices must include GST:
+  // change this to "All prices are in AUD and include GST."
+  priceNote: "All prices are in AUD.",
+
+  payment: [
+    {
+      label: "Measurement",
+      value: "Free",
+      detail: "Nothing to pay when you book or when you're measured.",
+    },
+    {
+      label: "Deposit",
+      value: "40% when you place your order",
+      detail:
+        "Paid once you've chosen your fabric and details, and you know the full price. [TODO: when the deposit stops being refundable, e.g. once your fabric is cut]",
+    },
+    {
+      label: "Balance",
+      value: "The rest at your final fitting",
+      detail: "Paid in Melbourne, once you've tried your suit on.",
+    },
+  ],
+
+  faq: [
+    {
+      question: "How long does it take?",
+      answer: `Usually ${turnaroundWeeks} from placing your order to your final fitting. For a wedding, book your measurement at least ${weddingLeadTime} before the day.`,
+    },
+    {
+      question: "What if it needs alterations?",
+      answer:
+        "Adjustments at your final fitting are included in the price. [TODO: what counts as an alteration and what counts as a remake, and whether later alterations cost extra]",
+    },
+    {
+      question: "Is the fit guaranteed?",
+      answer:
+        "[TODO: fit guarantee terms, e.g. free alterations within 30 days of your final fitting.] This doesn't change your rights under Australian Consumer Law.",
+    },
+  ],
 
   abn: "[TODO: ABN]",
 };

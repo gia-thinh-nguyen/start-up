@@ -4,13 +4,6 @@ import { site } from "@/content/site";
 import { formatFromPrice } from "@/lib/price";
 
 export function PricesTeaser() {
-  const { payment } = site;
-  const terms = [
-    { label: "Measurement", value: payment.measurement },
-    { label: "Deposit", value: payment.deposit },
-    { label: "Balance", value: payment.balance },
-  ];
-
   return (
     <section
       aria-labelledby="prices"
@@ -20,9 +13,9 @@ export function PricesTeaser() {
         <h2 id="prices" className="text-4xl sm:text-5xl">
           Prices
         </h2>
-        <p className="mt-6 max-w-sm">All prices are in AUD and include GST.</p>
+        <p className="mt-6 max-w-sm">{site.priceNote}</p>
         <dl className="mt-8 space-y-3 text-sm">
-          {terms.map((term) => (
+          {site.payment.map((term) => (
             <div key={term.label} className="grid grid-cols-[7rem_1fr] gap-4">
               <dt className="font-medium">{term.label}</dt>
               <dd>{term.value}</dd>
@@ -39,7 +32,10 @@ export function PricesTeaser() {
               className="flex items-baseline justify-between gap-4 border-b border-timber/20 py-5"
             >
               <span className="font-display text-2xl text-navy">{price.item}</span>
-              <span className="text-right">{formatFromPrice(price.fromAud)}</span>
+              <span className="text-right">
+                {formatFromPrice(price.fromAud)}
+                {price.unit && <span className="block text-sm">{price.unit}</span>}
+              </span>
             </li>
           ))}
         </ul>

@@ -56,7 +56,7 @@ export function Footer() {
           <section>
             <FooterHeading>Policies</FooterHeading>
             <ul className="space-y-2">
-              {site.policies.map((link) => (
+              {Object.values(site.policies).map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="hover:underline">
                     {link.label}
