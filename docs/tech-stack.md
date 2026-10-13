@@ -42,11 +42,10 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 
 ### Cal.com setup
 
-- **Event types:**
-  - Studio fitting, 60 min
-  - Home or office visit, 75 min, Melbourne metro only, attendee enters an address, 30 min travel buffer
-  - Wedding party consult, 45 min
-  - Final fitting, 30 min (private link sent to clients, not shown publicly)
+- **Event types** (home visits only, no studio). The slug and length must match `booking.event` in `src/content/site.ts`:
+  - Home or office visit (`home-visit`), 45 min, Melbourne metro only, attendee enters an address, 30 min travel buffer
+  - Wedding party consult: after launch, with the Weddings page. Decide first whether it includes measuring.
+  - Final fitting, 30 min (hidden: private link sent to clients, not shown publicly)
 - **Booking questions:** occasion, date needed by, number of suits (for wedding parties), budget range, style references (link or upload), mobile number for SMS, how they heard about you
 - **Rules:** at least 24 hours' notice, a cap on bookings per day, synced with the owner's Google Calendar so personal events block slots
 - **Reminders:** email confirmation on booking; SMS 24 hours before and 2 hours before home visits
