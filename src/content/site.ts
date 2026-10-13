@@ -18,6 +18,26 @@ export type Price = {
   includes: string;
 };
 
+export type Photo = {
+  /** Path under /public, e.g. "/photos/hero.jpg". null shows a labelled placeholder. */
+  src: string | null;
+  alt: string;
+  /** Photographer or licence. Every photo needs one before launch. */
+  source: string;
+  /** What to shoot. Shown on the placeholder until the photo is added. */
+  brief: string;
+};
+
+export type Step = {
+  title: string;
+  text: string;
+};
+
+export type Place = {
+  city: string;
+  text: string;
+};
+
 export type Site = {
   name: string;
   tagline: string;
@@ -39,6 +59,12 @@ export type Site = {
   };
   turnaroundWeeks: string;
   weddingLeadTime: string;
+  process: Step[];
+  places: Place[];
+  photos: {
+    hero: Photo;
+    workshop: Photo;
+  };
   prices: Price[];
   payment: {
     measurement: string;
@@ -90,6 +116,55 @@ export const site: Site = {
 
   turnaroundWeeks: "[TODO: standard turnaround, e.g. 4–6 weeks]",
   weddingLeadTime: "[TODO: minimum wedding lead time]",
+
+  process: [
+    {
+      title: "Book",
+      text: "Choose a time online. Measurement is free and there's nothing to pay when you book.",
+    },
+    {
+      title: "Measure",
+      text: "We take your measurements and talk through the cut, lapels, buttons and lining.",
+    },
+    {
+      title: "Choose fabric",
+      text: "Pick your fabric and settle the details. A 40% deposit places your order.",
+    },
+    {
+      title: "Made in Saigon",
+      text: "Your suit is cut and sewn to your measurements in Saigon, Vietnam, then shipped to Melbourne.",
+    },
+    {
+      title: "Final fitting in Melbourne",
+      text: "Try it on, and we make any adjustments it needs. You pay the balance at this fitting.",
+    },
+  ],
+
+  places: [
+    {
+      city: "Saigon",
+      text: "Your suit is cut and sewn to your measurements in Saigon, Vietnam. [TODO: a sentence about the workshop, e.g. who sews the suits and how long they've been doing it]",
+    },
+    {
+      city: "Melbourne",
+      text: "You're measured in Melbourne before anything is cut, and fitted here when your suit arrives. [TODO: a sentence about the owner: who they are and why they started Saigon Cut]",
+    },
+  ],
+
+  photos: {
+    hero: {
+      src: null,
+      alt: "[TODO: describe the photo, e.g. Man in a navy two-piece suit]",
+      source: "[TODO: photographer or licence]",
+      brief: "A finished suit, worn. Portrait, at least 1600px tall.",
+    },
+    workshop: {
+      src: null,
+      alt: "[TODO: describe the photo]",
+      source: "[TODO: photographer or licence]",
+      brief: "The Saigon workshop, fabric, or a suit being made. Landscape.",
+    },
+  },
 
   prices: [
     { item: "Suits", fromAud: null, includes: "[TODO: what the suit price includes]" },
