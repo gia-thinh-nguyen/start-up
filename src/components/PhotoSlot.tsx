@@ -11,10 +11,10 @@ type Props = {
   className?: string;
 };
 
-/** Shows the photo once its file is added, otherwise a labelled placeholder of the same shape. */
+/** Shows the photo once its file is added, otherwise a chalk-dashed placeholder of the same shape. */
 export function PhotoSlot({ photo, sizes, preload = false, className = "" }: Props) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden bg-ochre-deep text-navy ${className}`}>
       {photo.src ? (
         <Image
           src={photo.src}
@@ -25,12 +25,18 @@ export function PhotoSlot({ photo, sizes, preload = false, className = "" }: Pro
           className="object-cover"
         />
       ) : (
-        <div className="absolute inset-0 flex items-end border border-dashed border-current/40 bg-current/5 p-5">
-          <p className="text-sm opacity-80">
-            <span className="block text-xs font-medium tracking-label uppercase">Photo needed</span>
+        <>
+          <svg
+            aria-hidden="true"
+            className="absolute inset-px h-[calc(100%-2px)] w-[calc(100%-2px)] overflow-visible"
+          >
+            <rect className="seam" width="100%" height="100%" />
+          </svg>
+          <p className="absolute inset-x-0 bottom-0 p-3.5 text-fine md:text-small">
+            <strong className="block font-semibold">Photo needed</strong>
             {photo.brief}
           </p>
-        </div>
+        </>
       )}
     </div>
   );

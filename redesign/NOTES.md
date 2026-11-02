@@ -26,3 +26,24 @@ The owner chose The Pattern Card on the decision page. The direction is saved in
 - Whether the Saigon workshop actually uses paper patterns. The site won't say so unless this is confirmed and added to `site.ts`.
 - Whether "Saigon Tailors" is available as a registered business name and a domain. This hasn't been checked. `docs/legal.md` and `GUIDE.md` still plan to register Saigon Cut and buy saigoncut.com.au.
 - Whether to keep the tagline. "Saigon Tailors" followed by "Tailored in Saigon" repeats itself.
+
+## Step 03: foundations
+
+### Decisions the owner may want to reverse
+
+- **Footer contact details.** The old footer linked to `tel:[TODO…]` and hid the Instagram `[TODO]` behind the word "Instagram". Now each one shows its `[TODO]` with no link, and becomes a link on its own once `site.ts` holds the real value.
+- **Page width.** The content width went from 76rem to 90rem, so the first screen can run close to full width at 1440.
+- **Link hovers.** Text links swap to a solid block of colour (navy on card and chalk, ochre on table and timber). The contract asks for a flat colour swap, and changing only the text colour was too faint between navy and timber. Text selection uses the same colours.
+
+### Rule conflicts
+
+- **Tagline size.** Impeccable's floor caps display type at 6rem. The direction contract pins about 8vw, which is 115px at 1440, so the contract wins. The `--text-display` token holds it.
+- **One colour outside `globals.css`.** The browser bar colour in `layout.tsx` repeats `--color-navy`, because Next.js takes it as a plain value and can't read CSS.
+
+### For later steps
+
+- Tailwind's numbered text sizes (`text-sm`, `text-5xl`), radii, shadows and `tracking-label` are gone, so those classes do nothing on the pages not yet rebuilt. Those pages look flat and still show uppercase labels until steps 04 to 07. Use the named sizes in `globals.css`.
+- `--text-display`, `--text-numeral` and `surface-timber` have no users yet. Step 04 is the first.
+- A section declares `surface-card`, `surface-chalk`, `surface-table` or `surface-timber`. That sets its text colour, focus ring, selection and link hover.
+- Use `WithTodos` from `src/components/Todo.tsx` for any `site.ts` copy that can hold a `[TODO]`, so the dashed outline shows.
+- The footer's edge rises 3rem (4.5rem on desktop) over the bottom of the piece above it. The last section on each page needs at least that much space below its content.

@@ -1,54 +1,244 @@
 @import "tailwindcss";
 
-/* Design tokens. Every colour, font and layout width the site uses lives here. */
-@theme {
+/*
+ * Design tokens for the Pattern Card world. Every colour, type size, layout width and motion value
+ * the site uses lives here. Radii and shadows are reset because nothing in this world has either.
+ */
+
+/* Static so these always reach the page: CalEmbed reads lantern, lantern-dark and paper at runtime. */
+@theme static {
   --color-*: initial;
-  --color-paper: #f5f0e6; /* off-white: page background */
-  --color-timber: #3a2a1f; /* dark timber brown: body text */
-  --color-navy: #1b2838; /* navy: footer, headings on light */
-  --color-lantern: #9b2a22; /* deep lantern red: booking buttons */
-  --color-lantern-dark: #7d211b; /* hover state for lantern */
-  --color-ochre: #c38e2e; /* ochre: accents only, never body text on paper */
+  --color-ochre: #d9a441; /* the pattern card. Takes navy text, never chalk text */
+  --color-ochre-deep: #cf9833; /* an empty photo slot on the card */
+  --color-navy: #14233a; /* ink on the card, and the cutting table behind it */
+  --color-timber: #2e1c11; /* the Saigon ground */
+  --color-paper: #f0f3f4; /* chalk: drawn lines, and the surface for forms and the calendar */
+  --color-lantern: #7f1a16; /* booking actions and nothing else */
+  --color-lantern-dark: #641310; /* hover state for lantern */
   --color-transparent: transparent;
   --color-current: currentColor;
+}
+
+@theme {
+  --radius-*: initial;
+  --shadow-*: initial;
+
+  /* Type. Sizes run from phone to desktop, and each carries its own weight, leading and tracking. */
+  --text-*: initial;
+  --text-display: min(max(min(14.87vw, 3.625rem), 8vw), 9.5rem); /* the tagline */
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: -0.025em;
+  --text-display--font-weight: 600;
+  --text-title: clamp(2.75rem, 1.83rem + 4.07vw, 5.5rem); /* other page h1s */
+  --text-title--line-height: 1.1; /* any tighter and a g's tail hits the l below it */
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 600;
+  --text-heading: clamp(2rem, 1.6rem + 1.85vw, 3.25rem); /* h2 */
+  --text-heading--line-height: 1.08;
+  --text-heading--letter-spacing: -0.015em;
+  --text-heading--font-weight: 600;
+  --text-subheading: 1.375rem; /* h3 */
+  --text-subheading--line-height: 1.2;
+  --text-subheading--font-weight: 600;
+  --text-numeral: clamp(3.5rem, 2.25rem + 5.1vw, 7rem); /* $890, 40%, 45 minutes, Free */
+  --text-numeral--line-height: 1;
+  --text-numeral--letter-spacing: -0.03em;
+  --text-numeral--font-weight: 700;
+  --text-wordmark: clamp(1.25rem, 0.825rem + 2.25vw, 1.75rem);
+  --text-wordmark--line-height: 1.2;
+  --text-wordmark--letter-spacing: -0.005em;
+  --text-wordmark--font-weight: 600;
+  --text-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.375rem);
+  --text-lede--line-height: 1.42;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.45;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.4;
+  --text-fine: 0.875rem;
+  --text-fine--line-height: 1.35;
 
   /* Layout */
   --spacing-gutter: 1.25rem;
   --spacing-gutter-lg: 2.5rem;
   --spacing-section: 5rem;
-  --container-page: 76rem;
+  --spacing-header: 3.75rem;
+  --spacing-header-lg: 5rem;
+  --spacing-bar: 4rem; /* the phone booking bar */
+  --spacing-hem: 3rem; /* how far the footer's edge rises into the piece above it */
+  --spacing-hem-lg: 4.5rem;
+  --container-page: 90rem;
   --container-prose: 38rem;
 
-  --tracking-label: 0.18em;
+  /* Motion */
+  --ease-draw: cubic-bezier(0.16, 1, 0.3, 1);
+  --default-transition-duration: 120ms;
+  --default-transition-timing-function: var(--ease-draw);
 }
 
 /* next/font sets these variables on <html>, so reference them at runtime. */
 @theme inline {
-  --font-sans: var(--font-hanken-grotesk), ui-sans-serif, sans-serif;
-  --font-display: var(--font-bodoni-moda), Georgia, serif;
+  --font-*: initial;
+  --font-sans: var(--font-be-vietnam-pro), ui-sans-serif, sans-serif;
+  --font-display: var(--font-besley), Georgia, serif;
+}
+
+/*
+ * A surface is the piece of card, table or chalk a section is cut from. Declaring one sets the text
+ * colour, the focus ring, and the colour pair that text selection and link hovers swap to.
+ */
+@utility surface-card {
+  background-color: var(--color-ochre);
+  color: var(--color-navy);
+  --color-focus: var(--color-navy);
+  --swap-bg: var(--color-navy);
+  --swap-ink: var(--color-paper);
+}
+
+@utility surface-chalk {
+  background-color: var(--color-paper);
+  color: var(--color-navy);
+  --color-focus: var(--color-navy);
+  --swap-bg: var(--color-navy);
+  --swap-ink: var(--color-paper);
+}
+
+@utility surface-table {
+  background-color: var(--color-navy);
+  color: var(--color-paper);
+  --color-focus: var(--color-ochre);
+  --swap-bg: var(--color-ochre);
+  --swap-ink: var(--color-navy);
+}
+
+@utility surface-timber {
+  background-color: var(--color-timber);
+  color: var(--color-paper);
+  --color-focus: var(--color-ochre);
+  --swap-bg: var(--color-ochre);
+  --swap-ink: var(--color-navy);
+}
+
+/* A link's hover is a flat colour swap, in the pair its surface sets. */
+@utility swap {
+  @apply transition-colors;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--swap-bg);
+      color: var(--swap-ink);
+    }
+  }
+
+  &:active {
+    background-color: var(--swap-bg);
+    color: var(--swap-ink);
+  }
+}
+
+/*
+ * One small notch cut into the top edge, showing whatever is behind. The fill is a pseudo-element
+ * because clip-path on the link itself would also clip its focus ring. Set it with before:bg-*.
+ */
+@utility notched {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    clip-path: polygon(
+      0 0,
+      calc(var(--notch-at) - var(--notch-half)) 0,
+      var(--notch-at) var(--notch-depth),
+      calc(var(--notch-at) + var(--notch-half)) 0,
+      100% 0,
+      100% 100%,
+      0 100%
+    );
+    @apply transition-colors;
+  }
+}
+
+/* The chalk seam: every dashed line drawn on the card, as an SVG stroke. */
+@utility seam {
+  fill: none;
+  stroke: var(--color-paper);
+  stroke-width: 2.25;
+  stroke-dasharray: 8 6;
+  vector-effect: non-scaling-stroke;
+}
+
+/* An open [TODO], drawn like a fitter's question. Its outline repeats on each line it wraps to. */
+@utility todo {
+  border: 1.5px dashed currentColor;
+  padding-inline: 0.3em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 @layer base {
   :root {
-    --color-focus: var(--color-navy);
+    --notch-at: calc(100% - 1.5rem);
+    --notch-half: 0.375rem;
+    --notch-depth: 0.5rem;
   }
 
   html {
+    @apply bg-navy;
     -webkit-text-size-adjust: 100%;
+    color-scheme: light;
     scroll-behavior: smooth;
+    scrollbar-color: var(--color-ochre) var(--color-navy);
+  }
+
+  /* Keyboard focus must not land underneath the phone booking bar. */
+  @media (width < 48rem) {
+    html {
+      scroll-padding-bottom: calc(var(--spacing-bar) + 1rem);
+    }
   }
 
   body {
-    @apply bg-paper font-sans text-timber antialiased;
-    line-height: 1.6;
+    @apply font-sans text-body antialiased;
+    caret-color: var(--color-lantern);
+    accent-color: var(--color-lantern);
+    font-synthesis: none;
+    font-variant-numeric: lining-nums;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-display text-navy;
-    line-height: 1.1;
+    @apply font-display;
     text-wrap: balance;
+  }
+
+  h1 {
+    @apply text-title;
+  }
+
+  h2 {
+    @apply text-heading;
+  }
+
+  h3 {
+    @apply text-subheading;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 0.09em;
+  }
+
+  ::selection {
+    background-color: var(--swap-bg);
+    color: var(--swap-ink);
   }
 
   :focus-visible {

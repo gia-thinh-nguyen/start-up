@@ -105,7 +105,7 @@ const turnaroundWeeks = "[TODO: standard turnaround, e.g. 4–6 weeks]";
 const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
 
 export const site: Site = {
-  name: "Saigon Cut",
+  name: "Saigon Tailors",
   tagline: "Tailored in Saigon, Fitted in Melbourne",
   origin: "Made in Saigon. Measured and fitted in Melbourne.",
   description:

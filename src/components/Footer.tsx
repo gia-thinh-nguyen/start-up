@@ -1,63 +1,96 @@
 import Link from "next/link";
+import { isTodo, WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 
-function FooterHeading({ children }: { children: React.ReactNode }) {
+const linkClass = "swap underline";
+
+/**
+ * The table's top edge, which is where the piece above it was cut: the same neck curve and shoulder
+ * slope as the first screen, with one notch and a seam. It rises over the bottom of the piece above,
+ * so the last section on a page needs at least hem-lg of space below its content.
+ */
+function HemEdge() {
   return (
-    <h2 className="mb-3 font-sans text-xs font-medium tracking-label text-ochre uppercase">
-      {children}
-    </h2>
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 bottom-full h-hem translate-y-px lg:h-hem-lg"
+    >
+      <svg viewBox="0 0 100 48" preserveAspectRatio="none" className="absolute inset-0 size-full">
+        <path className="fill-navy" d="M0 48V30C16 30 30 20 40 4L100 30V48Z" />
+        <path className="seam" d="M0 45C16 45 30 35 40 19L100 45" />
+      </svg>
+      {/* Drawn apart from the edge so stretching the edge to fit the screen can't distort it. */}
+      <svg
+        viewBox="0 0 14 14"
+        className="absolute top-[37.2%] left-[72%] size-3.5 -translate-x-1/2 -translate-y-3"
+      >
+        <path className="fill-navy" d="M0 14 7 0 14 14Z" />
+      </svg>
+    </div>
   );
+}
+
+function ContactLink({ text, href, external }: { text: string; href: string; external?: boolean }) {
+  if (isTodo(text) || isTodo(href)) return <WithTodos text={text} />;
+
+  return (
+    <a
+      href={href}
+      className={`${linkClass} break-words`}
+      {...(external && { rel: "noopener noreferrer", target: "_blank" })}
+    >
+      {text}
+      {external && <span className="sr-only"> (opens in a new tab)</span>}
+    </a>
+  );
+}
+
+function FooterHeading({ children }: { children: React.ReactNode }) {
+  return <h2 className="mb-2.5 text-subheading text-ochre">{children}</h2>;
 }
 
 export function Footer() {
   const { contact, serviceArea } = site;
 
   return (
-    <footer className="bg-navy text-paper [--color-focus:var(--color-ochre)]">
-      <div className="mx-auto grid max-w-page gap-12 px-gutter py-section lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg">
+    <footer className="surface-table relative">
+      <HemEdge />
+
+      <div className="mx-auto grid max-w-page gap-12 px-gutter pt-10 pb-section lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg lg:pt-16">
         <div className="lg:col-span-5">
-          <p className="font-display text-2xl tracking-label uppercase">{site.name}</p>
-          <p className="mt-3 max-w-xs text-paper/80">{site.origin}</p>
+          <p className="font-display text-title">{site.name}</p>
+          <p className="mt-4 max-w-xs text-lede">{site.origin}</p>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-3 lg:col-span-7">
+        <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:col-span-7">
           <section>
             <FooterHeading>Contact</FooterHeading>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               <li>
-                <a href={`tel:${contact.phone}`} className="hover:underline">
-                  {contact.phone}
-                </a>
+                <ContactLink text={contact.phone} href={`tel:${contact.phone}`} />
               </li>
               <li>
-                <a href={`mailto:${contact.email}`} className="break-words hover:underline">
-                  {contact.email}
-                </a>
+                <ContactLink text={contact.email} href={`mailto:${contact.email}`} />
               </li>
               <li>
-                <a
-                  href={contact.instagram.href}
-                  className="hover:underline"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Instagram <span className="sr-only">(opens in a new tab)</span>
-                </a>
+                <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
               </li>
             </ul>
           </section>
 
           <section>
             <FooterHeading>Where we fit</FooterHeading>
-            <p>{serviceArea.summary}</p>
+            <p>
+              <WithTodos text={serviceArea.summary} />
+            </p>
           </section>
 
           <section>
             <FooterHeading>Policies</FooterHeading>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {Object.values(site.policies).map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="hover:underline">
+                  <Link href={link.href} className={linkClass}>
                     {link.label}
                   </Link>
                 </li>
@@ -65,11 +98,9 @@ export function Footer() {
             </ul>
           </section>
         </div>
-      </div>
 
-      <div className="border-t border-paper/15">
-        <p className="mx-auto max-w-page px-gutter py-5 text-sm text-paper/70 lg:px-gutter-lg">
-          © {new Date().getFullYear()} {site.name} · ABN {site.abn}
+        <p className="text-fine lg:col-span-12">
+          © {new Date().getFullYear()} {site.name} · ABN <WithTodos text={site.abn} />
         </p>
       </div>
     </footer>

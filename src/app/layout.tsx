@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import { Bodoni_Moda, Hanken_Grotesk } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Be_Vietnam_Pro, Besley } from "next/font/google";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StickyBookButton } from "@/components/StickyBookButton";
 import { site } from "@/content/site";
 import "./globals.css";
 
-const bodoni = Bodoni_Moda({
+const besley = Besley({
   subsets: ["latin"],
-  axes: ["opsz"],
-  variable: "--font-bodoni-moda",
+  variable: "--font-besley",
 });
 
-const hanken = Hanken_Grotesk({
+const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["latin"],
-  variable: "--font-hanken-grotesk",
+  weight: ["400", "500", "600"],
+  variable: "--font-be-vietnam-pro",
 });
 
 const isProduction = process.env.VERCEL_ENV === "production";
@@ -29,13 +29,18 @@ export const metadata: Metadata = {
   robots: isProduction ? undefined : { index: false, follow: false },
 };
 
+export const viewport: Viewport = {
+  // The phone browser's own bar continues the navy table. Same value as --color-navy.
+  themeColor: "#14233a",
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${bodoni.variable} ${hanken.variable}`}>
-      <body className="flex min-h-dvh flex-col">
+    <html lang="en-AU" className={`${besley.variable} ${beVietnamPro.variable}`}>
+      <body className="surface-chalk flex min-h-dvh flex-col">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-navy focus:px-4 focus:py-2 focus:text-paper"
+          className="sr-only focus:not-sr-only focus:surface-card focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2"
         >
           Skip to content
         </a>

@@ -6,8 +6,7 @@ import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Call, email or send a message to Saigon Cut, made-to-measure suits fitted at your home or office in Melbourne.",
+  description: `Call, email or send a message to ${site.name}, made-to-measure suits fitted at your home or office in Melbourne.`,
 };
 
 export default function ContactPage() {
