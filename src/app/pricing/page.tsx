@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { BookButton } from "@/components/BookButton";
-import { PaymentSteps } from "@/components/pricing/PaymentSteps";
+import { BookVisit } from "@/components/BookVisit";
+import { CutEdge } from "@/components/CutEdge";
+import { PaymentLength } from "@/components/pricing/PaymentLength";
 import { PriceList } from "@/components/pricing/PriceList";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
 import { site } from "@/content/site";
@@ -13,42 +14,32 @@ export const metadata: Metadata = {
 
 export default function PricingPage() {
   return (
-    <>
-      <section className="mx-auto grid max-w-page gap-8 px-gutter pt-10 pb-14 lg:grid-cols-12 lg:px-gutter-lg lg:pt-section">
-        <div className="lg:col-span-6">
-          <p className="flex items-center gap-3 text-xs font-medium tracking-label uppercase">
-            <span aria-hidden="true" className="h-px w-8 bg-ochre" />
-            Made in Saigon · Fitted in Melbourne
-          </p>
-          <h1 className="mt-5 text-5xl sm:text-6xl xl:text-7xl">Prices</h1>
-        </div>
-
-        <div className="lg:col-span-5 lg:col-start-8 lg:self-end">
-          <p className="text-lg">
-            These are starting prices. Your final price depends on the fabric and details you
-            choose, and you&apos;ll know it before you pay anything.
-          </p>
-          <p className="mt-4 text-sm">
+    <div className="overflow-x-clip">
+      <section className="surface-table pb-[calc(var(--spacing-hem)+2.5rem)] lg:pb-[calc(var(--spacing-hem-lg)+3.5rem)]">
+        <div className="mx-auto flex max-w-page items-end justify-between gap-6 px-gutter pt-2 pb-4 lg:px-gutter-lg lg:pt-6 lg:pb-8">
+          <h1>Prices</h1>
+          <p className="max-w-40 pb-1 text-right text-small md:max-w-none lg:pb-3 lg:text-body">
             {site.priceNote} {site.booking.note}.
           </p>
         </div>
+
+        <PriceList />
+
+        <p className="mx-auto mt-6 max-w-page px-gutter text-lede lg:mt-8 lg:px-gutter-lg">
+          <span className="block max-w-prose lg:ml-[calc((100%+1.5rem)*5/12)]">
+            These are starting prices. Your final price depends on the fabric and details you choose,
+            and you&apos;ll know it before you pay anything.
+          </span>
+        </p>
       </section>
 
-      <PriceList />
-      <PaymentSteps />
+      <PaymentLength />
       <PricingFaq />
 
-      <section className="border-t border-timber/15">
-        <div className="mx-auto flex max-w-page flex-col items-start gap-8 px-gutter py-section lg:flex-row lg:items-center lg:justify-between lg:px-gutter-lg">
-          <p className="max-w-xl font-display text-3xl text-navy sm:text-4xl">
-            Start with a free measurement in Melbourne.
-          </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <BookButton size="lg" />
-            <p className="text-sm">{site.booking.note}</p>
-          </div>
-        </div>
-      </section>
-    </>
+      <div className="surface-card relative pt-6 lg:pt-10">
+        <CutEdge shape="armhole" fill="fill-ochre" />
+        <BookVisit />
+      </div>
+    </div>
   );
 }

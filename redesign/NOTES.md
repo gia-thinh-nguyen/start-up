@@ -77,3 +77,41 @@ The owner chose The Pattern Card on the decision page. The direction is saved in
 ### Only the owner can supply
 
 - The `fitter` photo, as well as `hero` and `workshop`, each with alt text and a source.
+
+## Step 05: pricing
+
+### Decisions the owner may want to reverse
+
+- **Prices on a navy table.** The contract has ochre owning most of a marketing page. The first section of `/pricing` is navy, so the pieces can hang from a rail. The pieces fill most of it, and everything after it except the FAQ is card.
+- **Price order on phones.** Suits hangs at full width, with Shirts and Wedding packages as two narrower tags beneath it. Stacked full width, the lists pushed `$790` off the first screen, and the prices couldn't be compared. The cost is narrow text in the tags, about 20 characters a line. It gets shorter once the wedding `[TODO]` is filled in.
+- **All three prices are the same size.** This is unlike home, where `$890` leads. Same-size figures compare at a glance, so the Suits piece is bigger, not its number.
+- **"These are starting prices" moved below the pieces.** On phones it would have pushed the prices down. "from" sits on each piece, and the head of the page keeps `priceNote` and "Measurement is free".
+- **FAQ answers are always open.** The old page hid them in `<details>`, which would have hidden the `[TODO]`s.
+- **A sentence dropped.** The old "Nothing is due until you've been measured and chosen your fabric." is gone, because the Free and Deposit terms already say it.
+- **The closing section is the same as home's.** `BookVisit` now serves both pages.
+
+### Rule conflicts
+
+- **Tabular numerals.** The step asks for them, but Besley's `tabular-nums` draws a visibly lighter zero, which spoiled `$890` when I rendered it. Each digit now sits in a fixed-width cell with Besley's normal figures, so prices still line up in columns. Screen readers get the whole price as one string.
+
+### Moved out of `home/`
+
+`CutEdge` and `BookVisit` are now in `src/components/`. `priceAmount` and `splitFigure` are in `src/components/figures.ts`.
+
+### Added to `globals.css`
+
+`--text-price` and `--text-price-lg`, sized so `$129` fits the narrowest piece.
+
+### Not checked in a browser
+
+Only 390x844 and 1440x900 were rendered. These were worked out from the CSS, not seen:
+
+- **360 wide:** `$129` should still fit its tag.
+- **Tablets, 768 to 1023:** the two-column Suits piece.
+- **Around 1024:** "Wedding packages from" should stay on one line. If it wraps, `$790` drops below the other two prices.
+- **Short phones:** on 390x664, the Shirts and Wedding prices will sit under the booking bar until you scroll, with only `$890` showing on the first screen.
+
+### Only the owner can supply
+
+- Confirmed prices. `$890`, `$129` and `$790` are still drafts in `site.ts`.
+- The `/policies/order-terms` and `/policies/refunds` pages. `/pricing` links to them, as the old page did, and they don't exist yet.

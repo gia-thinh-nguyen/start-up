@@ -1,7 +1,7 @@
 import { BookButton } from "@/components/BookButton";
+import { priceAmount } from "@/components/figures";
 import { Grainline, PunchedHole } from "@/components/PatternMarks";
 import { PhotoSlot } from "@/components/PhotoSlot";
-import { priceAmount } from "@/components/home/priceAmount";
 import { site } from "@/content/site";
 
 /**

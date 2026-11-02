@@ -44,6 +44,15 @@
   --text-numeral--line-height: 1;
   --text-numeral--letter-spacing: -0.03em;
   --text-numeral--font-weight: 700;
+  /* A price on its pattern piece: as big as the narrowest piece allows, so all three stay the same size. */
+  --text-price: clamp(2.75rem, 12.5vw, 4.5rem);
+  --text-price--line-height: 1;
+  --text-price--letter-spacing: -0.03em;
+  --text-price--font-weight: 700;
+  --text-price-lg: clamp(4.5rem, 7vw, 6.5rem);
+  --text-price-lg--line-height: 1;
+  --text-price-lg--letter-spacing: -0.03em;
+  --text-price-lg--font-weight: 700;
   --text-wordmark: clamp(1.25rem, 0.825rem + 2.25vw, 1.75rem);
   --text-wordmark--line-height: 1.2;
   --text-wordmark--letter-spacing: -0.005em;

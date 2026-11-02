@@ -1,13 +1,7 @@
 import Link from "next/link";
+import { priceAmount, splitFigure } from "@/components/figures";
 import { WithTodos } from "@/components/Todo";
-import { priceAmount } from "@/components/home/priceAmount";
 import { site } from "@/content/site";
-
-/** Splits "40% when you place your order" so the figure can lead. Wordier values stay whole. */
-function splitFigure(value: string) {
-  const match = value.match(/^(Free|\d+%)\s*(.*)$/);
-  return match ? { figure: match[1], rest: match[2] } : { figure: null, rest: value };
-}
 
 export function PricesTeaser() {
   const [lead, ...others] = site.prices;

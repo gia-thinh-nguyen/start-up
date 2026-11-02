@@ -1,6 +1,6 @@
+import { CutEdge } from "@/components/CutEdge";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import { WithTodos } from "@/components/Todo";
-import { CutEdge } from "@/components/home/CutEdge";
 import { site } from "@/content/site";
 
 export function SaigonMelbourne() {

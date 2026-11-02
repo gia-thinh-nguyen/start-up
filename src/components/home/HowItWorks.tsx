@@ -1,5 +1,5 @@
+import { CutEdge } from "@/components/CutEdge";
 import { WithTodos } from "@/components/Todo";
-import { CutEdge } from "@/components/home/CutEdge";
 import { site, type Step } from "@/content/site";
 
 const inSaigon = (step?: Step) => step?.title.includes("Saigon") ?? false;

@@ -2,7 +2,7 @@ import { BookButton } from "@/components/BookButton";
 import { PunchedHole } from "@/components/PatternMarks";
 import { site } from "@/content/site";
 
-/** Where the page closes. The footer's edge rises over its bottom, so it leaves room for that. */
+/** Where a page closes, on card. The footer's edge rises over its bottom, so it leaves room for that. */
 export function BookVisit() {
   const { event, terms } = site.booking;
 

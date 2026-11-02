@@ -1,4 +1,4 @@
-import { BookVisit } from "@/components/home/BookVisit";
+import { BookVisit } from "@/components/BookVisit";
 import { ChalkSeam } from "@/components/home/ChalkSeam";
 import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
