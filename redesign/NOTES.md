@@ -47,3 +47,33 @@ The owner chose The Pattern Card on the decision page. The direction is saved in
 - A section declares `surface-card`, `surface-chalk`, `surface-table` or `surface-timber`. That sets its text colour, focus ring, selection and link hover.
 - Use `WithTodos` from `src/components/Todo.tsx` for any `site.ts` copy that can hold a `[TODO]`, so the dashed outline shows.
 - The footer's edge rises 3rem (4.5rem on desktop) over the bottom of the piece above it. The last section on each page needs at least that much space below its content.
+
+## Step 04: home
+
+### Decisions the owner may want to reverse
+
+- **Desktop tagline.** It sits on two lines that break at the comma, about 10 columns wide, not the contract's "about eight columns". Eight columns forced the break "Saigon, Fitted", which reads badly. The size is still 8vw at 1440, and the cap dropped from 9.5rem to 7.25rem so the line keeps fitting on wider screens.
+- **Desktop first-screen photo slot.** It's square on desktop so it fits above the fold under the two-line tagline. On phones it's still 4:5.
+- **Where the seam runs.** The contract says it runs down the page and doesn't say where. It runs down the card's left edge, like a seam allowance, 10px in on phones and 20px on desktop. This adds a dashed line down the left of the first phone screen that the sketch doesn't have.
+- **Colour of each section.** Timber is only used for Saigon (step 4 and the Saigon section). Everything else on the page is card, so there's no navy section between the header and the footer.
+- **Payment terms on home.** Home shows the value of each term, not its detail. The `[TODO]` about when the deposit stops being refundable shows on `/pricing`, not here.
+
+### Added to `site.ts`
+
+- `photos.fitter`, with the brief from the contract and two new `[TODO]`s for its alt text and source.
+- `intro` (the first-screen sentence from the contract) and `booking.terms` ("Nothing to pay when you book.", which the first step already says). Neither is a new fact.
+
+### Not checked in a browser
+
+- **The seam drawing on scroll.** `shot.mjs` runs with reduced motion, so the screenshots only show the full static line. A capture script with motion on was refused, because it isn't on the allowed command list. Scroll down the home page once in Chrome or Edge: the line's tip should stay about three-quarters of the way down the screen.
+- **Small and in-between sizes.** Only 390x844 and 1440x900 were rendered. Short phones (such as 390x664, Safari with its bars showing), 360 wide, tablets and screens wider than 1440 were worked out from the CSS, not seen. By that arithmetic, on a 390x664 screen the tagline, offer and $890 are above the booking bar, the grainline and punched hole are hidden, and the second line of "45-minute visit. Nothing to pay when you book." sits under the bar until you scroll.
+
+### For later steps
+
+- `src/components/PatternMarks.tsx` has `PunchedHole` and `Grainline`. Step 05 can use them.
+- `src/components/home/priceAmount.ts` gets the number without "From", because `src/lib/` is off limits. Move it out of `home/` if `/pricing` needs it.
+- Don't use `tabular-nums` on Besley numerals. Its tabular zero is visibly lighter than the other digits.
+
+### Only the owner can supply
+
+- The `fitter` photo, as well as `hero` and `workshop`, each with alt text and a source.

@@ -9,10 +9,12 @@ type Props = {
   preload?: boolean;
   /** Sets the slot's shape (aspect ratio, height, grid placement). */
   className?: string;
+  /** The slot runs off the screen's right edge, so the placeholder's outline does too. */
+  bleedRight?: boolean;
 };
 
 /** Shows the photo once its file is added, otherwise a chalk-dashed placeholder of the same shape. */
-export function PhotoSlot({ photo, sizes, preload = false, className = "" }: Props) {
+export function PhotoSlot({ photo, sizes, preload = false, className = "", bleedRight = false }: Props) {
   return (
     <div className={`relative overflow-hidden bg-ochre-deep text-navy ${className}`}>
       {photo.src ? (
@@ -28,7 +30,7 @@ export function PhotoSlot({ photo, sizes, preload = false, className = "" }: Pro
         <>
           <svg
             aria-hidden="true"
-            className="absolute inset-px h-[calc(100%-2px)] w-[calc(100%-2px)] overflow-visible"
+            className={`absolute inset-px h-[calc(100%-2px)] overflow-visible ${bleedRight ? "w-[calc(100%+4px)]" : "w-[calc(100%-2px)]"}`}
           >
             <rect className="seam" width="100%" height="100%" />
           </svg>

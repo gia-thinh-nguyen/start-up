@@ -25,7 +25,7 @@
 
   /* Type. Sizes run from phone to desktop, and each carries its own weight, leading and tracking. */
   --text-*: initial;
-  --text-display: min(max(min(14.87vw, 3.625rem), 8vw), 9.5rem); /* the tagline */
+  --text-display: min(max(min(14.87vw, 3.625rem), 8vw), 7.25rem); /* the tagline. Stops growing with the page width */
   --text-display--line-height: 1;
   --text-display--letter-spacing: -0.025em;
   --text-display--font-weight: 600;
@@ -66,6 +66,8 @@
   --spacing-bar: 4rem; /* the phone booking bar */
   --spacing-hem: 3rem; /* how far the footer's edge rises into the piece above it */
   --spacing-hem-lg: 4.5rem;
+  /* The first-screen photo slot's height. It gives way first on narrow or short phones. */
+  --spacing-slot: min(16.75rem, calc((100vw - 11rem) * 1.25), max(10rem, calc(100svh - 36rem)));
   --container-page: 90rem;
   --container-prose: 38rem;
 
@@ -170,6 +172,29 @@
   vector-effect: non-scaling-stroke;
 }
 
+/*
+ * The home page's long seam draws itself as you scroll, with its tip held a quarter of the way up
+ * the screen. Browsers without scroll timelines and reduced motion get the whole line, static.
+ */
+@keyframes seam-draw {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+
+@utility seam-draws {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: seam-draw linear both;
+      animation-timeline: view(block 0 25%);
+      animation-range: entry-crossing 0% entry-crossing 100%;
+    }
+  }
+}
+
 /* An open [TODO], drawn like a fitter's question. Its outline repeats on each line it wraps to. */
 @utility todo {
   border: 1.5px dashed currentColor;
@@ -178,11 +203,22 @@
   box-decoration-break: clone;
 }
 
+/* Screens tall enough to leave a gap above the first-screen price, where the pattern marks sit. */
+@custom-variant tall (@media (min-height: 52rem));
+
 @layer base {
   :root {
     --notch-at: calc(100% - 1.5rem);
     --notch-half: 0.375rem;
     --notch-depth: 0.5rem;
+    --seam: 0.625rem; /* how far the long seam sits inside the card's left edge */
+    --page-edge: max(0px, calc((100vw - var(--container-page)) / 2)); /* the margin beside the page width */
+  }
+
+  @media (width >= 64rem) {
+    :root {
+      --seam: 1.25rem;
+    }
   }
 
   html {

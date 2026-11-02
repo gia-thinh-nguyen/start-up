@@ -55,9 +55,12 @@ export type Site = {
   name: string;
   tagline: string;
   origin: string;
+  /** The first-screen statement of what's sold, where it's made and who fits it. */
+  intro: string;
   description: string;
   booking: Link & {
     note: string;
+    terms: string;
     /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
     calUsername: string | null;
     /** The Cal.com event type shown on the booking page. */
@@ -91,6 +94,7 @@ export type Site = {
   process: Step[];
   places: Place[];
   photos: {
+    fitter: Photo;
     hero: Photo;
     workshop: Photo;
   };
@@ -108,6 +112,8 @@ export const site: Site = {
   name: "Saigon Tailors",
   tagline: "Tailored in Saigon, Fitted in Melbourne",
   origin: "Made in Saigon. Measured and fitted in Melbourne.",
+  intro:
+    "Made-to-measure suits, made in Saigon. We measure and fit you at your home or office in Melbourne.",
   description:
     "Made-to-measure suits, made in Saigon and fitted in Melbourne. Book a free measurement.",
 
@@ -115,6 +121,7 @@ export const site: Site = {
     label: "Book a fitting",
     href: "/book",
     note: "Measurement is free",
+    terms: "Nothing to pay when you book.",
     calUsername: "gia-thinh-nguyen",
     event: {
       slug: "home-visit",
@@ -188,6 +195,12 @@ export const site: Site = {
   ],
 
   photos: {
+    fitter: {
+      src: null,
+      alt: "[TODO: describe the photo, e.g. The owner measuring a customer's shoulders]",
+      source: "[TODO: photographer or licence]",
+      brief: "The owner with a tape measure. A phone photo is fine.",
+    },
     hero: {
       src: null,
       alt: "[TODO: describe the photo, e.g. Man in a navy two-piece suit]",
