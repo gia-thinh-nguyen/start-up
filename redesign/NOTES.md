@@ -149,3 +149,38 @@ Only 390x844 and 1440x900 were rendered, and the booking itself wasn't submitted
 - Cal.com's display name and avatar. Desktop visitors see "Gia Thinh Nguyen" and a grey "G". Change them in Cal.com if you'd rather show the business name or a photo.
 - The event's description in Cal.com, which desktop visitors now read next to the month. It says the same as the site today.
 - The travel fee and phone number `[TODO]`s, both showing on this page.
+
+## Step 07: contact
+
+### Decisions the owner may want to reverse
+
+- **New h1.** It's now "Send us a message", because the form leads the page. The nav link and page title still say Contact.
+- **Booking route on phones.** The "Book a fitting" button in the ochre piece sits below the form and the contact details. Until then, the sticky bar is the route to booking. On desktop the piece sits beside the form.
+- **Phone, email and Instagram show no link while they're `[TODO]`s.** The old page linked to `tel:[TODO…]`. They become links once `site.ts` holds the real values, as in the footer.
+- **Lantern red on errors.** The contract keeps lantern for booking actions, but the brief's `/contact` line asks for it on errors, so errors use it. They also have words and a notch mark.
+- **Pending button.** It turns into a dashed navy outline with "Sending…", which is the same dashed look as a `[TODO]`.
+
+### Added or moved
+
+- `ContactLink` moved out of `Footer.tsx`, and `CollarNotch` moved out of `VisitPiece.tsx` into `CutEdge.tsx`, so this page can share them. I re-rendered `/book` and the footer after the move.
+- `globals.css`: a `ruled` utility for the message field's lines. It's a hard-edged `repeating-linear-gradient`, used only to draw lines.
+- `src/components/contact/ContactPiece.tsx`.
+
+### Found on `/book`, not fixed
+
+At 1440x900 the Cal.com calendar starts 40px in from the page's left edge, and the iframe cuts off its right side, including the times column and the 12h/24h toggle. The screenshot is `.impeccable/review/book-desktop-fold.png`. It looks the same after a 15-second wait. This step didn't change `CalEmbed` or the calendar's container, and the page height is the same as before this step's edits, so it probably comes from step 06, though I didn't confirm that. It's outside this step, so step 08 should pick it up.
+
+### How the states were checked
+
+I temporarily hard-coded the error, sent and pending states in `EnquiryForm.tsx`, screenshotted each, and put the code back. No message was sent, and the real submit path wasn't run.
+
+### Not checked in a browser
+
+- **The Turnstile widget.** It didn't appear in any screenshot, even after an 8-second wait, so there's an empty gap of about 90px above the Send button. Its code is untouched, but I can't tell why it's blank in the headless browser. Open `/contact` in a normal browser to confirm it shows and that a message can be sent.
+- **The `noscript` note.** It's styled, but not rendered with JavaScript off.
+- **Other sizes.** Only 390x844 and 1440x900 were rendered. Tablets, 360 wide, 1024 and screens wider than 1440 were worked out from the CSS. That includes the extra left padding that keeps the piece's text clear of the armhole on wide screens.
+
+### Only the owner can supply
+
+- Phone, email, Instagram, service area and travel fee, all showing as `[TODO]`s here. The email `[TODO]` also appears in the form's "try again" errors and the `noscript` note.
+- The `/policies/privacy` page, which the form links to and which doesn't exist yet. It must name Cloudflare, as the comment in `Turnstile.tsx` says.

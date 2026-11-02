@@ -213,6 +213,18 @@
   box-decoration-break: clone;
 }
 
+/* A field written on ruled lines, which scroll with the text. Set --rule-color to change the lines. */
+@utility ruled {
+  --rule: 2.25rem;
+  line-height: var(--rule);
+  background-image: repeating-linear-gradient(
+    transparent 0 calc(var(--rule) - 2px),
+    var(--rule-color, var(--color-navy)) 0 var(--rule)
+  );
+  background-attachment: local;
+  background-position: 0 -0.25rem;
+}
+
 /* Screens tall enough to leave a gap above the first-screen price, where the pattern marks sit. */
 @custom-variant tall (@media (min-height: 52rem));
 

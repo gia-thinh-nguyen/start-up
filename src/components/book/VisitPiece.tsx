@@ -1,17 +1,6 @@
-import { CutEdge } from "@/components/CutEdge";
+import { CollarNotch, CutEdge } from "@/components/CutEdge";
 import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
-
-/** Drawn apart from the edge so stretching the edge to fit the screen can't distort it. */
-function Notch() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-full h-hem lg:h-hem-lg">
-      <svg viewBox="0 0 14 14" className="absolute top-[43%] left-[72%] size-3.5 -translate-x-1/2 -translate-y-px">
-        <path className="fill-navy" d="M0 0H14L7 14Z" />
-      </svg>
-    </div>
-  );
-}
 
 /** The short piece of card above the calendar: what the visit is and that it's free. */
 export function VisitPiece() {
@@ -20,7 +9,7 @@ export function VisitPiece() {
   return (
     <section aria-labelledby="book-title" className="surface-card relative">
       <CutEdge shape="collar" fill="fill-ochre" />
-      <Notch />
+      <CollarNotch />
 
       <div className="mx-auto max-w-page px-gutter pt-2 pb-[calc(var(--spacing-hem)+0.5rem)] lg:px-gutter-lg lg:pb-[calc(var(--spacing-hem-lg)+1rem)] xl:flex xl:items-start xl:justify-between xl:gap-8">
         <div>

@@ -20,6 +20,20 @@ const shapes = {
   },
 };
 
+/**
+ * The notch in a collar edge, showing the table behind. Drawn apart from the edge so stretching the
+ * edge to fit the screen can't distort it.
+ */
+export function CollarNotch() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-full h-hem lg:h-hem-lg">
+      <svg viewBox="0 0 14 14" className="absolute top-[43%] left-[72%] size-3.5 -translate-x-1/2 -translate-y-px">
+        <path className="fill-navy" d="M0 0H14L7 14Z" />
+      </svg>
+    </div>
+  );
+}
+
 type Props = {
   shape: keyof typeof shapes;
   /** The fill-* class of the piece this edge belongs to. */

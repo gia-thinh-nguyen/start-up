@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { isTodo, WithTodos } from "@/components/Todo";
+import { ContactLink } from "@/components/ContactLink";
+import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
-
-const linkClass = "swap underline";
 
 /**
  * The table's top edge, which is where the piece above it was cut: the same neck curve and shoulder
@@ -27,21 +26,6 @@ function HemEdge() {
         <path className="fill-navy" d="M0 14 7 0 14 14Z" />
       </svg>
     </div>
-  );
-}
-
-function ContactLink({ text, href, external }: { text: string; href: string; external?: boolean }) {
-  if (isTodo(text) || isTodo(href)) return <WithTodos text={text} />;
-
-  return (
-    <a
-      href={href}
-      className={`${linkClass} break-words`}
-      {...(external && { rel: "noopener noreferrer", target: "_blank" })}
-    >
-      {text}
-      {external && <span className="sr-only"> (opens in a new tab)</span>}
-    </a>
   );
 }
 
@@ -90,7 +74,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {Object.values(site.policies).map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className={linkClass}>
+                  <Link href={link.href} className="swap underline">
                     {link.label}
                   </Link>
                 </li>
