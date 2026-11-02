@@ -61,6 +61,8 @@ export type Site = {
   booking: Link & {
     note: string;
     terms: string;
+    noObligation: string;
+    depositNote: string;
     /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
     calUsername: string | null;
     /** The Cal.com event type shown on the booking page. */
@@ -122,6 +124,8 @@ export const site: Site = {
     href: "/book",
     note: "Measurement is free",
     terms: "Nothing to pay when you book.",
+    noObligation: "There's no obligation to order.",
+    depositNote: "If you go ahead, a 40% deposit places your order once you've chosen your fabric.",
     calUsername: "gia-thinh-nguyen",
     event: {
       slug: "home-visit",

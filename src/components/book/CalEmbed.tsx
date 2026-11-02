@@ -19,18 +19,33 @@ function token(name: string) {
 export function CalEmbed({ calLink }: { calLink: string }) {
   useEffect(() => {
     getCalApi().then((cal) => {
-      const brand = {
+      const colours = {
         "cal-brand": token("lantern"),
         "cal-brand-emphasis": token("lantern-dark"),
         "cal-brand-text": token("paper"),
+        "cal-bg": token("paper"),
+        "cal-bg-muted": token("paper"),
+        "cal-bg-subtle": token("paper"),
+        "cal-bg-emphasis": token("ochre"),
+        "cal-text": token("navy"),
+        "cal-text-emphasis": token("navy"),
+        "cal-text-subtle": token("navy"),
+        "cal-text-muted": token("navy"),
+        "cal-border": token("navy"),
+        "cal-border-subtle": token("navy"),
       };
-      // Our page already shows the appointment name, length and place.
-      cal("ui", { hideEventTypeDetails: true, cssVarsPerTheme: { light: brand, dark: brand } });
+      cal("ui", {
+        // On a phone our page already shows the appointment, and Cal's copy pushes the month off the
+        // screen. Keep it on wider screens: hiding it there squeezes the month into Cal's details column.
+        hideEventTypeDetails: window.matchMedia("(width < 48rem)").matches,
+        cssVarsPerTheme: { light: colours, dark: colours },
+      });
     });
   }, []);
 
   return (
-    <div className="min-h-[36rem]">
+    // On a phone Cal adds its own side padding, so the frame runs past our gutter to line up with it.
+    <div className="-mx-gutter min-h-[36rem] md:mx-0">
       <Cal calLink={calLink} config={{ theme: "light", layout: "month_view" }} className="w-full" />
     </div>
   );

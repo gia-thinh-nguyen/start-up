@@ -79,6 +79,7 @@
   --spacing-slot: min(16.75rem, calc((100vw - 11rem) * 1.25), max(10rem, calc(100svh - 36rem)));
   --container-page: 90rem;
   --container-prose: 38rem;
+  --container-booker: 65rem; /* the full width of Cal.com's three calendar columns */
 
   /* Motion */
   --ease-draw: cubic-bezier(0.16, 1, 0.3, 1);

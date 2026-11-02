@@ -115,3 +115,37 @@ Only 390x844 and 1440x900 were rendered. These were worked out from the CSS, not
 
 - Confirmed prices. `$890`, `$129` and `$790` are still drafts in `site.ts`.
 - The `/policies/order-terms` and `/policies/refunds` pages. `/pricing` links to them, as the old page did, and they don't exist yet.
+
+## Step 06: book
+
+### Decisions the owner may want to reverse
+
+- **Cal's event details are back on tablets and desktop.** The old `hideEventTypeDetails` squeezed the month into a column about 200px wide on desktop, with the weekday labels running together. It's now hidden only on screens under 768px, so the month is on the first phone screen. Desktop visitors see the name, length and place twice, once from us and once from Cal.
+- **Calendar sits left, not centred.** On desktop it lines up with the page's left edge, which leaves about 320px empty to its right at 1440. It's stacked, as the brief asks, so nothing runs beside it.
+- **Available days are ochre.** Cal's "emphasis" colour is now ochre with navy numbers, and Cal's background, text and borders use chalk and navy. The selected day is lantern, because it's a booking action.
+- **Deposit and prices link moved below the calendar.** The line above it now covers only what the step lists. "If you go ahead, a 40% deposit…" and "See prices" sit under the calendar, and on phones that's a long way down. The header's Pricing link is still at the top.
+
+### Added
+
+- `site.ts`: `booking.noObligation` and `booking.depositNote`. Both sentences were hard-coded in the old page, so neither is a new fact.
+- `CutEdge`: a `collar` shape. `globals.css`: `--container-booker`.
+- `redesign/tools/shot.mjs`: an optional `--wait <ms>`. Cal takes longer than the default 2 seconds, so without it the screenshots only show the spinner. Use `--wait 15000 book` to see the calendar.
+
+### Not fixed: inside Cal's iframe
+
+- **The 12h/24h toggle.** The selected side is navy on slate, which looks below 4.5:1 by eye (not measured). It didn't respond to `cal-bg-emphasis`, `cal-bg-inverted` or `cal-text-inverted`, and I can't see which colour it uses. Hide the toggle in Cal.com's event settings if it offers that, or accept it as third-party.
+- **Cal's type and corners.** The calendar uses Cal's own sans and rounded corners, and the page's fonts and square corners can't reach inside the iframe.
+
+### Not checked in a browser
+
+Only 390x844 and 1440x900 were rendered, and the booking itself wasn't submitted.
+
+- **Tablets:** 768 to 1023 wide, including whether Cal's layout holds up with the details showing.
+- **Phone rotated after loading:** the choice to hide details is made once, on load. A phone turned to a landscape width of 768 or more could show the squeezed month until the page reloads.
+- **360 wide:** by arithmetic, "45 minutes" runs a few pixels past its column into the gap but doesn't reach "Free".
+
+### Only the owner can supply
+
+- Cal.com's display name and avatar. Desktop visitors see "Gia Thinh Nguyen" and a grey "G". Change them in Cal.com if you'd rather show the business name or a photo.
+- The event's description in Cal.com, which desktop visitors now read next to the month. It says the same as the site today.
+- The travel fee and phone number `[TODO]`s, both showing on this page.

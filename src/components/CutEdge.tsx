@@ -3,6 +3,11 @@ const shapes = {
   shoulderLeft: { cut: "M0 6 100 34V48H0Z", seam: "M0 21 100 49" },
   /** A shoulder rising to the right. */
   shoulderRight: { cut: "M0 34 100 4V48H0Z", seam: "M0 49 100 19" },
+  /** A neck curve at the left, then the shoulder falling away to the right, as on the first screen. */
+  collar: {
+    cut: "M0 30C8 30 16 20 22 4L100 30V48H0Z",
+    seam: "M0 45C8 45 16 35 22 19L100 45",
+  },
   /** An armhole's long curve. */
   armhole: {
     cut: "M0 10C26 10 42 36 68 38 82 39 93 32 100 24V48H0Z",

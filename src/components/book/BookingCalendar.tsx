@@ -1,4 +1,5 @@
 import { CalEmbed } from "@/components/book/CalEmbed";
+import { isTodo, WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 
 /** The Cal.com calendar, or a labelled placeholder until Cal.com is connected. */
@@ -8,11 +9,9 @@ export function BookingCalendar() {
 
   if (!calUsername) {
     return (
-      <div className="flex min-h-[24rem] items-end border border-dashed border-current/40 bg-current/5 p-5">
-        <p className="text-sm opacity-80">
-          <span className="block text-xs font-medium tracking-label uppercase">
-            Calendar not connected
-          </span>
+      <div className="flex min-h-[24rem] items-end border-[1.5px] border-dashed border-current p-5">
+        <p className="text-small">
+          <span className="block font-semibold">Calendar not connected</span>
           Add the Cal.com username to booking.calUsername in src/content/site.ts.
         </p>
       </div>
@@ -20,20 +19,23 @@ export function BookingCalendar() {
   }
 
   const calLink = `${calUsername}/${event.slug}`;
-  const linkClass = "underline decoration-ochre underline-offset-4 hover:text-navy";
 
   return (
     <>
       <CalEmbed calLink={calLink} />
-      <p className="mt-6 text-sm">
+      <p className="mt-4 text-small">
         Calendar not loading?{" "}
-        <a href={`https://cal.com/${calLink}`} className={linkClass}>
+        <a href={`https://cal.com/${calLink}`} className="swap underline">
           Book on Cal.com
         </a>{" "}
         or call{" "}
-        <a href={`tel:${phone}`} className={linkClass}>
-          {phone}
-        </a>
+        {isTodo(phone) ? (
+          <WithTodos text={phone} />
+        ) : (
+          <a href={`tel:${phone}`} className="swap underline">
+            {phone}
+          </a>
+        )}
         .
       </p>
     </>

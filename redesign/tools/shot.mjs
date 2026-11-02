@@ -6,6 +6,7 @@
  *   node redesign/tools/shot.mjs                         all four pages
  *   node redesign/tools/shot.mjs home pricing            only these pages
  *   node redesign/tools/shot.mjs --out some/dir book     somewhere other than .impeccable/review
+ *   node redesign/tools/shot.mjs --wait 15000 book       give a slow embed longer to load
  *
  * Pages are names, not paths, because Git Bash rewrites arguments like /pricing into Windows paths.
  * Exits 1 if a page fails a check, or 2 if it can't load the pages at all.
@@ -30,10 +31,11 @@ const viewports = [
 ];
 
 function parseArgs(argv) {
-  const options = { out: ".impeccable/review", base: "http://localhost:3111", pages: [] };
+  const options = { out: ".impeccable/review", base: "http://localhost:3111", wait: 2_000, pages: [] };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--out") options.out = argv[++i];
     else if (argv[i] === "--base") options.base = argv[++i];
+    else if (argv[i] === "--wait") options.wait = Number(argv[++i]);
     else options.pages.push(argv[i]);
   }
   if (options.pages.length === 0) options.pages = ["home", "pricing", "book", "contact"];
@@ -150,7 +152,7 @@ async function shootPage(cdp, sessionId, options, page, viewport) {
   const { errorText } = await cdp.send("Page.navigate", { url }, sessionId);
   if (errorText) throw new Error(`${url}: ${errorText}`);
   await loaded;
-  await sleep(2_000); // Let fonts and embeds settle.
+  await sleep(options.wait); // Let fonts and embeds settle.
 
   const { result } = await cdp.send(
     "Runtime.evaluate",
