@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Installed by Impeccable, not our code.
+    ".claude/**",
   ]),
 ]);
 

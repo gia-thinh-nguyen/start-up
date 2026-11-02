@@ -40,3 +40,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# impeccable: installed tooling and local review files
+/.claude/skills/impeccable/
+/.claude/agents/impeccable-*.md
+/.claude/settings.local.json
+/.impeccable/config.local.json
+/.impeccable/hook.cache.json
+/.impeccable/live/
+/.impeccable/mocks/
+/.impeccable/questions/
+/.impeccable/review/
+/redesign/logs/
