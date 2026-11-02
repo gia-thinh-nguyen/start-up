@@ -1,6 +1,6 @@
 # Rules for every redesign step
 
-You are doing one step of the Saigon Cut redesign. The plan is in `redesign/README.md`. The owner started this step, and that is their OK for it under `CLAUDE.md`, so don't stop to present a plan or wait for approval.
+You are doing one step of the Saigon Tailors redesign. The plan is in `redesign/README.md`. The owner started this step, and that is their OK for it under `CLAUDE.md`, so don't stop to present a plan or wait for approval.
 
 The redesign replaces how the site looks and how pages are structured. It does not change what the business offers, what it charges, or how the forms and bookings work.
 
@@ -16,6 +16,7 @@ The finish review and `DESIGN.md` belong to step 10. Don't run them earlier.
 
 Follow every rule in `CLAUDE.md`. These are the places where Impeccable's guidance would otherwise pull the other way:
 
+- **Name.** The owner renamed the business from Saigon Cut to Saigon Tailors on 2 November 2026. `CLAUDE.md`, `GUIDE.md` and `docs/` still show the old name because they're frozen during the redesign, so the owner's newer word wins. Use Saigon Tailors in everything you write, except the one `[TODO]` in `site.ts` that mentions Saigon Cut, which stays as it is.
 - **Facts.** Impeccable says to author any missing content. Not here. `src/content/site.ts` is the only source of business facts. Every `[TODO]` marker stays in place and stays visible on the page. Never fill one in, and never add a claim, number, name, review or guarantee. You may reword copy to fit a layout, as long as it says the same thing and follows section 2 of `CLAUDE.md`.
 - **Imagery.** Impeccable says to ship real imagery. There are no photos yet, and `CLAUDE.md` rules out AI-generated people, stock photos that look like customers, abstract 3D shapes and fake product shots. Don't generate or download images. Keep photo slots as clearly labelled placeholders through `PhotoSlot`, and add new slots to `site.photos` when the design needs them, each with a brief. Every page must look deliberate with the placeholders showing, and better once photos arrive. Layouts must not depend on how a photo happens to be cropped.
 - **Palette and type.** The colour families and the serif and sans pairing in `PRODUCT.md` are the owner's. How they're used is open. Off-white doesn't have to be cream, and colour can own whole regions of a page.

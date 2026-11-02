@@ -34,7 +34,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
 - Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
 - Undecided, shown on the site as `[TODO]` markers: turnaround, wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, and sentences about the workshop and the owner.
-- The trading name (Saigon Cut or Saigon Cut Tailoring) and the tagline are not final.
+- The tagline is not final.
 - Prices in `site.ts` are drafts awaiting confirmation.
 - Not registered for GST, so prices don't mention it.
 
@@ -42,7 +42,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 
 Binding, from the owner's `CLAUDE.md`:
 
-- Name: Saigon Cut. Tagline: "Tailored in Saigon, Fitted in Melbourne".
+- Name: Saigon Tailors (the owner's rename of 2 November 2026; `CLAUDE.md` still shows the old name, Saigon Cut). Tagline: "Tailored in Saigon, Fitted in Melbourne".
 - Palette: ochre, deep lantern red, dark timber brown, navy and off-white, defined as tokens.
 - Type: a refined serif for headings and a clean sans for body text, both from Google Fonts.
 - An editorial look appropriate to menswear, with layouts that vary between sections.
