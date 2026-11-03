@@ -74,12 +74,15 @@ export function CalEmbed({ calLink, otherWays }: { calLink: string; otherWays: R
         </>
       )}
 
-      {/* On a phone Cal adds its own side padding, so the frame runs past our gutter to line up with it. */}
+      {/*
+        On a phone Cal adds its own side padding, so the frame runs past our gutter to line up with it.
+        On larger screens Cal centres its calendar in the frame, so the note below is centred to match.
+      */}
       <div className={`-mx-gutter md:mx-0 ${status === "failed" ? "" : "min-h-[36rem]"}`}>
         <Cal calLink={calLink} config={{ theme: "light", layout: "month_view" }} className="w-full" />
       </div>
 
-      {status === "ready" && <p className="mt-4 text-small">Calendar not working? {otherWays}</p>}
+      {status === "ready" && <p className="mt-4 text-small md:text-center">Calendar not working? {otherWays}</p>}
     </>
   );
 }

@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T00:00:00Z",
+  "title": "Design System: Saigon Tailors",
+  "extensions": {
+    "colorMeta": {
+      "ochre": { "role": "primary", "displayName": "Pattern Card Ochre", "canonical": "#d9a441", "tonalRamp": ["oklch(25% 0.05 78)", "oklch(36% 0.08 78)", "oklch(48% 0.11 78)", "oklch(60% 0.13 78)", "oklch(74% 0.14 78)", "oklch(82% 0.11 80)", "oklch(89% 0.07 82)", "oklch(95% 0.03 84)"] },
+      "ochre-deep": { "role": "primary", "displayName": "Deep Card Ochre", "canonical": "#cf9833", "tonalRamp": ["oklch(24% 0.05 76)", "oklch(35% 0.08 76)", "oklch(47% 0.11 76)", "oklch(59% 0.13 76)", "oklch(71% 0.14 76)", "oklch(80% 0.11 78)", "oklch(88% 0.07 80)", "oklch(95% 0.03 82)"] },
+      "navy": { "role": "secondary", "displayName": "Cutting Table Navy", "canonical": "#14233a", "tonalRamp": ["oklch(15% 0.03 258)", "oklch(25% 0.05 258)", "oklch(35% 0.06 258)", "oklch(46% 0.06 258)", "oklch(58% 0.05 258)", "oklch(70% 0.04 258)", "oklch(82% 0.025 258)", "oklch(94% 0.01 258)"] },
+      "timber": { "role": "secondary", "displayName": "Saigon Timber", "canonical": "#2e1c11", "tonalRamp": ["oklch(15% 0.025 52)", "oklch(25% 0.04 52)", "oklch(35% 0.05 52)", "oklch(46% 0.055 52)", "oklch(58% 0.05 52)", "oklch(70% 0.04 52)", "oklch(82% 0.025 52)", "oklch(94% 0.01 52)"] },
+      "paper": { "role": "neutral", "displayName": "Chalk", "canonical": "#f0f3f4", "tonalRamp": ["oklch(18% 0.005 220)", "oklch(30% 0.006 220)", "oklch(42% 0.007 220)", "oklch(55% 0.007 220)", "oklch(68% 0.006 220)", "oklch(80% 0.005 220)", "oklch(90% 0.004 220)", "oklch(96.2% 0.003 220)"] },
+      "lantern": { "role": "tertiary", "displayName": "Lantern Red", "canonical": "#7f1a16", "tonalRamp": ["oklch(18% 0.06 28)", "oklch(28% 0.1 28)", "oklch(37% 0.13 28)", "oklch(48% 0.16 28)", "oklch(60% 0.15 28)", "oklch(72% 0.11 28)", "oklch(84% 0.06 28)", "oklch(95% 0.02 28)"] },
+      "lantern-dark": { "role": "tertiary", "displayName": "Lantern Dark", "canonical": "#641310", "tonalRamp": ["oklch(16% 0.055 28)", "oklch(26% 0.09 28)", "oklch(33% 0.12 28)", "oklch(44% 0.15 28)", "oklch(56% 0.15 28)", "oklch(70% 0.11 28)", "oklch(83% 0.06 28)", "oklch(95% 0.02 28)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The tagline, home's h1 only." },
+      "title": { "displayName": "Title", "purpose": "Every other page's h1, and the footer name." },
+      "heading": { "displayName": "Heading", "purpose": "h2." },
+      "subheading": { "displayName": "Subheading", "purpose": "h3, price-piece names, footer column heads." },
+      "numeral": { "displayName": "Numeral", "purpose": "The figure that leads a block: step numbers, 45 minutes, Free, 40%." },
+      "price": { "displayName": "Price", "purpose": "A price on its pattern piece, sized so the narrowest piece fits $129." },
+      "price-lg": { "displayName": "Price large", "purpose": "Price pieces from 64rem." },
+      "wordmark": { "displayName": "Wordmark", "purpose": "Saigon Tailors in the header." },
+      "lede": { "displayName": "Lede", "purpose": "Intro sentences and large buttons." },
+      "body": { "displayName": "Body", "purpose": "Running text, capped at the 38rem measure." },
+      "small": { "displayName": "Small", "purpose": "Units, notes, small buttons, nav on narrow phones." },
+      "fine": { "displayName": "Fine", "purpose": "Photo briefs, booking-bar note, copyright line." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-draw", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default timing for every transition (colour swaps)." },
+      { "name": "default-transition-duration", "value": "120ms", "purpose": "Flat colour swaps on links and notched buttons." },
+      { "name": "seam-draw", "value": "clip-path inset(0 0 100% 0) to inset(0); linear; animation-timeline: view(block 0 25%); range entry-crossing 0% to 100%", "purpose": "The home page's long chalk seam drawing on scroll. Only with prefers-reduced-motion: no-preference and animation-timeline support; otherwise drawn whole and static." },
+      { "name": "reduced-motion", "value": "animation-duration and transition-duration 0.01ms; scroll-behavior auto", "purpose": "Global behaviour under prefers-reduced-motion: reduce." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "lg", "value": "64rem" },
+      { "name": "tall", "value": "min-height: 52rem" }
+    ],
+    "patternMarks": {
+      "seam": "SVG stroke in chalk, width 2.25, dasharray 8 6, non-scaling.",
+      "notch": "Small triangle cut into an edge, filled with the colour behind; 14px, or 10 by 16 on the step list. Buttons: 0.75rem wide, 0.5rem deep, 1.5rem from the right edge.",
+      "grainline": "Vertical double arrow in chalk, stroke 2.25, rounded caps.",
+      "punchedHole": "22px chalk ring, stroke 2.25; filled navy on /pricing pieces, hanging from a chalk cord.",
+      "cutEdges": ["shoulderLeft", "shoulderRight", "collar", "armhole", "neck", "hem"],
+      "todo": "1.5px dashed currentColor outline, 0.3em inline padding, box-decoration-break clone.",
+      "ruled": "Hard-edged 2px lines on a 2.25rem pitch, background-attachment local, colour via --rule-color."
+    }
+  },
+  "components": [
+    {
+      "name": "Book a fitting button",
+      "kind": "button",
+      "refersTo": "button-book",
+      "description": "The booking action: a square lantern rectangle with one notch cut into its top edge.",
+      "html": "<a href=\"#\" class=\"ds-btn-book\">Book a fitting</a>",
+      "css": ".ds-btn-book { position: relative; isolation: isolate; display: inline-block; padding: 0.625rem 1.25rem; font-family: var(--font-be-vietnam-pro, 'Be Vietnam Pro'), sans-serif; font-size: 0.9375rem; line-height: 1.4; font-weight: 600; color: #f0f3f4; text-decoration: none; border-radius: 0; } .ds-btn-book::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #7f1a16; clip-path: polygon(0 0, calc(100% - 1.875rem) 0, calc(100% - 1.5rem) 0.5rem, calc(100% - 1.125rem) 0, 100% 0, 100% 100%, 0 100%); transition: background-color 120ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-book:hover::before, .ds-btn-book:active::before { background: #641310; } .ds-btn-book:focus-visible { outline: 2px solid #f0f3f4; outline-offset: 3px; }"
+    },
+    {
+      "name": "Book a fitting button, large",
+      "kind": "button",
+      "refersTo": "button-book-lg",
+      "description": "The same notched lantern button at lede size, for the hero and closing sections.",
+      "html": "<a href=\"#\" class=\"ds-btn-book-lg\">Book a fitting</a>",
+      "css": ".ds-btn-book-lg { position: relative; isolation: isolate; display: inline-block; padding: 1rem 1.75rem; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.25rem; line-height: 1.42; font-weight: 600; color: #f0f3f4; text-decoration: none; } .ds-btn-book-lg::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #7f1a16; clip-path: polygon(0 0, calc(100% - 1.875rem) 0, calc(100% - 1.5rem) 0.5rem, calc(100% - 1.125rem) 0, 100% 0, 100% 100%, 0 100%); transition: background-color 120ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-book-lg:hover::before { background: #641310; } .ds-btn-book-lg:focus-visible { outline: 2px solid #14233a; outline-offset: 3px; }"
+    },
+    {
+      "name": "Send message button",
+      "kind": "button",
+      "refersTo": "button-send",
+      "description": "The form's submit: notched navy rectangle, timber on hover, dashed outline while sending.",
+      "html": "<button class=\"ds-btn-send\">Send message</button> <button class=\"ds-btn-send\" aria-disabled=\"true\">Sending…</button>",
+      "css": ".ds-btn-send { position: relative; isolation: isolate; min-width: 14rem; padding: 1rem 1.75rem; border: 0; background: none; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.25rem; font-weight: 600; color: #f0f3f4; cursor: pointer; } .ds-btn-send::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #14233a; clip-path: polygon(0 0, calc(100% - 1.875rem) 0, calc(100% - 1.5rem) 0.5rem, calc(100% - 1.125rem) 0, 100% 0, 100% 100%, 0 100%); transition: background-color 120ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-send:hover::before { background: #2e1c11; } .ds-btn-send:focus-visible { outline: 2px solid #14233a; outline-offset: 3px; } .ds-btn-send[aria-disabled=true] { color: #14233a; cursor: wait; outline: 2px dashed #14233a; outline-offset: -2px; } .ds-btn-send[aria-disabled=true]::before { background: transparent; }"
+    },
+    {
+      "name": "Phone booking bar",
+      "kind": "custom",
+      "refersTo": "booking-bar",
+      "description": "Fixed lantern bar on phones, notch centred over the divider.",
+      "html": "<a href=\"#\" class=\"ds-bar\"><span class=\"ds-bar-a\">Book a fitting</span><span class=\"ds-bar-rule\"></span><span class=\"ds-bar-b\">Measurement is free</span></a>",
+      "css": ".ds-bar { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem; height: 4rem; width: 100%; color: #f0f3f4; text-decoration: none; font-family: 'Be Vietnam Pro', sans-serif; white-space: nowrap; } .ds-bar::before { content: ''; position: absolute; inset: 0; z-index: -1; background: #7f1a16; clip-path: polygon(0 0, calc(50% - 0.375rem) 0, 50% 0.5rem, calc(50% + 0.375rem) 0, 100% 0, 100% 100%, 0 100%); } .ds-bar:active::before { background: #641310; } .ds-bar-a { justify-self: end; font-weight: 600; } .ds-bar-rule { width: 1px; height: 1rem; background: rgb(240 243 244 / 0.45); } .ds-bar-b { font-size: 0.875rem; } .ds-bar:focus-visible { outline: 2px solid #f0f3f4; outline-offset: -6px; }"
+    },
+    {
+      "name": "Header navigation",
+      "kind": "nav",
+      "refersTo": "surface-table",
+      "description": "Wordmark and links on the navy table; hover is a flat ochre block, the current page underlined.",
+      "html": "<header class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-mark\">Saigon Tailors</a><nav><a href=\"#\" class=\"ds-nav-link\" aria-current=\"page\">Pricing</a><a href=\"#\" class=\"ds-nav-link\">Contact</a></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 3.75rem; padding: 0 1.25rem; background: #14233a; color: #f0f3f4; } .ds-nav nav { display: flex; gap: 1.125rem; } .ds-nav-mark { font-family: 'Besley', Georgia, serif; font-size: 1.375rem; font-weight: 600; letter-spacing: -0.005em; color: inherit; text-decoration: none; padding: 0 0.375rem; } .ds-nav-link { font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.9375rem; font-weight: 500; color: inherit; text-decoration: none; padding: 0.375rem; transition: background-color 120ms, color 120ms; text-underline-offset: 0.2em; text-decoration-thickness: 0.09em; } .ds-nav-link[aria-current=page] { text-decoration: underline; } .ds-nav-link:hover, .ds-nav-mark:hover { background: #d9a441; color: #14233a; } .ds-nav-link:focus-visible, .ds-nav-mark:focus-visible { outline: 2px solid #d9a441; outline-offset: 3px; }"
+    },
+    {
+      "name": "Card piece with cut edge",
+      "kind": "card",
+      "refersTo": "surface-card",
+      "description": "A section cut from ochre card: collar edge with a chalk seam, rising over the table.",
+      "html": "<div class=\"ds-piece\"><svg class=\"ds-piece-edge\" viewBox=\"0 0 100 48\" preserveAspectRatio=\"none\"><path d=\"M0 30C8 30 16 20 22 4L100 30V48H0Z\"/><path class=\"ds-seam\" d=\"M0 45C8 45 16 35 22 19L100 45\"/></svg><h2 class=\"ds-piece-h\">Book your free measurement</h2><p class=\"ds-piece-n\">45 minutes</p></div>",
+      "css": ".ds-piece { position: relative; margin-top: 3rem; padding: 1.5rem 1.25rem 2rem; background: #d9a441; color: #14233a; } .ds-piece-edge { position: absolute; left: 0; right: 0; bottom: 100%; width: 100%; height: 3rem; transform: translateY(1px); overflow: visible; fill: #d9a441; } .ds-seam { fill: none; stroke: #f0f3f4; stroke-width: 2.25; stroke-dasharray: 8 6; vector-effect: non-scaling-stroke; } .ds-piece-h { margin: 0; font-family: 'Besley', Georgia, serif; font-size: 2rem; font-weight: 600; line-height: 1.08; letter-spacing: -0.015em; } .ds-piece-n { margin: 0.5rem 0 0; font-family: 'Besley', Georgia, serif; font-size: 3.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }"
+    },
+    {
+      "name": "Payment length",
+      "kind": "custom",
+      "refersTo": "surface-card",
+      "description": "Deposit and balance drawn to scale, 40 and 60 parts, notched at 40%.",
+      "html": "<div class=\"ds-pay\"><span class=\"ds-pay-dep\">Deposit</span><span class=\"ds-pay-bal\">Balance</span><svg class=\"ds-pay-notch\" viewBox=\"0 0 20 14\"><path d=\"M0 0H20L10 14Z\"/></svg></div>",
+      "css": ".ds-pay { position: relative; display: grid; grid-template-columns: 2fr 3fr; padding: 1.5rem; background: #d9a441; font-family: 'Be Vietnam Pro', sans-serif; font-weight: 500; } .ds-pay-dep, .ds-pay-bal { display: flex; align-items: center; height: 3.5rem; padding-left: 0.875rem; } .ds-pay-dep { background: #14233a; color: #f0f3f4; } .ds-pay-bal { background: #f0f3f4; color: #14233a; } .ds-pay-notch { position: absolute; top: 1.5rem; left: calc(1.5rem + (100% - 3rem) * 0.4); width: 1.25rem; height: 0.875rem; transform: translateX(-50%); fill: #d9a441; }"
+    },
+    {
+      "name": "Empty photo slot",
+      "kind": "custom",
+      "refersTo": "photo-slot-empty",
+      "description": "Deep ochre rectangle with a chalk seam outline, labelled with the photo brief.",
+      "html": "<div class=\"ds-slot\"><svg class=\"ds-slot-line\"><rect width=\"100%\" height=\"100%\"/></svg><p class=\"ds-slot-p\"><strong>Photo needed</strong>The owner with a tape measure. A phone photo is fine.</p></div>",
+      "css": ".ds-slot { position: relative; width: 13.375rem; aspect-ratio: 4 / 5; overflow: hidden; background: #cf9833; color: #14233a; } .ds-slot-line { position: absolute; inset: 1px; width: calc(100% - 2px); height: calc(100% - 2px); overflow: visible; } .ds-slot-line rect { fill: none; stroke: #f0f3f4; stroke-width: 2.25; stroke-dasharray: 8 6; vector-effect: non-scaling-stroke; } .ds-slot-p { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 0.875rem; font-family: 'Be Vietnam Pro', sans-serif; font-size: 0.875rem; line-height: 1.35; } .ds-slot-p strong { display: block; font-weight: 600; }"
+    },
+    {
+      "name": "Ruled field with error",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Field on chalk with a navy bottom rule; errors thicken it to lantern and add words with a notch mark.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-label\" for=\"ds-n\">Name</label><input id=\"ds-n\" class=\"ds-input\"><label class=\"ds-label\" for=\"ds-e\">Email</label><input id=\"ds-e\" class=\"ds-input\" aria-invalid=\"true\" value=\"thinh@\"><p class=\"ds-err\"><svg viewBox=\"0 0 14 14\"><path d=\"M0 0H14L7 14Z\"/></svg>Enter an email address like name@example.com.</p></div>",
+      "css": ".ds-field { padding: 1.5rem; background: #f0f3f4; color: #14233a; font-family: 'Be Vietnam Pro', sans-serif; } .ds-label { display: block; margin-top: 1rem; font-weight: 600; } .ds-input { display: block; width: 100%; min-height: 2.75rem; padding: 0.25rem 0 0.375rem; border: 0; border-bottom: 2px solid #14233a; border-radius: 0; background: transparent; color: #14233a; font: inherit; font-size: 1.0625rem; caret-color: #7f1a16; } .ds-input:focus-visible { outline: 2px solid #14233a; outline-offset: 1px; } .ds-input[aria-invalid=true] { border-bottom: 4px solid #7f1a16; } .ds-err { display: flex; gap: 0.5rem; margin: 0.5rem 0 0; font-size: 0.9375rem; font-weight: 500; color: #7f1a16; } .ds-err svg { width: 0.875rem; height: 0.875rem; margin-top: 0.25rem; flex-shrink: 0; fill: #7f1a16; }"
+    },
+    {
+      "name": "[TODO] marker",
+      "kind": "chip",
+      "refersTo": "surface-card",
+      "description": "An unfilled fact, fully readable inside a dashed outline that repeats on each wrapped line.",
+      "html": "<p class=\"ds-todo-wrap\">Turnaround: <span class=\"ds-todo\">[TODO: standard turnaround, e.g. 4–6 weeks]</span></p>",
+      "css": ".ds-todo-wrap { margin: 0; padding: 1rem; background: #d9a441; color: #14233a; font-family: 'Be Vietnam Pro', sans-serif; font-size: 1.0625rem; line-height: 1.45; } .ds-todo { border: 1.5px dashed currentColor; padding-inline: 0.3em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Pattern Card",
+    "overview": "The site is a tailor's working pattern, marked by a hand you're about to meet. Every marketing page is mostly one flat ochre card laid on a navy cutting table. Sections are pieces cut from that card: their top edges carry real garment geometry (a neck curve, a shoulder slope, an armhole), drawn as inline SVG and rising over the piece before them. On the card, chalk draws the working marks: a dashed seam allowance inside each cut edge, triangular notches, a grainline double arrow, a punched hole. Timber is the Saigon ground, and the only sections set on it are the ones about Saigon.\n\nThe world is flat, square and specific. There are no shadows, no radii, no soft gradients and no decorative motion; depth comes from one piece of card sitting on another, and a piece only sits on one that comes earlier in the process. Numbers carry the persuasion: $890, 40%, 45 minutes and Free are set in Besley numerals as the largest thing in their block. Unfilled facts stay visible as dashed `[TODO]` outlines, like a fitter's open question, rather than being hidden or invented.\n\nIt refuses the luxury tailor (dark photography, hushed serif, gold) and the previous site (cream ground, high-contrast serif, red accent, hairlines). It is warm, plain and working, and it should never read as \"too luxury\".",
+    "keyCharacteristics": [
+      "One committed colour: flat ochre card over navy table, with timber for Saigon and chalk for lines and form surfaces.",
+      "Section edges are cut pattern geometry, never rectangles with a divider.",
+      "Chalk marks are drawn lines: dashed seams, notches, grainline, punched hole. A few per section, not many.",
+      "Lantern red appears only where someone books.",
+      "Two faces: Besley for headings and numerals, Be Vietnam Pro for everything else.",
+      "Square corners, no shadows; hover is a flat colour swap.",
+      "One gesture moves: the home page's long chalk seam draws itself on scroll."
+    ],
+    "rules": [
+      { "name": "The Lantern Is For Booking Rule", "body": "Lantern red is for booking actions and nothing else: never a line, stripe, border or decoration on the card. The one sanctioned exception is form validation on `/contact` (owner decision), where errors also carry words and a notch mark so colour is never the only signal.", "section": "colors" },
+      { "name": "The Chalk Is a Line Rule", "body": "Chalk on ochre is about 2:1, so chalk on the card is for drawn lines only, never text. Text on ochre is always navy (about 7:1); on ochre-deep it is navy (about 6:1).", "section": "colors" },
+      { "name": "The Surface Declares Rule", "body": "Every section declares exactly one surface: card, chalk, table or timber. The surface sets its text colour, focus-ring colour, selection colour and link-swap pair together; never set those piecemeal. Card and chalk swap to navy with chalk text; table and timber swap to ochre with navy text.", "section": "colors" },
+      { "name": "The Flag Guard Rule", "body": "Ochre with red sits close to two Vietnamese flags: never a star on red, and never three parallel stripes of any colour on ochre.", "section": "colors" },
+      { "name": "The Two Faces Rule", "body": "Besley and Be Vietnam Pro, nothing else. No third face and no fake handwriting: chalk marks are drawn lines, and words stay in these two faces.", "section": "typography" },
+      { "name": "The Numbers Lead Rule", "body": "A block's figure is set in Besley numerals and is the biggest thing in that block, with a visible label beside it. Only one figure leads per block; supporting figures step down to heading size. On home, `$890` alone leads the first screen.", "section": "typography" },
+      { "name": "The Lighter Zero Rule", "body": "Never use `tabular-nums` on Besley; its tabular zero is visibly lighter. Where figures must align, put each digit in a fixed-width cell (0.62em) and give screen readers the whole string.", "section": "typography" },
+      { "name": "The No Label Caps Rule", "body": "No tracked uppercase labels and no eyebrows above headings. Weight and size carry hierarchy.", "section": "typography" },
+      { "name": "The Overlap Means Order Rule", "body": "One piece overlaps another only when it comes later in the process. Nothing overlaps for decoration.", "section": "layout" },
+      { "name": "The Always Located Rule", "body": "A section names its city wherever the content says so, and Saigon content sits on timber.", "section": "layout" },
+      { "name": "The Flat Card Rule", "body": "No box shadows, drop shadows, glows, blur or glass, ever. If something needs to read as on top, cut its edge over what it covers.", "section": "elevation" },
+      { "name": "The One Gesture Rule", "body": "The chalk seam is the only thing that moves on scroll, anywhere on the site. Everything else is still apart from 120ms colour swaps, and `prefers-reduced-motion` reduces all animation and transition to near zero and turns off smooth scrolling.", "section": "components" },
+      { "name": "The Open Question Rule", "body": "A missing fact is shown as a dashed `[TODO]`, never hidden, softened or invented.", "section": "components" }
+    ],
+    "dos": [
+      "**Do** declare one surface per section (card, chalk, table or timber) and let it set text, focus, selection and link swap.",
+      "**Do** cut section edges from the pattern vocabulary (shoulder, collar, armhole, neck, hem) with a chalk seam inside, rising `hem` over the piece before.",
+      "**Do** keep text on ochre navy; chalk on the card is for lines only.",
+      "**Do** reserve lantern for booking actions (and `/contact` field errors, with words and a notch mark).",
+      "**Do** set leading figures in Besley numerals as the biggest thing in their block, with a visible label.",
+      "**Do** make every hover a flat colour swap and every corner square.",
+      "**Do** show unfilled facts with the dashed `[TODO]` outline, and empty photos as a labelled deep-ochre slot with a chalk-dashed outline.",
+      "**Do** design at 390 by 844 first; the photo slot gives way before the tagline, offer and price.",
+      "**Do** put Saigon on timber, and name a section's city wherever the content does."
+    ],
+    "donts": [
+      "**Don't** use shadows, radii, pills, glass, glows, or colour gradients. The ruled message field's hard-edged lines are drawn lines, not a gradient fill.",
+      "**Don't** use tracked uppercase labels or eyebrows above headings.",
+      "**Don't** add a third typeface, handwriting fonts, icon-library icons or emoji; all marks are drawn in this repo as inline SVG.",
+      "**Don't** use lantern red as a line, stripe or decoration, put a star on red, or lay three parallel stripes on ochre.",
+      "**Don't** overlap pieces for decoration; a piece only sits on one that comes later in the process.",
+      "**Don't** add scroll or entrance animation beyond the chalk seam.",
+      "**Don't** use `tabular-nums` on Besley.",
+      "**Don't** lay out a row of identical cards; price pieces differ in shape and size.",
+      "**Don't** drift toward luxury (dark photo grounds, gold, hushed serif) or back to the old site (cream ground, red accent, hairlines). Chalk stays cool (#f0f3f4), never cream.",
+      "**Don't** draw people or figures on the pattern pieces, or imply in visuals or copy that the workshop uses paper patterns unless the owner confirms it."
+    ]
+  }
+}

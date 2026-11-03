@@ -1,5 +1,64 @@
 # Redesign notes
 
+## Summary for the owner
+
+### The finish reviewer's verdict
+
+**ship**, in its words: "every material fix and regression is resolved: fixes 1 to 8 and regressions 1 to 3." It limits that: "This ship covers the scored fixes and regressions only, as seen in the captures I re-read. It is not a fresh review of the whole site." Its first review returned "fix" with eight items. Two rounds closed them, along with three regressions the first round caused.
+
+### The direction
+
+The Pattern Card: each page is a flat ochre tailor's pattern piece, with cut edges, notches and a chalk seam, laid on a navy cutting table. It says plainly that the suits are made in Saigon and that a real person measures and fits you in Melbourne.
+
+### Only you can supply
+
+- **Photos:** the `fitter` (you with a tape measure), `hero` (a finished suit, worn) and `workshop` slots, each with alt text, a source, and written consent from anyone pictured.
+- **Facts:** 20 `[TODO]` markers remain in `src/content/site.ts`, and they show on the site. They cover:
+  - turnaround and wedding lead time
+  - phone, email and Instagram
+  - service area and travel fee
+  - when the deposit stops being refundable, alteration terms and the fit guarantee
+  - a sentence about the workshop and one about you
+  - alt text and a source for each of the three photos
+  - the ABN
+
+  The prices `$890`, `$129` and `$790` are drafts, flagged in a comment.
+- **Decisions:**
+  - whether to keep the tagline, which repeats "Saigon" after the new name
+  - whether to rename "Book a fitting", since the site uses "fitting" for both visits
+  - Cal.com's display name and avatar, which show "Gia Thinh Nguyen"
+  - whether to hide Cal's 12h/24h toggle
+  - the reversible design choices listed under each step below
+- **Setup:**
+  - the Turnstile keys in Vercel
+  - the policy pages
+  - security headers (GUIDE Steps 6 and 7)
+  - confirmation that "Saigon Tailors" is free as a business name, trademark and domain
+
+### Check with a lawyer
+
+- **"Free" and "nothing to pay":** these sit beside an undecided travel fee.
+- **"From" prices:** whether they include shipping and import costs, and whether they're achievable.
+- **Deposit, alteration and fit guarantee wording:** keep the Australian Consumer Law line.
+- **Privacy policy:** body measurements, and data going to Saigon, Cal.com, Resend, Cloudflare and Square.
+- **Origin:** whether "Made in Saigon" is enough as a country-of-origin claim.
+- **The business name:** before you print or buy anything.
+
+Details are under Step 09.
+
+### Still wrong or unproven
+
+- **Broken links:** the policy pages don't exist, but the footer, `/pricing` and the form link to them, so those links return 404.
+- **Security headers:** none are set yet. `npm audit` reports 17 dev-tool issues.
+- **Cal's toggle:** the selected 12h/24h state inside the calendar looks low contrast by eye. Our colours can't reach it.
+- **Not seen in a real browser:**
+  - the seam drawing as you scroll
+  - the calendar recovering after a window resize
+  - a real booking or message sent end to end
+  - a screen reader
+  - a Lighthouse score
+- **The reviewer's ceiling note, not fixed:** the seam reads as a straight rule down the margin more than as one drawn gesture.
+
 ## Step 02: direction
 
 The owner chose The Pattern Card on the decision page. The direction is saved in `.impeccable/surfaces/src-app-page-tsx.md`.
@@ -326,3 +385,35 @@ Fonts, both under the SIL Open Font Licence through Google Fonts: Besley and Be 
 - A real message or booking, end to end, in this step.
 - Headers on a production deployment. The check above ran against the dev server, and `next.config.ts` sets none.
 - Whether Cal.com or Turnstile set cookies. The privacy policy needs this answer.
+
+## Step 10: finish
+
+Polish ran first, then the finish review with two fix rounds.
+
+Final checks: `npm run lint`, `npx tsc --noEmit` and `npm run build` pass. The detector (`--no-advisory`) is clean on all four pages. All eight desktop and mobile screenshots were re-captured and render correctly. `DESIGN.md` and `.impeccable/design.json` hold the real tokens.
+
+### Decisions the owner may want to reverse
+
+- **Payment length on phones is two rows.** On a 390px phone a single bar gives the 40% part about 140px, too narrow for the deposit's detail and its `[TODO]`. So on phones each part drops to its own row, still at its true length and position, with its text directly under its label. From 768 wide it's one notched bar. The alternative is one unlabelled bar above stacked values, which loses the label-over-value pairing.
+- **Prices on home sit on the navy table.** This reverses step 04's "no navy section between the header and footer". The reviewer found Melbourne, Prices and Book ran as about 1,550px of unbroken ochre, so Prices is now its own piece with cut edges.
+- **Home's payment terms are the notched 40/60 bar from `/pricing`** (`PaymentScale`), with Free and 40% stepped down so `$890` alone leads. The bar is two colours: navy and chalk on card, ochre and chalk on the table.
+- **Closing sections.** "Book your free measurement" is a size smaller, so "45 minutes" leads.
+- **`/book`.**
+  - The sentence "We take your measurements and talk through the cut…" is gone, because it repeats home's step 2.
+  - The figures carry visible labels, Length and Measurement, and Free's line is now "Nothing to pay when you book."
+  - The calendar is centred on the page, with "Pick a time" and the deposit note on one row the calendar's width.
+  - At 1440, four week rows show on the first screen.
+- **`/contact`.** "Measurement" now labels the Free figure.
+- **Nav.** The current page's link is underlined, and screen readers announce it as the current page.
+- **Home's "See full prices" link** comes after the prices, not before them.
+- **Wide screens.** The long seam, the step notches and the first screen's neck curve now run from the screen's left edge, not the page column. The first-screen photo slot's height stops at 28rem, and the armhole stops growing at 170px.
+- **Tablets, 768 to 1023.** The Saigon and Melbourne photos sit beside their text instead of stacking.
+
+### Tools
+
+`shot.mjs` gained `--settle <ms>`. Its normal full-page shot briefly resizes the page, and Cal.com's calendar then sometimes laid itself out at 960px with its times column overflowing the frame. Use `--wait 25000 --settle 10000 book` for a clean `/book` capture.
+
+### Not checked
+
+- **Cal.com after a real window resize.** The overflow above only appeared when the capture tool resized the page. Resize a desktop browser window on `/book` once to confirm the calendar recovers.
+- **Seam drawing on scroll.** It was measured with the animation applied by script at 390 and 1920: the tip stays three-quarters of the way down the screen. Nobody has watched it with motion on.

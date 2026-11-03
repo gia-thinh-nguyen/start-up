@@ -79,7 +79,9 @@
   --spacing-slot: min(16.75rem, calc((100vw - 11rem) * 1.25), max(10rem, calc(100svh - 36rem)));
   --container-page: 90rem;
   --container-measure: 38rem; /* not "prose": Tailwind's max-w-prose ignores the token and is about 90 characters here */
-  --container-booker: 68rem; /* Cal.com's three calendar columns are 65rem, and need room to spare */
+  /* The width Cal.com draws its calendar at, centred in its frame: with its event details, and without. */
+  --container-booker: 65rem;
+  --container-booker-sm: 45rem;
 
   /* Motion */
   --ease-draw: cubic-bezier(0.16, 1, 0.3, 1);

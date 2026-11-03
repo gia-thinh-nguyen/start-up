@@ -11,7 +11,7 @@ import { site } from "@/content/site";
  */
 function ShoulderEdge() {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 mx-auto max-w-page">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0">
       <svg className="absolute top-0 left-0 size-px overflow-visible lg:hidden">
         <path
           className="fill-navy"
@@ -33,13 +33,16 @@ function ShoulderEdge() {
   );
 }
 
-/** Cut into the card's right edge, where it crosses the shoulder, showing the table behind. */
+/**
+ * Cut into the card's right edge, where it crosses the shoulder, showing the table behind. It stops
+ * growing at 1440 wide, so it always ends above the photo slot.
+ */
 function Armhole() {
   return (
     <svg
       aria-hidden="true"
       viewBox="0 0 170 380"
-      className="pointer-events-none absolute top-0 right-0 hidden h-auto w-[11.8vw] lg:block"
+      className="pointer-events-none absolute top-0 right-0 hidden h-auto w-[min(11.8vw,10.625rem)] lg:block"
     >
       <path className="fill-navy" d="M170 30C150 110 46 170 32 262 26 318 88 372 170 380Z" />
     </svg>
@@ -82,7 +85,7 @@ export function Hero() {
             sizes="(min-width: 1024px) 28vw, 214px"
             preload
             bleedRight
-            className="aspect-[4/5] h-slot shrink-0 md:h-96 lg:col-span-3 lg:col-start-10 lg:row-start-2 lg:-mr-[calc(var(--page-edge)+var(--spacing-gutter-lg))] lg:mt-10 lg:aspect-square lg:h-auto"
+            className="aspect-[4/5] h-slot shrink-0 md:h-96 lg:col-span-3 lg:col-start-10 lg:row-start-2 lg:-mr-[calc(var(--page-edge)+var(--spacing-gutter-lg))] lg:mt-10 lg:aspect-auto lg:h-[min(24.7vw,28rem)]"
           />
         </div>
       </div>

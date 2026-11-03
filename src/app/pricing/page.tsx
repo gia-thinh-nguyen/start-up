@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { BookVisit } from "@/components/BookVisit";
-import { CutEdge } from "@/components/CutEdge";
 import { PaymentLength } from "@/components/pricing/PaymentLength";
 import { PriceList } from "@/components/pricing/PriceList";
 import { PricingFaq } from "@/components/pricing/PricingFaq";
@@ -36,10 +35,7 @@ export default function PricingPage() {
       <PaymentLength />
       <PricingFaq />
 
-      <div className="surface-card relative pt-6 lg:pt-10">
-        <CutEdge shape="armhole" fill="fill-ochre" />
-        <BookVisit />
-      </div>
+      <BookVisit />
     </div>
   );
 }

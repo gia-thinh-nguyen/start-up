@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BookButton } from "@/components/BookButton";
+import { NavLink } from "@/components/NavLink";
 import { site } from "@/content/site";
 
 export function Header() {
@@ -17,9 +18,7 @@ export function Header() {
           <ul className="flex items-center gap-3 text-fine font-medium min-[23rem]:gap-4.5 min-[23rem]:text-small md:gap-8 md:text-body">
             {site.nav.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="swap -mx-1.5 inline-block px-1.5 py-1.5">
-                  {link.label}
-                </Link>
+                <NavLink href={link.href} label={link.label} />
               </li>
             ))}
             <li className="hidden md:block">

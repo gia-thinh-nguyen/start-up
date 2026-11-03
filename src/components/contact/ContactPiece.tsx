@@ -9,6 +9,8 @@ import { site } from "@/content/site";
  * the page, with a shoulder and armhole cut into it, and the footer's edge rises over its bottom.
  */
 export function ContactPiece() {
+  const [measurement] = site.payment;
+
   return (
     <section
       aria-labelledby="reach-us"
@@ -34,7 +36,8 @@ export function ContactPiece() {
         <ContactDetails />
       </div>
 
-      <p className="mt-12 font-display text-numeral">Free</p>
+      <p className="mt-12 font-medium">{measurement.label}</p>
+      <p className="mt-0.5 font-display text-numeral">{measurement.value}</p>
       <p className="mt-2 mb-6 max-w-measure">
         If you already know you want a suit, skip the message and book a free measurement.{" "}
         {site.booking.terms}

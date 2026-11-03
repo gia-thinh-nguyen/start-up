@@ -29,11 +29,11 @@ function StepRow({ step, number, follows }: { step: Step; number: number; follow
     <li className={`relative ${saigon ? "surface-timber mt-hem lg:mt-hem-lg" : ""}`}>
       {saigon && <CutEdge shape="shoulderLeft" fill="fill-timber" />}
       {afterSaigon && <CutEdge shape="armhole" fill="fill-ochre" />}
+      <Notch fill={saigon ? "fill-ochre" : "fill-navy"} />
 
       <div
         className={`relative mx-auto max-w-page px-gutter lg:px-gutter-lg ${saigon ? "pt-6 pb-[calc(var(--spacing-hem)+2rem)] lg:pt-8 lg:pb-[calc(var(--spacing-hem-lg)+2.5rem)]" : "py-6 lg:py-8"}`}
       >
-        <Notch fill={saigon ? "fill-ochre" : "fill-navy"} />
         <div className="grid grid-cols-[3rem_1fr] gap-x-2 lg:grid-cols-12 lg:gap-x-8">
           <span aria-hidden="true" className="font-display text-numeral lg:col-span-1">
             {number}

@@ -7,6 +7,8 @@
  *   node redesign/tools/shot.mjs home pricing            only these pages
  *   node redesign/tools/shot.mjs --out some/dir book     somewhere other than .impeccable/review
  *   node redesign/tools/shot.mjs --wait 15000 book       give a slow embed longer to load
+ *   node redesign/tools/shot.mjs --settle 8000 book      grow the screen to the page's height and wait before the
+ *                                                        full-page shot, because an embed re-animates when resized
  *   node redesign/tools/shot.mjs --size 320x640 pricing  this size only, written as pricing-320x640.png
  *   node redesign/tools/shot.mjs --block "*cal.com*" book  make requests to these URLs fail (repeatable)
  *   node redesign/tools/shot.mjs --eval "code" contact   run this in the page before capturing, and print the result
@@ -40,6 +42,7 @@ function parseArgs(argv) {
     if (argv[i] === "--out") options.out = argv[++i];
     else if (argv[i] === "--base") options.base = argv[++i];
     else if (argv[i] === "--wait") options.wait = Number(argv[++i]);
+    else if (argv[i] === "--settle") options.settle = Number(argv[++i]);
     else if (argv[i] === "--size") options.size = argv[++i];
     else if (argv[i] === "--block") options.block.push(argv[++i]);
     else if (argv[i] === "--eval") options.eval = argv[++i];
@@ -138,11 +141,12 @@ function waitForLoad(cdp, sessionId, timeoutMs = 45_000) {
   });
 }
 
-async function capture(cdp, sessionId, viewport) {
-  const screenshot = async (clip) => {
+async function capture(cdp, sessionId, viewport, settle) {
+  // Capturing beyond the viewport resizes the page to the clip, which can make an embed lay out again.
+  const screenshot = async (clip, beyondViewport = true) => {
     const { data } = await cdp.send(
       "Page.captureScreenshot",
-      { format: "png", captureBeyondViewport: true, clip: { ...clip, x: 0, y: 0, scale: 1 } },
+      { format: "png", captureBeyondViewport: beyondViewport, clip: { ...clip, x: 0, y: 0, scale: 1 } },
       sessionId,
     );
     return Buffer.from(data, "base64");
@@ -150,8 +154,17 @@ async function capture(cdp, sessionId, viewport) {
   const { cssContentSize } = await cdp.send("Page.getLayoutMetrics", {}, sessionId);
   // The fold goes first: a capture taller than the screen resizes the page, which can move embeds.
   const fold = await screenshot({ width: viewport.width, height: viewport.height });
+  if (settle) {
+    await cdp.send(
+      "Emulation.setDeviceMetricsOverride",
+      { width: viewport.width, height: Math.ceil(cssContentSize.height), deviceScaleFactor: 1, mobile: viewport.mobile },
+      sessionId,
+    );
+    await sleep(settle);
+  }
   return {
-    full: await screenshot({ width: viewport.width, height: Math.ceil(cssContentSize.height) }),
+    // With --settle the screen already holds the whole page, so the shot doesn't need to resize it.
+    full: await screenshot({ width: viewport.width, height: Math.ceil(cssContentSize.height) }, !settle),
     fold,
     height: Math.ceil(cssContentSize.height),
   };
@@ -195,7 +208,7 @@ async function shootPage(cdp, sessionId, options, page, viewport) {
   const { overflow, h1s } = result.value;
 
   const name = `${page.replaceAll("/", "-")}-${viewport.name}`;
-  const { full, fold, height } = await capture(cdp, sessionId, viewport);
+  const { full, fold, height } = await capture(cdp, sessionId, viewport, options.settle);
   writeFileSync(join(options.out, `${name}.png`), full);
   writeFileSync(join(options.out, `${name}-fold.png`), fold);
 
