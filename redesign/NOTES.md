@@ -184,3 +184,72 @@ I temporarily hard-coded the error, sent and pending states in `EnquiryForm.tsx`
 
 - Phone, email, Instagram, service area and travel fee, all showing as `[TODO]`s here. The email `[TODO]` also appears in the form's "try again" errors and the `noscript` note.
 - The `/policies/privacy` page, which the form links to and which doesn't exist yet. It must name Cloudflare, as the comment in `Turnstile.tsx` says.
+
+## Step 08: critique and audit
+
+Critique scores, before fixes: home 19/32, pricing 23/36, book 17/32, contact 26/40. Audit: no critical or high site issues left. Detector (`--no-advisory`): clean on all four pages, with no ignores added.
+
+### Decisions the owner may want to reverse
+
+- **Booking bar hides while typing.** On `/contact` the phone bar disappears while a form field has focus. Above a keyboard it would cover the field, and a mis-tap would lose the message. `PRODUCT.md` says the bar stays on screen, so this is a small exception. To reverse it, remove the `has(...)` class in `StickyBookButton.tsx`.
+- **Hero price label.** It now reads "Suits from AUD", then `$890`. `CLAUDE.md` requires AUD, but it's less graceful than "Suits from".
+- **Step 1 copy.** It now says "This first visit is your free measurement", so "Book a fitting" isn't mistaken for the final fitting. The button label is unchanged. Whether to rename it is the owner's call, because the site uses "fitting" for both visits.
+- **Service area and travel fee on closing sections.** Home and pricing now show those two `[TODO]`s next to "Book". The travel fee `[TODO]` also sits directly under "Free", because "nothing to pay" can't be fully trusted until it's answered.
+- **`/book` order.** The deposit note and prices link moved above the calendar, with a visible "Pick a time" heading. Cal's details are hidden below 1024 wide, not 768.
+- **Text width.** All body text is now capped at 38rem (`max-w-measure`). Tailwind's `max-w-prose` had been giving about 90 characters a line, not the 38rem the token intended, so some paragraphs re-wrapped and `/pricing` grew slightly on desktop.
+- **Message limit.** The Message label now says "Up to 2,000 characters", because the field otherwise stops accepting text with no explanation.
+
+### False positives, no ignore added
+
+Both are advisories, so `--no-advisory` doesn't report them and no ignore was needed:
+
+- `straggler` on `/contact`: the travel fee `[TODO]`, which has to stay as written.
+- `repeating-stripes-gradient` on `body`: most likely the `ruled` message field, the only repeating gradient in `src`. It draws writing lines that scroll with the text.
+
+The audit's own contrast sweep flagged Deposit and Balance on `/pricing` at 2.02:1. That's also false: the sweep can't see the navy bar drawn by a sibling element behind them. The text is chalk on navy.
+
+### How failures were checked
+
+`shot.mjs` gained `--block`, `--eval` and `--eval-file`.
+
+- **Calendar blocked:** a "didn't load" alert with the other ways to book appears, and the page closes up. With Cal working, no alert appears after the 15-second timeout passes.
+- **Turnstile blocked:** after 10 seconds a message above Send says the form can't send, and gives the email `[TODO]`. Step 07's blank widget is a capture artefact: it renders in a viewport tall enough to hold the page.
+- **Errors:** real invalid submissions, with long values, show every field error and keep what was typed. Nothing was sent.
+- **Sent state:** reached through the honeypot, so no email was sent.
+
+### Not checked
+
+- A real message or a real booking, end to end.
+- The "Sending…" state since its change to `aria-disabled`. The code is simple, but it was never captured, because sends return too fast to catch without a throttle.
+- A real phone: keyboard behaviour with the bar, and Instagram's in-app browser.
+- A screen reader. The code follows the patterns, but nobody has listened to it.
+- A Lighthouse score. It isn't on the allowed commands. Run it on the Vercel preview, since dev server numbers mean little.
+- 360 wide was not rendered. 320 and 390 both pass.
+- Seam drawing on scroll, still unseen with motion on (see step 04).
+
+### Lower priority, not fixed
+
+- **All pages:** the nav has no current-page mark.
+- **Home:** prices and payment terms aren't grouped, and the link comes before the prices.
+- **Home and pricing:** wedding buyers have one price and no lead time until the `[TODO]` is filled, and the unit line is small. There's no stated route for group orders.
+- **Pricing:** on phones the Deposit and Balance labels sit far from the text they label, and the Balance text comes after the Deposit text. The FAQ has no link to `/contact`.
+- **Book:** the calendar's frame starts about 24px right of the page's left edge on desktop, because of Cal's own padding. Nothing says what to do to reschedule or what to have ready. Those are facts for the owner.
+- **Contact:**
+  - After sending, the h1 and lede stay on screen, and no reply time is given because that fact doesn't exist yet.
+  - The footer repeats the contact details just below the ochre piece.
+  - The browser's own bubbles appear for empty required fields before the site's better-written errors.
+  - The grainline beside the desktop Book button looks placed.
+- **Reduced motion:** it's a global near-zero duration. That's harmless today because only colour swaps and the seam move.
+
+### Outside the design work
+
+- **`npm audit`:** 17 issues (16 moderate, 1 high). All sit under ESLint and `eslint-config-next`, so they're dev tooling and don't ship to visitors. `package.json` and the lockfile are frozen. Run `npm audit fix` after the redesign for the zod one, and don't use `--force`, which would install a much older eslint.
+- **Security headers:** `next.config.ts` sets none yet, and the file is frozen here. `CLAUDE.md` section 4 requires them before launch, and the CSP must allow Cal.com and Cloudflare.
+- **Build warning:** Next.js notices a stray `package-lock.json` in `C:\Users\Thinh`, outside this repo, and ignores it. It's harmless, but worth removing if it isn't needed.
+
+### Only the owner can supply
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in Vercel. In production an empty site key means the form has no real spam check, and `Turnstile.tsx` is frozen, so the missing key is untested.
+- How soon you reply to messages, and who reads them, if you want the sent message to say so.
+- What a customer should have ready for the visit, and how to reschedule.
+- Everything still open in earlier steps: photos, the `[TODO]` facts, confirmed prices and the policy pages.

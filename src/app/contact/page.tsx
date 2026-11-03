@@ -24,9 +24,13 @@ export default function ContactPage() {
             className="pt-2 pb-[calc(var(--spacing-hem)+2.5rem)] lg:col-span-6 lg:pb-[calc(var(--spacing-hem-lg)+4rem)]"
           >
             <h1 id="contact-title">Send us a message</h1>
-            <p className="mt-4 mb-8 max-w-prose text-lede lg:mt-7 lg:mb-10">
+            <p className="mt-4 mb-8 max-w-measure text-lede lg:mt-7 lg:mb-10">
               Write to us if you have a question about fabric, timing or a wedding party, or you&apos;re
-              not ready to book yet. We&apos;ll get back to you by email or phone.
+              not ready to book yet. We&apos;ll get back to you by email or phone. You can also{" "}
+              <a href="#reach-us" className="swap underline">
+                call, email or message us on Instagram
+              </a>
+              .
             </p>
             <EnquiryForm />
           </section>

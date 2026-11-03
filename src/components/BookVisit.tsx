@@ -1,10 +1,12 @@
 import { BookButton } from "@/components/BookButton";
 import { PunchedHole } from "@/components/PatternMarks";
+import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 
 /** Where a page closes, on card. The footer's edge rises over its bottom, so it leaves room for that. */
 export function BookVisit() {
-  const { event, terms } = site.booking;
+  const { event, terms, noObligation } = site.booking;
+  const { serviceArea } = site;
 
   return (
     <section
@@ -20,8 +22,11 @@ export function BookVisit() {
 
       <div className="lg:col-span-6 lg:col-start-7 lg:self-end">
         <p className="font-display text-numeral">{event.minutes} minutes</p>
-        <p className="mt-2 mb-6 max-w-prose text-lede">
-          {event.where}. {terms}
+        <p className="mt-2 max-w-measure text-lede">
+          {event.where}. {terms} {noObligation}
+        </p>
+        <p className="mt-2 mb-6 max-w-measure">
+          <WithTodos text={serviceArea.summary} /> <WithTodos text={serviceArea.travelFee} />
         </p>
         <BookButton size="lg" />
       </div>

@@ -40,7 +40,7 @@ export function ContactPiece() {
       </div>
 
       <p className="mt-12 font-display text-numeral">Free</p>
-      <p className="mt-2 mb-6 max-w-prose">
+      <p className="mt-2 mb-6 max-w-measure">
         If you already know you want a suit, skip the message and book a free measurement.{" "}
         {site.booking.terms}
       </p>

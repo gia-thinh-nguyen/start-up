@@ -7,6 +7,10 @@
  *   node redesign/tools/shot.mjs home pricing            only these pages
  *   node redesign/tools/shot.mjs --out some/dir book     somewhere other than .impeccable/review
  *   node redesign/tools/shot.mjs --wait 15000 book       give a slow embed longer to load
+ *   node redesign/tools/shot.mjs --size 320x640 pricing  this size only, written as pricing-320x640.png
+ *   node redesign/tools/shot.mjs --block "*cal.com*" book  make requests to these URLs fail (repeatable)
+ *   node redesign/tools/shot.mjs --eval "code" contact   run this in the page before capturing, and print the result
+ *   node redesign/tools/shot.mjs --eval-file a.js contact  the same, with the code in a file
  *
  * Pages are names, not paths, because Git Bash rewrites arguments like /pricing into Windows paths.
  * Exits 1 if a page fails a check, or 2 if it can't load the pages at all.
@@ -31,12 +35,22 @@ const viewports = [
 ];
 
 function parseArgs(argv) {
-  const options = { out: ".impeccable/review", base: "http://localhost:3111", wait: 2_000, pages: [] };
+  const options = { out: ".impeccable/review", base: "http://localhost:3111", wait: 2_000, pages: [], block: [] };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--out") options.out = argv[++i];
     else if (argv[i] === "--base") options.base = argv[++i];
     else if (argv[i] === "--wait") options.wait = Number(argv[++i]);
+    else if (argv[i] === "--size") options.size = argv[++i];
+    else if (argv[i] === "--block") options.block.push(argv[++i]);
+    else if (argv[i] === "--eval") options.eval = argv[++i];
+    else if (argv[i] === "--eval-file") options.eval = readFileSync(argv[++i], "utf8");
     else options.pages.push(argv[i]);
+  }
+  if (options.size) {
+    const [width, height] = options.size.split("x").map(Number);
+    options.viewports = [{ name: options.size, width, height, mobile: width < 768 }];
+  } else {
+    options.viewports = viewports;
   }
   if (options.pages.length === 0) options.pages = ["home", "pricing", "book", "contact"];
   return options;
@@ -134,9 +148,11 @@ async function capture(cdp, sessionId, viewport) {
     return Buffer.from(data, "base64");
   };
   const { cssContentSize } = await cdp.send("Page.getLayoutMetrics", {}, sessionId);
+  // The fold goes first: a capture taller than the screen resizes the page, which can move embeds.
+  const fold = await screenshot({ width: viewport.width, height: viewport.height });
   return {
     full: await screenshot({ width: viewport.width, height: Math.ceil(cssContentSize.height) }),
-    fold: await screenshot({ width: viewport.width, height: viewport.height }),
+    fold,
     height: Math.ceil(cssContentSize.height),
   };
 }
@@ -153,6 +169,16 @@ async function shootPage(cdp, sessionId, options, page, viewport) {
   if (errorText) throw new Error(`${url}: ${errorText}`);
   await loaded;
   await sleep(options.wait); // Let fonts and embeds settle.
+
+  if (options.eval) {
+    const { result: evaluated, exceptionDetails } = await cdp.send(
+      "Runtime.evaluate",
+      { expression: options.eval, returnByValue: true, awaitPromise: true },
+      sessionId,
+    );
+    console.log(`eval: ${exceptionDetails ? exceptionDetails.exception?.description : JSON.stringify(evaluated.value)}`);
+    await sleep(options.wait); // Let the page respond to whatever that did.
+  }
 
   const { result } = await cdp.send(
     "Runtime.evaluate",
@@ -195,6 +221,10 @@ async function main() {
     const { targetId } = await cdp.send("Target.createTarget", { url: "about:blank" });
     const { sessionId } = await cdp.send("Target.attachToTarget", { targetId, flatten: true });
     await cdp.send("Page.enable", {}, sessionId);
+    if (options.block.length > 0) {
+      await cdp.send("Network.enable", {}, sessionId);
+      await cdp.send("Network.setBlockedURLs", { urls: options.block }, sessionId);
+    }
     // Screenshots must show the finished page, not one caught halfway through an entrance animation.
     await cdp.send(
       "Emulation.setEmulatedMedia",
@@ -202,7 +232,7 @@ async function main() {
       sessionId,
     );
     for (const page of options.pages) {
-      for (const viewport of viewports) problems += await shootPage(cdp, sessionId, options, page, viewport);
+      for (const viewport of options.viewports) problems += await shootPage(cdp, sessionId, options, page, viewport);
     }
   } finally {
     // Ask the browser to close, even after an error. On Windows, killing the process we started

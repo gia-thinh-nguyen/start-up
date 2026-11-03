@@ -26,7 +26,7 @@ export default function PricingPage() {
         <PriceList />
 
         <p className="mx-auto mt-6 max-w-page px-gutter text-lede lg:mt-8 lg:px-gutter-lg">
-          <span className="block max-w-prose lg:ml-[calc((100%+1.5rem)*5/12)]">
+          <span className="block max-w-measure lg:ml-[calc((100%+1.5rem)*5/12)]">
             These are starting prices. Your final price depends on the fabric and details you choose,
             and you&apos;ll know it before you pay anything.
           </span>

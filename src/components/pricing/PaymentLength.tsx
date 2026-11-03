@@ -17,7 +17,7 @@ function TermValue({ term }: { term: PaymentTerm }) {
           {rest}
         </span>
       )}
-      <span className="mt-3 block max-w-prose">
+      <span className="mt-3 block max-w-measure">
         <WithTodos text={term.detail} />
       </span>
     </>
@@ -49,6 +49,9 @@ export function PaymentLength() {
             <dt className="font-medium">{measurement.label}</dt>
             <dd className="mt-0.5">
               <TermValue term={measurement} />
+              <span className="mt-2 block max-w-measure">
+                <WithTodos text={site.serviceArea.travelFee} />
+              </span>
               <span className="mt-5 hidden md:block">
                 <BookButton size="lg" />
               </span>
@@ -73,7 +76,7 @@ export function PaymentLength() {
           </dl>
         </div>
 
-        <p className="mt-10 max-w-prose text-small">
+        <p className="mt-10 max-w-measure text-small">
           The full details are in our{" "}
           <Link href={orderTerms.href} className="swap underline">
             order terms

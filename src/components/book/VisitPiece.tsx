@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 
 /** The short piece of card above the calendar: what the visit is and that it's free. */
 export function VisitPiece() {
-  const { event, terms } = site.booking;
+  const { event, note, terms } = site.booking;
 
   return (
     <section aria-labelledby="book-title" className="surface-card relative">
@@ -20,7 +20,7 @@ export function VisitPiece() {
         <dl className="mt-5 grid grid-cols-2 gap-x-4 md:grid-cols-[auto_auto] md:justify-start md:gap-x-8 xl:mt-0">
           <div className="row-start-1 font-display">
             <dt className="sr-only">Length</dt>
-            <dd className="flex items-baseline gap-1.5 lg:gap-3">
+            <dd className="flex flex-wrap items-baseline gap-x-1.5 lg:gap-x-3">
               <span className="text-numeral">{event.minutes}</span>
               <span className="text-subheading lg:text-heading">minutes</span>
             </dd>
@@ -34,7 +34,9 @@ export function VisitPiece() {
           <div className="row-span-2 row-start-1 grid grid-rows-subgrid">
             <dt className="sr-only">Cost</dt>
             <dd className="font-display text-numeral">Free</dd>
-            <dd className="mt-1.5 text-small md:text-body">{terms}</dd>
+            <dd className="mt-1.5 text-small md:text-body">
+              {note}. {terms}
+            </dd>
           </div>
 
           <div className="col-span-2 mt-3 text-small md:text-body lg:mt-5">

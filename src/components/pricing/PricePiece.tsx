@@ -67,7 +67,7 @@ function PriceFigure({ amount }: { amount: string }) {
   return (
     <>
       <span className="sr-only">{amount}</span>
-      <span aria-hidden="true">
+      <span aria-hidden="true" className="whitespace-nowrap">
         {[...amount].map((char, i) =>
           /\d/.test(char) ? (
             <span key={i} className="inline-block w-[0.62em] text-center">
@@ -113,7 +113,7 @@ export function PricePiece({ price, index }: { price: Price; index: number }) {
 
         <ul
           aria-label={`${price.item}: what you get`}
-          className="mt-4 space-y-2 text-small lg:mt-6 lg:text-body"
+          className="mt-4 space-y-2 text-small hyphens-auto lg:mt-6 lg:text-body"
         >
           {price.includes.map((point) => (
             <li key={point}>

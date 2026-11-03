@@ -70,7 +70,7 @@ export function Hero() {
           <Grainline className="absolute top-2 left-30 hidden tall:block lg:static lg:col-start-8 lg:row-start-2 lg:mt-10 lg:block lg:h-48 lg:w-auto lg:justify-self-end" />
 
           <div className="flex min-w-0 flex-1 flex-col tall:justify-end lg:col-span-3 lg:col-start-5 lg:row-start-2 lg:mt-10 lg:block">
-            <p className="text-small font-medium md:text-body">{suits.item} from</p>
+            <p className="text-small font-medium md:text-body">{suits.item} from AUD</p>
             <p className="mt-0.5 mb-2 font-display text-numeral">{priceAmount(suits)}</p>
             <p className="text-small md:text-body">
               {site.booking.event.minutes}-minute visit. {site.booking.terms}

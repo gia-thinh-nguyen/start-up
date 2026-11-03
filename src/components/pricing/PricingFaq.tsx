@@ -13,7 +13,7 @@ export function PricingFaq() {
           Common questions
         </h2>
 
-        <div className="max-w-prose space-y-8 lg:col-span-6 lg:col-start-7">
+        <div className="max-w-measure space-y-8 lg:col-span-6 lg:col-start-7">
           {site.faq.map((item) => (
             <div key={item.question}>
               <h3>{item.question}</h3>

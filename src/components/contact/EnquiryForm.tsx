@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { sendEnquiry } from "@/app/contact/actions";
+import { BookButton } from "@/components/BookButton";
 import { Turnstile } from "@/components/contact/Turnstile";
 import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
@@ -11,9 +12,12 @@ import { honeypotField, limits, type EnquiryField, type EnquiryState } from "@/l
 const initialState: EnquiryState = { status: "idle" };
 
 const fieldClass =
-  "mt-2 block w-full bg-transparent focus-visible:outline-offset-1 autofill:shadow-[inset_0_0_0_100vmax_var(--color-paper)] autofill:[-webkit-text-fill-color:var(--color-navy)]";
-const inputClass = `${fieldClass} min-h-12 border-b-2 border-navy py-2.5 aria-[invalid=true]:border-lantern`;
+  "block w-full bg-transparent focus-visible:outline-offset-1 autofill:shadow-[inset_0_0_0_100vmax_var(--color-paper)] autofill:[-webkit-text-fill-color:var(--color-navy)]";
+const inputClass = `${fieldClass} min-h-11 border-b-2 border-navy pt-1 pb-1.5 aria-[invalid=true]:border-b-4 aria-[invalid=true]:border-lantern`;
 const messageClass = `${fieldClass} ruled resize-y aria-[invalid=true]:[--rule-color:var(--color-lantern)]`;
+
+/** How long to wait for Cloudflare's script before saying the form can't send. */
+const spamCheckTimeoutMs = 10_000;
 
 /** A notch-shaped mark, so an error stands out by shape as well as colour. */
 function NotchMark({ className = "" }: { className?: string }) {
@@ -65,7 +69,14 @@ function Field({
 export function EnquiryForm() {
   const [state, formAction, pending] = useActionState(sendEnquiry, initialState);
   const form = useRef<HTMLFormElement>(null);
-  const sent = useRef<HTMLDivElement>(null);
+  const sent = useRef<HTMLHeadingElement>(null);
+  const [spamCheckMissing, setSpamCheckMissing] = useState(false);
+
+  // Without Cloudflare's script the server turns every message away, so say so before they write one.
+  useEffect(() => {
+    const timeout = setTimeout(() => setSpamCheckMissing(!window.turnstile), spamCheckTimeoutMs);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Move focus to the result, so keyboard and screen-reader users hear what happened.
   useEffect(() => {
@@ -80,12 +91,15 @@ export function EnquiryForm() {
 
   if (state.status === "sent") {
     return (
-      <div ref={sent} tabIndex={-1} className="border-t-2 border-navy outline-none">
+      <div className="border-t-2 border-navy">
         <NotchMark className="ml-6 fill-navy" />
-        <h2 className="mt-5">Thanks, your message is on its way.</h2>
-        <p className="mt-4 max-w-prose text-lede">
+        <h2 ref={sent} tabIndex={-1} className="mt-5 outline-none">
+          Thanks, your message is on its way.
+        </h2>
+        <p className="mt-4 mb-6 max-w-measure text-lede">
           We&apos;ll reply by email, or by phone if you left a number.
         </p>
+        <BookButton size="lg" />
       </div>
     );
   }
@@ -105,7 +119,7 @@ export function EnquiryForm() {
   }
 
   return (
-    <form ref={form} action={formAction} className="relative space-y-6">
+    <form ref={form} action={formAction} className="relative space-y-8">
       {state.status === "error" && (
         <ErrorText role="alert" tabIndex={-1}>
           <WithTodos text={state.message} />
@@ -116,7 +130,7 @@ export function EnquiryForm() {
         <input type="text" autoComplete="name" required className={inputClass} {...fieldProps("name")} />
       </Field>
 
-      <div className="grid gap-6 sm:grid-cols-2 sm:gap-8">
+      <div className="grid gap-8 sm:grid-cols-2">
         <Field name="email" label="Email" error={errors.email}>
           <input type="email" autoComplete="email" required className={inputClass} {...fieldProps("email")} />
         </Field>
@@ -125,7 +139,12 @@ export function EnquiryForm() {
         </Field>
       </div>
 
-      <Field name="message" label="Message" error={errors.message}>
+      <Field
+        name="message"
+        label="Message"
+        note={`Up to ${limits.message.toLocaleString("en-AU")} characters`}
+        error={errors.message}
+      >
         <textarea rows={5} required className={messageClass} {...fieldProps("message")} />
       </Field>
 
@@ -137,6 +156,13 @@ export function EnquiryForm() {
 
       <Turnstile resetSignal={state} />
 
+      {spamCheckMissing && (
+        <ErrorText role="alert">
+          Our spam check didn&apos;t load, so this form can&apos;t send right now. Please reload the page, or
+          email <WithTodos text={site.contact.email} />.
+        </ErrorText>
+      )}
+
       <noscript>
         <p className="text-small font-medium">
           This form needs JavaScript. You can email us at <WithTodos text={site.contact.email} /> instead.
@@ -146,12 +172,17 @@ export function EnquiryForm() {
       <div>
         <button
           type="submit"
-          disabled={pending}
-          className="notched w-full px-7 py-4 text-lede font-semibold text-paper before:bg-navy hover:before:bg-timber active:before:bg-timber disabled:cursor-wait disabled:text-navy disabled:outline-2 disabled:-outline-offset-2 disabled:outline-navy disabled:outline-dashed disabled:before:bg-transparent sm:w-auto sm:min-w-56"
+          // Not `disabled`, which would throw keyboard focus off the button while it sends.
+          aria-disabled={pending}
+          onClick={pending ? (event) => event.preventDefault() : undefined}
+          className="notched w-full px-7 py-4 text-lede font-semibold text-paper before:bg-navy hover:before:bg-timber active:before:bg-timber aria-disabled:cursor-wait aria-disabled:text-navy aria-disabled:outline-2 aria-disabled:-outline-offset-2 aria-disabled:outline-navy aria-disabled:outline-dashed aria-disabled:before:bg-transparent sm:w-auto sm:min-w-56"
         >
           {pending ? "Sending…" : "Send message"}
         </button>
-        <p className="mt-3 max-w-prose text-small">
+        <p role="status" className="sr-only">
+          {pending ? "Sending your message." : ""}
+        </p>
+        <p className="mt-3 max-w-measure text-small">
           We only use your details to reply to you. See our{" "}
           <Link href={site.policies.privacy.href} className="swap underline">
             privacy policy

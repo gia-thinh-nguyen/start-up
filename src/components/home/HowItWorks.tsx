@@ -39,7 +39,7 @@ function StepRow({ step, number, follows }: { step: Step; number: number; follow
             {number}
           </span>
           <h3 className="self-center lg:col-span-5 lg:text-heading">{step.title}</h3>
-          <p className="col-start-2 mt-1 max-w-prose lg:col-span-5 lg:col-start-7 lg:mt-0 lg:self-center lg:text-lede">
+          <p className="col-start-2 mt-1 max-w-measure lg:col-span-5 lg:col-start-7 lg:mt-0 lg:self-center lg:text-lede">
             {step.text}
           </p>
         </div>
@@ -55,7 +55,7 @@ export function HowItWorks() {
         <h2 id="how-it-works" className="lg:col-span-6">
           How it works
         </h2>
-        <div className="max-w-prose lg:col-span-5 lg:col-start-7">
+        <div className="max-w-measure lg:col-span-5 lg:col-start-7">
           <p className="font-display text-subheading">
             <WithTodos text={site.turnaroundWeeks} />
           </p>

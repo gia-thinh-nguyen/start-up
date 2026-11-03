@@ -21,23 +21,24 @@ export function BookingCalendar() {
   const calLink = `${calUsername}/${event.slug}`;
 
   return (
-    <>
-      <CalEmbed calLink={calLink} />
-      <p className="mt-4 text-small">
-        Calendar not loading?{" "}
-        <a href={`https://cal.com/${calLink}`} className="swap underline">
-          Book on Cal.com
-        </a>{" "}
-        or call{" "}
-        {isTodo(phone) ? (
-          <WithTodos text={phone} />
-        ) : (
-          <a href={`tel:${phone}`} className="swap underline">
-            {phone}
-          </a>
-        )}
-        .
-      </p>
-    </>
+    <CalEmbed
+      calLink={calLink}
+      otherWays={
+        <>
+          <a href={`https://cal.com/${calLink}`} className="swap underline">
+            Book on Cal.com
+          </a>{" "}
+          or call{" "}
+          {isTodo(phone) ? (
+            <WithTodos text={phone} />
+          ) : (
+            <a href={`tel:${phone}`} className="swap underline">
+              {phone}
+            </a>
+          )}
+          .
+        </>
+      }
+    />
   );
 }

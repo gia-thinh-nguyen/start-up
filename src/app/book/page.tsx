@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function BookPage() {
-  const { note, terms, noObligation, depositNote } = site.booking;
+  const { noObligation, depositNote } = site.booking;
   const measureStep = site.process[1];
 
   return (
@@ -20,26 +20,26 @@ export default function BookPage() {
       <div aria-hidden="true" className="h-hem bg-navy lg:h-hem-lg" />
       <VisitPiece />
 
-      <section aria-label="Pick a time" className="surface-chalk relative">
+      <section aria-labelledby="pick-a-time" className="surface-chalk relative">
         <CutEdge shape="shoulderRight" fill="fill-paper" />
 
         <div className="mx-auto max-w-page px-gutter pb-[calc(var(--spacing-hem)+2.5rem)] lg:px-gutter-lg lg:pb-[calc(var(--spacing-hem-lg)+3rem)]">
           <div className="max-w-booker">
-            <p className="max-w-prose">
-              {note}. {terms} {measureStep.text} {noObligation}
-            </p>
-
-            <div className="mt-5 lg:mt-8">
-              <BookingCalendar />
-            </div>
-
-            <p className="mt-3 max-w-prose text-small">
-              {depositNote}{" "}
+            <p className="max-w-measure">
+              {measureStep.text} {noObligation} {depositNote}{" "}
               <Link href="/pricing" className="swap underline">
                 See prices
               </Link>
               .
             </p>
+
+            <h2 id="pick-a-time" className="mt-5 text-subheading lg:mt-8">
+              Pick a time
+            </h2>
+
+            <div className="mt-3">
+              <BookingCalendar />
+            </div>
           </div>
         </div>
       </section>

@@ -18,7 +18,7 @@ export function SaigonMelbourne() {
             <h2 id="saigon" className="text-title">
               {saigon.city}
             </h2>
-            <p className="mt-4 max-w-prose text-lede">
+            <p className="mt-4 max-w-measure text-lede">
               <WithTodos text={saigon.text} />
             </p>
           </div>
@@ -44,7 +44,7 @@ export function SaigonMelbourne() {
             <h2 id="melbourne" className="text-title">
               {melbourne.city}
             </h2>
-            <p className="mt-4 max-w-prose text-lede">
+            <p className="mt-4 max-w-measure text-lede">
               <WithTodos text={melbourne.text} />
             </p>
           </div>

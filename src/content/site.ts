@@ -167,7 +167,7 @@ export const site: Site = {
   process: [
     {
       title: "Book",
-      text: "Choose a time online. Measurement is free and there's nothing to pay when you book.",
+      text: "Choose a time online. This first visit is your free measurement, and there's nothing to pay when you book.",
     },
     {
       title: "Measure",

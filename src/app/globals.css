@@ -45,11 +45,11 @@
   --text-numeral--letter-spacing: -0.03em;
   --text-numeral--font-weight: 700;
   /* A price on its pattern piece: as big as the narrowest piece allows, so all three stay the same size. */
-  --text-price: clamp(2.75rem, 12.5vw, 4.5rem);
+  --text-price: clamp(2.25rem, min(12.5vw, 18vw - 1.25rem), 4.5rem);
   --text-price--line-height: 1;
   --text-price--letter-spacing: -0.03em;
   --text-price--font-weight: 700;
-  --text-price-lg: clamp(4.5rem, 7vw, 6.5rem);
+  --text-price-lg: clamp(4rem, min(7vw, 10vw - 2.4rem), 6.5rem);
   --text-price-lg--line-height: 1;
   --text-price-lg--letter-spacing: -0.03em;
   --text-price-lg--font-weight: 700;
@@ -78,8 +78,8 @@
   /* The first-screen photo slot's height. It gives way first on narrow or short phones. */
   --spacing-slot: min(16.75rem, calc((100vw - 11rem) * 1.25), max(10rem, calc(100svh - 36rem)));
   --container-page: 90rem;
-  --container-prose: 38rem;
-  --container-booker: 65rem; /* the full width of Cal.com's three calendar columns */
+  --container-measure: 38rem; /* not "prose": Tailwind's max-w-prose ignores the token and is about 90 characters here */
+  --container-booker: 68rem; /* Cal.com's three calendar columns are 65rem, and need room to spare */
 
   /* Motion */
   --ease-draw: cubic-bezier(0.16, 1, 0.3, 1);
@@ -285,7 +285,8 @@
     @apply text-subheading;
   }
 
-  p {
+  p,
+  li {
     text-wrap: pretty;
   }
 
