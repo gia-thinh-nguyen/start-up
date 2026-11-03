@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { priceAmount } from "@/components/figures";
 import { Grainline } from "@/components/PatternMarks";
 import { WithTodos } from "@/components/Todo";
@@ -102,12 +103,20 @@ export function PricePiece({ price, index }: { price: Price; index: number }) {
           <div className={`flex items-end text-subheading ${piece.label}`}>
             <div>
               <h2 className="inline text-subheading">{price.item}</h2>{" "}
-              <span className="font-sans text-body font-normal">from</span>
+              {!price.instead && <span className="font-sans text-body font-normal">from</span>}
             </div>
           </div>
-          <p className="mt-0.5 font-display text-price lg:text-price-lg">
-            <PriceFigure amount={priceAmount(price)} />
-          </p>
+          {price.instead ? (
+            <p className="mt-3">
+              <Link href={price.instead.href} className="swap -mx-1 px-1 text-lede font-medium underline">
+                {price.instead.label}
+              </Link>
+            </p>
+          ) : (
+            <p className="mt-0.5 font-display text-price lg:text-price-lg">
+              <PriceFigure amount={priceAmount(price)} />
+            </p>
+          )}
           {price.unit && <p className="mt-1 text-small">{price.unit}</p>}
         </div>
 

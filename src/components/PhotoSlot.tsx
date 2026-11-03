@@ -7,16 +7,17 @@ type Props = {
   sizes: string;
   /** Only for the photo that is visible on first load. */
   preload?: boolean;
-  /** Sets the slot's shape (aspect ratio, height, grid placement). */
+  /** Sets the slot's size and grid placement. A photo with a width and height sets its own shape. */
   className?: string;
-  /** The slot runs off the screen's right edge, so the placeholder's outline does too. */
-  bleedRight?: boolean;
 };
 
 /** Shows the photo once its file is added, otherwise a chalk-dashed placeholder of the same shape. */
-export function PhotoSlot({ photo, sizes, preload = false, className = "", bleedRight = false }: Props) {
+export function PhotoSlot({ photo, sizes, preload = false, className = "" }: Props) {
   return (
-    <div className={`relative overflow-hidden bg-ochre-deep text-navy ${className}`}>
+    <div
+      className={`relative overflow-hidden bg-ochre-deep text-navy ${className}`}
+      style={photo.src && photo.width && photo.height ? { aspectRatio: `${photo.width} / ${photo.height}` } : undefined}
+    >
       {photo.src ? (
         <Image
           src={photo.src}
@@ -24,13 +25,14 @@ export function PhotoSlot({ photo, sizes, preload = false, className = "", bleed
           fill
           sizes={sizes}
           preload={preload}
-          className="object-cover"
+          // Contain, never cover: if a slot ever differs from the photo's shape, nobody in it gets cut off.
+          className="object-contain"
         />
       ) : (
         <>
           <svg
             aria-hidden="true"
-            className={`absolute inset-px h-[calc(100%-2px)] overflow-visible ${bleedRight ? "w-[calc(100%+4px)]" : "w-[calc(100%-2px)]"}`}
+            className="absolute inset-px h-[calc(100%-2px)] w-[calc(100%-2px)] overflow-visible"
           >
             <rect className="seam" width="100%" height="100%" />
           </svg>

@@ -33,9 +33,9 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 - Routes today: `/`, `/pricing`, `/book`, `/contact`. The footer links to `/policies/privacy`, `/policies/refunds` and `/policies/order-terms`, which are not built yet.
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
 - Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
-- Undecided, shown on the site as `[TODO]` markers: turnaround, wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, and sentences about the workshop and the owner.
+- Undecided, shown on the site as `[TODO]` markers: wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, the fabric line, and a sentence about the workshop.
 - The tagline is not final.
-- Prices in `site.ts` are drafts awaiting confirmation.
+- Suits are from $410, the owner's figure (4 November 2026), which already includes $30 shipping from Saigon to Melbourne; the site says "including shipping" and doesn't show the $30. A shirt is an add-on to a suit order, from $85, and ships with the suit at no extra shipping cost. The wedding package has no published price: visitors ask for a group price.
 - Not registered for GST, so prices don't mention it.
 
 ## Brand Commitments
@@ -52,7 +52,9 @@ Binding, from the owner's `CLAUDE.md`:
 
 ## Evidence on Hand
 
-- Photos: none yet. `src/content/site.ts` holds labelled slots for a hero photo and a workshop photo, and a brief for each.
+- Photos on the home page: the workshop (`workshop.png`, 1520 by 855, first screen under "Made in Saigon, Vietnam") and the handshake in a dinner suit (`hero.jpg`, 1289 by 1970, Saigon section). Both were taken in Saigon, so neither may sit with Melbourne content. Each is shown at its own shape and never cropped in CSS, so nobody in a photo is cut off (owner, 4 November 2026); if a layout needs another shape, the owner supplies the crop. There is no photo of the owner in Melbourne, and the home page has no Melbourne section (removed by the owner, 4 November 2026). The photographer and consent are `[TODO]` for each. The unused `workshop-4x3.png`, `hero.png` and `tailor-saigon.jpg` were moved to `unused-photos/`, outside `public/` and ignored by git, so they are not published or committed.
+- Fabric: the owner wants to say the fabric is their own range. No wording or facts confirmed yet; it shows as `[TODO]` in "What a suit includes", not on the first screen's price tag.
+- Turnaround: 3–4 weeks from placing the order to the final fitting (owner, 4 November 2026).
 - Logo: none. A text wordmark is the identity for now.
 - Reviews, testimonials, ratings, client names, customer counts, awards and press: none exist. Never invent them. Fake reviews breach Australian Consumer Law.
 - Fabric mills and brands: none confirmed. Don't name any.

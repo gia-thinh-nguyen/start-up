@@ -51,4 +51,6 @@ next-env.d.ts
 /.impeccable/mocks/
 /.impeccable/questions/
 /.impeccable/review/
-/redesign/logs/
+
+# Owner photos not used on the site; consent for the people in them is still [TODO]
+unused-photos/

@@ -75,7 +75,6 @@ The owner chose The Pattern Card on the decision page. The direction is saved in
   - `src/` is off limits in step 02, so step 03 now changes `name` in `site.ts` and the contact page's description. I added that to `redesign/steps/03-foundations.md`.
   - `CLAUDE.md`, `GUIDE.md`, `docs/` and `package.json` are frozen during the redesign and still say Saigon Cut. `plan.md` and `redesign/README.md` do too, though they aren't frozen. Rename all of these after the run.
   - `PRODUCT.md` was updated even though the preamble says not to reopen it, because every later step reads it and the owner stated the new name. `redesign/preamble.md` and `redesign/steps/10-finish.md` were updated too.
-  - `redesign/run.mjs` still checks that `site.ts` contains "Saigon Cut". That passes only because the `[TODO]` about the owner mentions the old name, so leave that marker alone during the run.
 - **Build path.** Impeccable defaults to building from generated comps. There's no image generation here and `CLAUDE.md` rules out generated people, so this build is code-led.
 - **Telemetry.** The roll asks for an anonymous choice ping. I skipped it because `.impeccable/config.json` has telemetry turned off.
 
@@ -188,7 +187,7 @@ Only 390x844 and 1440x900 were rendered. These were worked out from the CSS, not
 
 - `site.ts`: `booking.noObligation` and `booking.depositNote`. Both sentences were hard-coded in the old page, so neither is a new fact.
 - `CutEdge`: a `collar` shape. `globals.css`: `--container-booker`.
-- `redesign/tools/shot.mjs`: an optional `--wait <ms>`. Cal takes longer than the default 2 seconds, so without it the screenshots only show the spinner. Use `--wait 15000 book` to see the calendar.
+- `scripts/shot.mjs`: an optional `--wait <ms>`. Cal takes longer than the default 2 seconds, so without it the screenshots only show the spinner. Use `--wait 15000 book` to see the calendar.
 
 ### Not fixed: inside Cal's iframe
 

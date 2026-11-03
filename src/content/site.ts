@@ -17,6 +17,8 @@ export type Price = {
   fromAud: number | null;
   /** Shown under the price when it isn't per item, e.g. "per suit". */
   unit?: string;
+  /** Shown instead of a price when the owner chooses not to publish one. */
+  instead?: Link;
   includes: string[];
 };
 
@@ -39,9 +41,15 @@ export type Photo = {
   source: string;
   /** What to shoot. Shown on the placeholder until the photo is added. */
   brief: string;
+  /** The file's own size in pixels. The slot takes this shape, so the photo is never cropped. */
+  width?: number;
+  height?: number;
+  /** Shown under the photo where the page needs to say where it was taken. */
+  caption?: string;
 };
 
-export type Step = {
+/** One stop of the visit, in order. The home page's first screen is these three. */
+export type Stop = {
   title: string;
   text: string;
 };
@@ -55,12 +63,12 @@ export type Site = {
   name: string;
   tagline: string;
   origin: string;
-  /** The first-screen statement of what's sold, where it's made and who fits it. */
-  intro: string;
   description: string;
   booking: Link & {
     note: string;
     terms: string;
+    /** What happens before any money changes hands. */
+    beforeYouPay: string;
     noObligation: string;
     depositNote: string;
     /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
@@ -93,12 +101,14 @@ export type Site = {
   };
   turnaroundWeeks: string;
   weddingLeadTime: string;
-  process: Step[];
-  places: Place[];
+  /** Measured in Melbourne, made in Saigon, fitted in Melbourne. */
+  stops: [Stop, Stop, Stop];
+  /** What to say about the fabric the suits are made from. */
+  fabric: string;
+  saigon: Place;
   photos: {
-    fitter: Photo;
-    hero: Photo;
     workshop: Photo;
+    handshake: Photo;
   };
   prices: Price[];
   priceNote: string;
@@ -107,15 +117,16 @@ export type Site = {
   abn: string;
 };
 
-const turnaroundWeeks = "[TODO: standard turnaround, e.g. 4–6 weeks]";
+// The owner's figure (4 November 2026).
+const turnaroundWeeks = "3–4 weeks";
 const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
+/** Must match the event's length in Cal.com. */
+const visitMinutes = 45;
 
 export const site: Site = {
   name: "Saigon Tailors",
   tagline: "Tailored in Saigon, Fitted in Melbourne",
   origin: "Made in Saigon, Vietnam. Measured and fitted in Melbourne.",
-  intro:
-    "Made-to-measure suits, made in Saigon. We measure and fit you at your home or office in Melbourne.",
   description:
     "Made-to-measure suits, made in Saigon and fitted in Melbourne. Book a free measurement.",
 
@@ -124,13 +135,14 @@ export const site: Site = {
     href: "/book",
     note: "Measurement is free",
     terms: "Nothing to pay when you book.",
+    beforeYouPay: "You choose your fabric and see the full price before you pay anything.",
     noObligation: "There's no obligation to order.",
     depositNote: "If you go ahead, a 40% deposit places your order once you've chosen your fabric.",
     calUsername: "gia-thinh-nguyen",
     event: {
       slug: "home-visit",
       name: "Home or office visit",
-      minutes: 45,
+      minutes: visitMinutes,
       where: "Your home or office in Melbourne",
     },
   },
@@ -164,86 +176,83 @@ export const site: Site = {
   turnaroundWeeks,
   weddingLeadTime,
 
-  process: [
+  stops: [
     {
-      title: "Book",
-      text: "Choose a time online. This first visit is your free measurement.",
+      title: "Measured in Melbourne",
+      // \u2011 is a non-breaking hyphen, so "45-minute" never splits across lines.
+      text: `Free, at your home or office. A ${visitMinutes}\u2011minute visit.`,
     },
     {
-      title: "Measure",
-      text: "We take your measurements and talk through the cut, lapels, buttons and lining.",
+      title: "Made in Saigon, Vietnam",
+      text: "Your suit is cut and sewn to your measurements in Saigon, then shipped to Melbourne.",
     },
     {
-      title: "Choose fabric",
-      text: "Pick your fabric and settle the details. A 40% deposit places your order.",
-    },
-    {
-      title: "Made in Saigon",
-      text: "Your suit is cut and sewn to your measurements in Saigon, Vietnam, then shipped to Melbourne.",
-    },
-    {
-      title: "Final fitting in Melbourne",
-      text: "Try it on, and we make any adjustments it needs. You pay the balance at this fitting.",
+      title: "Fitted in Melbourne",
+      text: "When your suit arrives, we fit it on you at home or at work and make any adjustments.",
     },
   ],
 
-  places: [
-    {
-      city: "Saigon",
-      text: "Your measurements go to Saigon, Vietnam, and your suit is cut and sewn there. [TODO: a sentence about the workshop, e.g. who sews the suits and how long they've been doing it]",
-    },
-    {
-      city: "Melbourne",
-      text: "You're measured in Melbourne before anything is cut, and fitted here when your suit arrives. [TODO: a sentence about the owner: who they are and why they started Saigon Cut]",
-    },
-  ],
+  // The owner wants to say the fabric is their own range. Confirm the facts before this goes live,
+  // and don't name a mill or brand unless it's actually stocked.
+  fabric: "[TODO: a sentence about your fabric, e.g. how many fabrics you keep and where they come from]",
+
+  saigon: {
+    city: "Saigon",
+    text: "Your measurements go to Saigon, Vietnam, and your suit is cut and sewn there. [TODO: a sentence about the workshop, e.g. who sews the suits and how long they've been doing it]",
+  },
 
   photos: {
-    fitter: {
-      src: null,
-      alt: "[TODO: describe the photo, e.g. The owner measuring a customer's shoulders]",
-      source: "[TODO: photographer or licence]",
-      brief: "The owner with a tape measure. A phone photo is fine.",
-    },
-    hero: {
-      src: null,
-      alt: "[TODO: describe the photo, e.g. Man in a navy two-piece suit]",
-      source: "[TODO: photographer or licence]",
-      brief: "A finished suit, worn. Portrait, at least 1600px tall.",
-    },
     workshop: {
-      src: null,
-      alt: "[TODO: describe the photo]",
-      source: "[TODO: photographer or licence]",
-      brief: "The Saigon workshop, fabric, or a suit being made. Landscape.",
+      src: "/photos/workshop.png",
+      width: 1520,
+      height: 855,
+      alt: "A tailor in Saigon marking out suit fabric on a cutting table, in front of a rail of finished jackets",
+      source: "[TODO: photographer, and written consent from the person pictured]",
+      brief: "The Saigon workshop, with finished jackets in view. 16:9 landscape, at least 2000px wide.",
+    },
+    handshake: {
+      src: "/photos/hero.jpg",
+      // Its Vietnamese shop signs show, so say where it is, and nobody reads it as a Melbourne shop.
+      caption: "In the Saigon shop.",
+      alt: "A tailor with a tape measure around his neck shaking hands with a smiling customer in a black dinner suit and bow tie",
+      source: "[TODO: photographer, and written consent from the person pictured]",
+      brief: "A finished suit, worn. Portrait, at least 1600px tall.",
+      width: 1289,
+      height: 1970,
     },
   },
 
-  // TODO: draft prices to get the page built. Confirm every number before launch.
+  // The owner's figures (4 November 2026): suits from $410, which includes $30 shipping from Saigon,
+  // and a shirt added to a suit order from $85.
   prices: [
     {
       item: "Suits",
-      fromAud: 890,
+      fromAud: 410,
+      unit: "including shipping",
       includes: [
         "Two-piece suit: jacket and trousers",
         "Cut and sewn to your measurements in Saigon",
         "Your choice of lapels, buttons and lining",
+        "Shipping from Saigon to Melbourne",
         "Final fitting and adjustments in Melbourne",
       ],
     },
     {
-      item: "Shirts",
-      fromAud: 129,
+      item: "Add a shirt",
+      fromAud: 85,
+      unit: "with a suit order",
       includes: [
         "Made to your measurements in Saigon",
         "Your choice of collar and cuffs",
         "Measured at the same free appointment as your suit",
+        "Ships with your suit, so no extra shipping",
       ],
     },
     {
       item: "Wedding packages",
-      fromAud: 790,
-      unit: "per suit, for 4 or more",
+      // The owner chose not to publish a group price.
+      fromAud: null,
+      instead: { label: "Ask us for a group price", href: "/contact" },
       includes: [
         "Suits for the groom and groomsmen in matching fabric",
         "Everyone measured and fitted in Melbourne",

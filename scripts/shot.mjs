@@ -3,16 +3,16 @@
  * Takes desktop and phone screenshots with the installed Edge or Chrome, and checks each page for
  * sideways scrolling and for exactly one h1. Needs Node 22 or later and no packages.
  *
- *   node redesign/tools/shot.mjs                         all four pages
- *   node redesign/tools/shot.mjs home pricing            only these pages
- *   node redesign/tools/shot.mjs --out some/dir book     somewhere other than .impeccable/review
- *   node redesign/tools/shot.mjs --wait 15000 book       give a slow embed longer to load
- *   node redesign/tools/shot.mjs --settle 8000 book      grow the screen to the page's height and wait before the
+ *   node scripts/shot.mjs                         all four pages
+ *   node scripts/shot.mjs home pricing            only these pages
+ *   node scripts/shot.mjs --out some/dir book     somewhere other than .impeccable/review
+ *   node scripts/shot.mjs --wait 15000 book       give a slow embed longer to load
+ *   node scripts/shot.mjs --settle 8000 book      grow the screen to the page's height and wait before the
  *                                                        full-page shot, because an embed re-animates when resized
- *   node redesign/tools/shot.mjs --size 320x640 pricing  this size only, written as pricing-320x640.png
- *   node redesign/tools/shot.mjs --block "*cal.com*" book  make requests to these URLs fail (repeatable)
- *   node redesign/tools/shot.mjs --eval "code" contact   run this in the page before capturing, and print the result
- *   node redesign/tools/shot.mjs --eval-file a.js contact  the same, with the code in a file
+ *   node scripts/shot.mjs --size 320x640 pricing  this size only, written as pricing-320x640.png
+ *   node scripts/shot.mjs --block "*cal.com*" book  make requests to these URLs fail (repeatable)
+ *   node scripts/shot.mjs --eval "code" contact   run this in the page before capturing, and print the result
+ *   node scripts/shot.mjs --eval-file a.js contact  the same, with the code in a file
  *
  * Pages are names, not paths, because Git Bash rewrites arguments like /pricing into Windows paths.
  * Exits 1 if a page fails a check, or 2 if it can't load the pages at all.
