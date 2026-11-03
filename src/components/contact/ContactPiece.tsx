@@ -1,7 +1,6 @@
 import { BookButton } from "@/components/BookButton";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { CutEdge } from "@/components/CutEdge";
-import { Grainline, PunchedHole } from "@/components/PatternMarks";
 import { site } from "@/content/site";
 
 /**
@@ -28,10 +27,6 @@ export function ContactPiece() {
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="min-h-0 w-full flex-1 bg-ochre">
           <path className="seam" d="M2.5 0V100" />
         </svg>
-      </div>
-      <div aria-hidden="true" className="absolute bottom-[calc(var(--spacing-hem-lg)+4rem)] left-10 hidden flex-col items-center gap-6 lg:flex">
-        <PunchedHole />
-        <Grainline />
       </div>
 
       <h2 id="reach-us">Reach us directly</h2>

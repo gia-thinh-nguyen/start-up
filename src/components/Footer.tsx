@@ -43,7 +43,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-page gap-12 px-gutter pt-10 pb-section lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg lg:pt-16">
         <div className="lg:col-span-5">
           <p className="font-display text-title">{site.name}</p>
-          <p className="mt-4 max-w-xs text-lede">{site.origin}</p>
+          <p className="mt-4 max-w-sm text-lede">{site.origin}</p>
         </div>
 
         <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:col-span-7">

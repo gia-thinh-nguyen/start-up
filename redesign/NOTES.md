@@ -253,3 +253,76 @@ The audit's own contrast sweep flagged Deposit and Balance on `/pricing` at 2.02
 - How soon you reply to messages, and who reads them, if you want the sent message to say so.
 - What a customer should have ready for the visit, and how to reschedule.
 - Everything still open in earlier steps: photos, the `[TODO]` facts, confirmed prices and the policy pages.
+
+## Step 09: project audits
+
+All three prompts in `docs/claude-prompts.md` ran over `src/`. **LAWYER** marks anything to check with a lawyer. None of this is legal advice.
+
+### Fixed, and the owner may want to reverse
+
+- **Origin names the country.** The footer on every page now says "Made in Saigon, Vietnam." `/pricing`, `/book` and `/contact` didn't otherwise say Vietnam. Their search descriptions on `/book` and `/contact` didn't mention Saigon either, and now do.
+- **Privacy line on the form.** "We only use your details to reply to you" is now "We use your details to reply to you". "Only" was an absolute promise, made with no policy behind it, and Resend and Cloudflare both handle data from this form. **LAWYER:** check the final wording against the privacy policy.
+- **Home heading.** "How it works" is now "From booking to final fitting", because the old heading is on every template. The new one wraps to two lines on desktop.
+- **Repeated copy on home.**
+  - The Saigon section repeated step 4 word for word. It now says "Your measurements go to Saigon, Vietnam, and your suit is cut and sewn there." That follows from the existing copy, but the owner should confirm it.
+  - Step 1 no longer says "nothing to pay when you book", which already appears on the first screen and in the closing section.
+- **`/contact` marks.** I removed the punched hole and grainline floating beside the Book button on desktop, which step 08 said looked placed. The piece's edge and seam remain.
+- **`/book` heading.** "Home or office visit" looks the same but is now a paragraph. It was an `h2` with nothing under it.
+
+### Design and copy: flagged, kept on purpose
+
+- **Stat-like numerals.** `Free`, `40%` and `45 minutes` are close to the stat-row template, most of all the three payment terms on home and the unlabelled `Free` on `/contact`. The direction contract asks for numbers to lead, so they stay.
+- **"Suits from AUD".** It still reads awkwardly (see step 08). It's the plainest way to show AUD beside `$890` at that width.
+- **Clean results.** No banned words, em dashes, exclamation marks or question headings beyond the FAQ's real questions. No gradients except the message field's ruled lines, no icon library, no scroll animation beyond the seam. Cal.com's rounded date cells sit inside its iframe.
+
+### Security: open findings
+
+Nothing here can be fixed in this step, because the files are protected or the work belongs to GUIDE Step 7.
+
+| Severity | Finding | Where | Suggested fix |
+|---|---|---|---|
+| High before launch | No security headers. The dev server's response has no CSP, HSTS, `X-Content-Type-Options`, `Referrer-Policy` or `frame-ancestors`, and it sends `X-Powered-By: Next.js`. | `next.config.ts` | Add them in Step 7, and set `poweredByHeader: false`. The CSP must allow `app.cal.com` and `challenges.cloudflare.com`. Test bookings and the form on a preview afterwards. |
+| Medium | The rate limit lives in memory, so each Vercel instance counts separately and it resets when the instance does. Turnstile and the honeypot carry most of the load. | `src/lib/rate-limit.ts` | Swap to `@upstash/ratelimit` before launch, or as soon as any spam gets through. |
+| Medium | If the Turnstile site key is missing in production, the widget can't work and every real message is refused. It fails safely, but enquiries stop with an unhelpful "wait for the tick" message. The `spamCheckMissing` notice only covers the script not loading. | `Turnstile.tsx`, `src/lib/turnstile.ts`, Vercel settings | Set the keys, then send one real test message from the production URL. |
+| Low | Failed validation counts toward the 10-an-hour limit, so someone correcting a form repeatedly could be locked out. | `src/app/contact/actions.ts` | Check the limit only after validation passes, leaving the honeypot and Turnstile where they are. |
+| Low | The rate limit's IP header can only be trusted on Vercel. Elsewhere a visitor could fake it. | `src/app/contact/actions.ts` | No change while hosted on Vercel. Revisit if hosting moves. |
+| Low | C1 control characters (`\u0080`–`\u009F`) aren't stripped from form input. Line breaks are handled, so a name still can't add lines to an email. | `src/lib/enquiry.ts` | Extend `controlChars`. |
+| Low | `@types/node`, `@types/react`, `@types/react-dom`, `eslint` and `typescript` use `^` ranges, and `CLAUDE.md` says to pin versions. | `package.json` | Pin them after the redesign. |
+| Low | `npm audit` reports 17 issues (16 moderate, 1 high), all in dev tooling under ESLint. `npm audit --omit=dev` finds none. | `package-lock.json` | `npm audit fix` after the redesign, without `--force`. |
+| Low | If `calUsername` is ever set to null, the placeholder shows a source file path to visitors. | `BookingCalendar.tsx` | Keep it set in production. |
+
+Checked with nothing found:
+
+- **Secrets:** none in the repo, none in the production client bundle, and no `.env` file in git history. The one secret-pattern match, in `package-lock.json`, is part of a hash. The Turnstile "secret" in the source is Cloudflare's public test value, used only in development.
+- **Forms:** input is validated on the server, there's no raw HTML, and email is plain text. Logs carry no visitor details.
+- **Not present:** card data, body measurements, analytics, admin routes and webhooks. The last two need checking when Square is added.
+
+### Legal, honesty and copyright: open findings
+
+Clean: no invented reviews, ratings, counts, awards or press, no mill or brand names, no "Made in Australia", all prices in AUD, and no GST wording. No images are in the repo.
+
+Fonts, both under the SIL Open Font Licence through Google Fonts: Besley and Be Vietnam Pro. All icons and marks are drawn in this repo.
+
+| Location | Issue | Suggested fix |
+|---|---|---|
+| `site.ts` `payment[0]`, `booking.note`, `booking.terms`; shown on home, `/pricing`, `/book`, `/contact` | **LAWYER.** "Free" and "nothing to pay" sit beside an undecided travel fee. If a fee can apply, these lines could mislead. | Answer the `[TODO]`. If there's any fee, state it wherever "free" appears and have the wording checked. |
+| `site.ts` `prices`; `/pricing` | **LAWYER.** The site says suits are shipped from Saigon but not who pays shipping or import costs. A "from" price must include compulsory charges, and must be a price someone can really get. | Confirm the `from` prices include shipping and any duty, and that `$890`, `$129` and `$790` are achievable. Then confirm the drafts. |
+| `site.ts` `prices[0].includes`; `/pricing` intro | "Your choice of lapels, buttons and lining" is listed as included, while the page says the final price depends on the fabric and details chosen. | Say which choices can change the price. |
+| `site.ts` `payment[1]` | **LAWYER.** The `[TODO]` example ("once your fabric is cut") implies a non-refundable deposit, with no Australian Consumer Law wording beside it. | When filling it in, add "This doesn't change your rights under Australian Consumer Law." and have the deposit terms checked. |
+| `site.ts` `faq[1]`, `faq[2]` | **LAWYER.** Alteration and fit guarantee terms are undecided. The Consumer Law sentence is already there and should stay. | Have the final terms checked. Never write "no refunds". |
+| Privacy policy, not built | **LAWYER.** It must cover names, contact details, body measurements and photos. It must also cover data going overseas: measurements to the Saigon workshop, and data to Cal.com, Resend, Cloudflare and Square. IP addresses are checked by Cloudflare and briefly held for the rate limit. | Draft it in Step 6. Ask whether the form needs a fuller collection notice naming these providers. |
+| `site.ts` `origin`, `intro`, `tagline` | **LAWYER.** "Made in Saigon" names a city, and the first screen doesn't say Vietnam. Fabric origin isn't stated. | Ask whether this is clear enough as a country-of-origin claim. `intro` is the contract's wording, so it was left. |
+| `site.ts` `name`; footer | **LAWYER.** "Saigon Tailors" hasn't been checked as a business name, trademark or domain, and the ABN is a `[TODO]`. Nothing was checked in this step. | Search ASIC and IP Australia before printing or buying anything. |
+| `site.ts` `photos` | Sources are all `[TODO]`. The `fitter` alt example shows a customer, who would have to agree to appear. | Record each source and get written consent from anyone pictured. |
+| Cal.com account | Visitors see the owner's personal name in the booking link (`gia-thinh-nguyen`) and on the calendar. | The owner's choice. Change the username and `calUsername` together if the business name should show. |
+
+### Not built: GUIDE Steps 6 and 7
+
+- **Step 6:** the three policy pages. `/policies/privacy`, `/refunds` and `/order-terms` return 404, yet the footer, `/pricing` and the form's privacy line all link to them. **LAWYER:** the review is required before launch.
+- **Step 7:** `sitemap.xml`, `robots.txt`, analytics, security headers, an on-brand 404 page and a Lighthouse run. There's also no favicon or social share image.
+
+### Not checked
+
+- A real message or booking, end to end, in this step.
+- Headers on a production deployment. The check above ran against the dev server, and `next.config.ts` sets none.
+- Whether Cal.com or Turnstile set cookies. The privacy policy needs this answer.

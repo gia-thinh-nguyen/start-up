@@ -183,7 +183,7 @@ export function EnquiryForm() {
           {pending ? "Sending your message." : ""}
         </p>
         <p className="mt-3 max-w-measure text-small">
-          We only use your details to reply to you. See our{" "}
+          We use your details to reply to you. See our{" "}
           <Link href={site.policies.privacy.href} className="swap underline">
             privacy policy
           </Link>

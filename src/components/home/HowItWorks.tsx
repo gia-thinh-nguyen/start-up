@@ -53,7 +53,7 @@ export function HowItWorks() {
     <section aria-labelledby="how-it-works" className="pt-section">
       <div className="mx-auto grid max-w-page gap-5 px-gutter pb-6 lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg lg:pb-10">
         <h2 id="how-it-works" className="lg:col-span-6">
-          How it works
+          From booking to final fitting
         </h2>
         <div className="max-w-measure lg:col-span-5 lg:col-start-7">
           <p className="font-display text-subheading">

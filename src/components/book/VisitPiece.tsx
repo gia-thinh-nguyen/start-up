@@ -14,7 +14,7 @@ export function VisitPiece() {
       <div className="mx-auto max-w-page px-gutter pt-2 pb-[calc(var(--spacing-hem)+0.5rem)] lg:px-gutter-lg lg:pb-[calc(var(--spacing-hem-lg)+1rem)] xl:flex xl:items-start xl:justify-between xl:gap-8">
         <div>
           <h1 id="book-title">{site.booking.label}</h1>
-          <h2 className="mt-1 text-subheading lg:mt-3">{event.name}</h2>
+          <p className="mt-1 font-display text-subheading lg:mt-3">{event.name}</p>
         </div>
 
         <dl className="mt-5 grid grid-cols-2 gap-x-4 md:grid-cols-[auto_auto] md:justify-start md:gap-x-8 xl:mt-0">

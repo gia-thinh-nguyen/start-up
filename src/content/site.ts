@@ -113,7 +113,7 @@ const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
 export const site: Site = {
   name: "Saigon Tailors",
   tagline: "Tailored in Saigon, Fitted in Melbourne",
-  origin: "Made in Saigon. Measured and fitted in Melbourne.",
+  origin: "Made in Saigon, Vietnam. Measured and fitted in Melbourne.",
   intro:
     "Made-to-measure suits, made in Saigon. We measure and fit you at your home or office in Melbourne.",
   description:
@@ -167,7 +167,7 @@ export const site: Site = {
   process: [
     {
       title: "Book",
-      text: "Choose a time online. This first visit is your free measurement, and there's nothing to pay when you book.",
+      text: "Choose a time online. This first visit is your free measurement.",
     },
     {
       title: "Measure",
@@ -190,7 +190,7 @@ export const site: Site = {
   places: [
     {
       city: "Saigon",
-      text: "Your suit is cut and sewn to your measurements in Saigon, Vietnam. [TODO: a sentence about the workshop, e.g. who sews the suits and how long they've been doing it]",
+      text: "Your measurements go to Saigon, Vietnam, and your suit is cut and sewn there. [TODO: a sentence about the workshop, e.g. who sews the suits and how long they've been doing it]",
     },
     {
       city: "Melbourne",
