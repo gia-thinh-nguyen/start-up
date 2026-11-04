@@ -34,7 +34,8 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 - Routes today: `/`, `/pricing`, `/book`, `/contact`. The footer links to `/policies/privacy`, `/policies/refunds` and `/policies/order-terms`, which are not built yet.
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
 - Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
-- Undecided, shown on the site as `[TODO]` markers: wedding lead time, fit guarantee, alteration terms, when the deposit stops being refundable, and a sentence about the workshop.
+- Undecided, shown on the site as `[TODO]` markers: wedding lead time, fit guarantee, alteration terms, and a sentence about the workshop.
+- The deposit is never refunded for a change of mind (owner, 5 November 2026). The site says so with the Australian Consumer Law line beside it, and never "non-refundable" or "no refunds", because a refund is still owed if the suit can't be delivered or has a major fault.
 - The tagline is not final.
 - Suits are from $410, the owner's figure (4 November 2026), which already includes $30 shipping from Saigon to Melbourne; the site says "including shipping" and doesn't show the $30. A shirt is an add-on to a suit order, from $85, and ships with the suit at no extra shipping cost. The wedding package has no published price: visitors ask for a group price.
 - Not registered for GST, so prices don't mention it.

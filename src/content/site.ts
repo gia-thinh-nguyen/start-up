@@ -275,7 +275,10 @@ export const site: Site = {
       label: "Deposit",
       value: "40% when you place your order",
       detail:
-        "Paid once you've chosen your fabric and details, and you know the full price. [TODO: when the deposit stops being refundable, e.g. once your fabric is cut]",
+        // Owner, 5 November 2026: the deposit is never refunded for a change of mind. It can't say "never
+        // refundable": Australian Consumer Law still gives a refund if we can't deliver or the suit has a
+        // major fault, and the site must not suggest otherwise. Have this checked with the order terms.
+        "Paid once you've chosen your fabric and details, and you know the full price. Your suit is made to your measurements, so the deposit isn't refunded if you change your mind. This doesn't change your rights under Australian Consumer Law.",
     },
     {
       label: "Balance",

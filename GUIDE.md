@@ -27,7 +27,7 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 - [ ] Standard turnaround (weeks) and the minimum lead time for weddings
 - [ ] Studio address or home-based? Home-visit service area and any travel fee
 - [ ] Fit guarantee terms (e.g. free alterations within X days of the final fitting)
-- [ ] When the deposit becomes non-refundable
+- [x] When the deposit becomes non-refundable (never refunded for a change of mind; see `docs/legal.md`)
 - [ ] Trading name: Saigon Cut or Saigon Cut Tailoring
 - [ ] Tagline: "Tailored in Saigon, Fitted in Melbourne" or "The Sharpest Cut from Saigon to Melbourne"
 
