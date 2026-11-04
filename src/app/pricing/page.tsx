@@ -15,7 +15,7 @@ export default function PricingPage() {
   return (
     <div className="overflow-x-clip">
       <section className="surface-table pb-[calc(var(--spacing-hem)+2.5rem)] lg:pb-[calc(var(--spacing-hem-lg)+3.5rem)]">
-        <div className="mx-auto flex max-w-page items-end justify-between gap-6 px-gutter pt-2 pb-4 lg:px-gutter-lg lg:pt-6 lg:pb-8">
+        <div className="mx-auto flex max-w-page items-end justify-between gap-4 px-gutter pt-2 min-[20rem]:gap-6 pb-4 lg:px-gutter-lg lg:pt-6 lg:pb-8">
           <h1>Prices</h1>
           <p className="max-w-40 pb-1 text-right text-small md:max-w-none lg:pb-3 lg:text-body">
             {site.priceNote} {site.booking.note}.

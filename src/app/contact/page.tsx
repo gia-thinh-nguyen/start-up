@@ -18,7 +18,7 @@ export default function ContactPage() {
         <CutEdge shape="collar" fill="fill-paper" />
         <CollarNotch />
 
-        <div className="mx-auto grid max-w-page px-gutter lg:grid-cols-12 lg:gap-x-8 lg:px-gutter-lg">
+        <div className="mx-auto grid max-w-page grid-cols-1 px-gutter lg:grid-cols-12 lg:gap-x-8 lg:px-gutter-lg">
           <section
             aria-labelledby="contact-title"
             className="pt-2 pb-[calc(var(--spacing-hem)+2.5rem)] lg:col-span-6 lg:pb-[calc(var(--spacing-hem-lg)+4rem)]"
