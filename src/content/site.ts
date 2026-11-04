@@ -91,8 +91,10 @@ export type Site = {
   };
   contact: {
     phone: string;
+    phoneHref: string;
     email: string;
-    instagram: Link;
+    /** Left out for now (owner, 5 November 2026). Set it to show it on /contact and in the footer. */
+    instagram?: Link;
   };
   serviceArea: {
     summary: string;
@@ -157,18 +159,19 @@ export const site: Site = {
   },
 
   contact: {
-    phone: "[TODO: phone number]",
-    email: "[TODO: hello@ email address]",
-    instagram: {
-      label: "[TODO: @instagram handle]",
-      href: "[TODO: Instagram profile URL]",
-    },
+    phone: "0435 663 904",
+    // tel: links can't contain spaces, so the dialled number is kept separately.
+    phoneHref: "tel:+61435663904",
+    email: "enquiries@saigontailors.com.au",
   },
 
+  // The owner's area and fee (5 November 2026). The fee is charged at the final fitting, never at the
+  // measurement, so "Measurement is free" stays true for everyone.
   serviceArea: {
-    summary: "[TODO: e.g. Home and office visits across Melbourne]",
+    summary: "Your home or office, within 40 km of Keysborough.",
     suburbs: [],
-    travelFee: "[TODO: travel fee, or remove if none]",
+    travelFee:
+      "No travel fee within 25 km of Keysborough. From 25 to 40 km it's $15, added to your balance at the final fitting. Further out, ask us for a quote.",
   },
 
   turnaroundWeeks,

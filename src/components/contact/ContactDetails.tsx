@@ -17,14 +17,16 @@ export function ContactDetails() {
   return (
     <dl className="space-y-4">
       <Detail term="Phone">
-        <ContactLink text={contact.phone} href={`tel:${contact.phone}`} />
+        <ContactLink text={contact.phone} href={contact.phoneHref} />
       </Detail>
       <Detail term="Email">
         <ContactLink text={contact.email} href={`mailto:${contact.email}`} />
       </Detail>
-      <Detail term="Instagram">
-        <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
-      </Detail>
+      {contact.instagram && (
+        <Detail term="Instagram">
+          <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
+        </Detail>
+      )}
       <Detail term="Where we fit">
         <WithTodos text={serviceArea.summary} />
         {serviceArea.suburbs.length > 0 && (

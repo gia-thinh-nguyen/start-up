@@ -24,6 +24,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 
 - The customer path is: book, measure, choose fabric, made in Saigon, final fitting in Melbourne. Any changes are marked at the fitting and made in Saigon, so the suit goes back and is fitted again when it returns (owner, 4 November 2026). If the fit isn't right, the owner covers everything, alteration or remake and the shipping both ways, because it's their fault. The return time, and what happens when a customer changes something they chose, are `[TODO]`.
 - Payment: free measurement, 40% deposit when ordering, balance at the final fitting. Payments are taken outside the site with Square.
+- Service area (owner, 5 November 2026): the owner is based in Keysborough and visits homes and offices within 40 km. No travel fee within 25 km; from 25 to 40 km, $15, added to the balance at the final fitting and never charged at the measurement, so "Measurement is free" stays true; further out is by quote.
 - Bookings run through a Cal.com calendar embedded in an iframe on `/book`.
 - People not ready to book use the enquiry form on `/contact`, protected by a honeypot, Cloudflare Turnstile and rate limiting.
 - On phones, a sticky "Book a fitting" bar stays on screen on every page except `/book`.
@@ -33,7 +34,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 - Routes today: `/`, `/pricing`, `/book`, `/contact`. The footer links to `/policies/privacy`, `/policies/refunds` and `/policies/order-terms`, which are not built yet.
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
 - Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
-- Undecided, shown on the site as `[TODO]` markers: wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, and a sentence about the workshop.
+- Undecided, shown on the site as `[TODO]` markers: wedding lead time, ABN, fit guarantee, alteration terms, when the deposit stops being refundable, and a sentence about the workshop.
 - The tagline is not final.
 - Suits are from $410, the owner's figure (4 November 2026), which already includes $30 shipping from Saigon to Melbourne; the site says "including shipping" and doesn't show the $30. A shirt is an add-on to a suit order, from $85, and ships with the suit at no extra shipping cost. The wedding package has no published price: visitors ask for a group price.
 - Not registered for GST, so prices don't mention it.

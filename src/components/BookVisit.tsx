@@ -27,8 +27,9 @@ export function BookVisit() {
           <p className="mt-2 max-w-measure text-lede">
             {event.where}. {terms} {noObligation}
           </p>
+          {/* The travel line names the area too, so the summary would only repeat "home or office" and Keysborough. */}
           <p className="mt-2 mb-6 max-w-measure">
-            <WithTodos text={serviceArea.summary} /> <WithTodos text={serviceArea.travelFee} />
+            <WithTodos text={serviceArea.travelFee} />
           </p>
           <BookButton size="lg" />
         </div>

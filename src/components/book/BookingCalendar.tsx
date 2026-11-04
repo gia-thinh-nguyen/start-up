@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 /** The Cal.com calendar, or a labelled placeholder until Cal.com is connected. */
 export function BookingCalendar() {
   const { calUsername, event } = site.booking;
-  const { phone } = site.contact;
+  const { phone, phoneHref } = site.contact;
 
   if (!calUsername) {
     return (
@@ -32,7 +32,7 @@ export function BookingCalendar() {
           {isTodo(phone) ? (
             <WithTodos text={phone} />
           ) : (
-            <a href={`tel:${phone}`} className="swap underline">
+            <a href={phoneHref} className="swap underline">
               {phone}
             </a>
           )}

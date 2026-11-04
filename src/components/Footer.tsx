@@ -51,14 +51,16 @@ export function Footer() {
             <FooterHeading>Contact</FooterHeading>
             <ul className="space-y-2.5">
               <li>
-                <ContactLink text={contact.phone} href={`tel:${contact.phone}`} />
+                <ContactLink text={contact.phone} href={contact.phoneHref} />
               </li>
               <li>
                 <ContactLink text={contact.email} href={`mailto:${contact.email}`} />
               </li>
-              <li>
-                <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
-              </li>
+              {contact.instagram && (
+                <li>
+                  <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
+                </li>
+              )}
             </ul>
           </section>
 

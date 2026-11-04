@@ -28,7 +28,7 @@ export default function ContactPage() {
               Write to us if you have a question about fabric, timing or a wedding party, or you&apos;re
               not ready to book yet. We&apos;ll get back to you by email or phone. You can also{" "}
               <a href="#reach-us" className="swap underline">
-                call, email or message us on Instagram
+                call or email us
               </a>
               .
             </p>
