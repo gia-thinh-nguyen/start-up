@@ -115,7 +115,7 @@ Done when: a test booking made from your site lands in the owner's Google Calend
 - [ ] Phone, email, service area and Instagram link
 - [ ] Short enquiry form (name, contact details, message) for people not ready to book
 - [ ] Form protection: server-side validation, a honeypot field, Cloudflare Turnstile and rate limiting
-- [ ] Form emails sent through Resend to the hello@ address (verify your domain in Resend first)
+- [ ] Form emails sent through the Zoho mailbox by SMTP, using a Zoho app-specific password
 
 Done when: a real enquiry arrives in the inbox, and a submission with the honeypot field filled in is rejected.
 

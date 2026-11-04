@@ -1,23 +1,46 @@
 import "server-only";
+import nodemailer, { type Transporter } from "nodemailer";
 import type { Enquiry } from "@/lib/enquiry";
 
+let transport: Transporter | undefined;
+
+function smtp() {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
+
+  const port = Number(SMTP_PORT || 465);
+  transport ??= nodemailer.createTransport({
+    host: SMTP_HOST,
+    port,
+    // 465 is encrypted from the start; 587 upgrades to TLS, which requireTLS makes compulsory.
+    secure: port === 465,
+    requireTLS: port !== 465,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
+  });
+  return transport;
+}
+
 /**
- * Emails an enquiry to the hello@ inbox through Resend.
+ * Emails an enquiry to the business inbox through the business's own Zoho mailbox (SMTP).
  *
- * Sent as plain text only, so nothing a visitor types can become HTML in the inbox.
- * Resend receives the enquiry, so the privacy policy (Step 6) must name it.
+ * Sent as plain text only, so nothing a visitor types can become HTML in the inbox. SMTP_PASS should be a Zoho
+ * app-specific password, so it can be revoked without changing the mailbox's own login.
  */
 export async function sendEnquiryEmail(enquiry: Enquiry) {
-  const apiKey = process.env.RESEND_API_KEY;
+  const transport = smtp();
   const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
+  // Zoho only sends from the signed-in mailbox or one of its aliases.
+  const from = process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER;
 
-  if (!apiKey || !to || !from) {
+  if (!transport || !to || !from) {
     if (process.env.NODE_ENV === "development") {
-      console.info("[enquiry] Resend is not configured, so the email was not sent.");
+      console.info("[enquiry] SMTP is not configured, so the email was not sent.");
       return;
     }
-    throw new Error("Resend environment variables are not set");
+    throw new Error("SMTP environment variables are not set");
   }
 
   const text = [
@@ -31,22 +54,13 @@ export async function sendEnquiryEmail(enquiry: Enquiry) {
     enquiry.message,
   ].join("\n");
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: enquiry.email,
-      subject: `Website enquiry from ${enquiry.name}`,
-      text,
-    }),
-    signal: AbortSignal.timeout(10_000),
+  // Never log the enquiry or the server's reply, only that it failed (the caller logs the error message).
+  await transport.sendMail({
+    from,
+    to,
+    replyTo: enquiry.email,
+    // A line break in a header could add headers of the visitor's own, so the name is kept to one line.
+    subject: `Website enquiry from ${enquiry.name.replace(/[\r\n]+/g, " ")}`,
+    text,
   });
-
-  // Log the status only, never the enquiry itself.
-  if (!response.ok) throw new Error(`Resend responded ${response.status}`);
 }

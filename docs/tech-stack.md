@@ -25,7 +25,7 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 | Payments | Square | Deposits and balances are taken in person, including at home/office visits; card reader + invoices | Per-transaction fees only |
 | Clients and orders (launch) | Airtable (or Notion / Google Sheets) | Track measurements, fabric, deposit, production stage | Free tier |
 | Client accounts (later) | Supabase (Postgres + login) | Saved measurements behind a proper login with access rules | Free tier to start |
-| Email | Google Workspace (hello@ address) + Resend for form emails | Professional address; reliable website emails | Low monthly |
+| Email | Zoho Mail (paid plan): the business mailbox, which also sends the contact form's emails by SMTP (`nodemailer`) | One provider for the inbox and the website's email; no extra company sees enquiries | Low monthly |
 | Analytics | Plausible or GA4 | Track "Book a fitting" clicks and completed bookings | Free to low |
 | Instagram feed | Behold (after launch) | Simple Instagram embed for Next.js | Free tier |
 | Spam protection | Cloudflare Turnstile + honeypot field + rate limiting | Keeps bots off the enquiry form without annoying real people | Free |

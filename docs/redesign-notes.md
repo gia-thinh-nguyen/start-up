@@ -40,7 +40,7 @@ The Pattern Card: each page is a flat ochre tailor's pattern piece, with cut edg
 - **"Free" and "nothing to pay":** these sit beside an undecided travel fee.
 - **"From" prices:** whether they include shipping and import costs, and whether they're achievable.
 - **Deposit, alteration and fit guarantee wording:** keep the Australian Consumer Law line.
-- **Privacy policy:** body measurements, and data going to Saigon, Cal.com, Resend, Cloudflare and Square.
+- **Privacy policy:** body measurements, and data going to Saigon, Cal.com, Zoho, Cloudflare, Square and Stripe.
 - **Origin:** whether "Made in Saigon" is enough as a country-of-origin claim.
 - **The business name:** before you print or buy anything.
 
@@ -369,7 +369,7 @@ Fonts, both under the SIL Open Font Licence through Google Fonts: Besley and Be 
 | `site.ts` `prices[0].includes`; `/pricing` intro | "Your choice of lapels, buttons and lining" is listed as included, while the page says the final price depends on the fabric and details chosen. | Say which choices can change the price. |
 | `site.ts` `payment[1]`; `/pricing` | **LAWYER.** The owner's rule (5 November 2026): the 40% deposit is never refunded for a change of mind. The site says "the deposit isn't refunded if you change your mind" with the Australian Consumer Law sentence beside it. | Check the wording, and whether keeping the full 40% is fair under the unfair contract terms rules. Put the same rule in the order terms. |
 | `site.ts` `faq[1]`, `faq[2]` | **LAWYER.** Alteration and fit guarantee terms are undecided. The Consumer Law sentence is already there and should stay. | Have the final terms checked. Never write "no refunds". |
-| Privacy policy, not built | **LAWYER.** It must cover names, contact details, body measurements and photos. It must also cover data going overseas: measurements to the Saigon workshop, and data to Cal.com, Resend, Cloudflare, Square and Stripe (the travel fee, with the customer's email). IP addresses are checked by Cloudflare and briefly held for the rate limit. | Draft it in Step 6. Ask whether the form needs a fuller collection notice naming these providers. |
+| Privacy policy, not built | **LAWYER.** It must cover names, contact details, body measurements and photos. It must also cover data going overseas: measurements to the Saigon workshop, and data to Cal.com, Zoho (which holds the enquiry emails), Cloudflare, Square and Stripe (the travel fee, with the customer's email). IP addresses are checked by Cloudflare and briefly held for the rate limit. | Draft it in Step 6. Ask whether the form needs a fuller collection notice naming these providers. |
 | `site.ts` `origin`, `intro`, `tagline` | **LAWYER.** "Made in Saigon" names a city, and the first screen doesn't say Vietnam. Fabric origin isn't stated. | Ask whether this is clear enough as a country-of-origin claim. `intro` is the contract's wording, so it was left. |
 | `site.ts` `name`; footer | **LAWYER.** "Saigon Tailors" hasn't been checked as a business name, trademark or domain, and the ABN is a `[TODO]`. Nothing was checked in this step. | Search ASIC and IP Australia before printing or buying anything. |
 | `site.ts` `photos` | Sources are all `[TODO]`. The `fitter` alt example shows a customer, who would have to agree to appear. | Record each source and get written consent from anyone pictured. |
