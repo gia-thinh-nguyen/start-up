@@ -121,7 +121,7 @@ export type Site = {
 const turnaroundWeeks = "3–4 weeks";
 const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
 /** Must match the event's length in Cal.com. */
-const visitMinutes = 45;
+const visitMinutes = 30;
 
 export const site: Site = {
   name: "Saigon Tailors",
@@ -180,7 +180,7 @@ export const site: Site = {
   stops: [
     {
       title: "Measured in Melbourne",
-      // \u2011 is a non-breaking hyphen, so "45-minute" never splits across lines.
+      // \u2011 is a non-breaking hyphen, so "30-minute" never splits across lines.
       text: `Free, at your home or office. A ${visitMinutes}\u2011minute visit.`,
     },
     {

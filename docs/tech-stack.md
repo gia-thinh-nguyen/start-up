@@ -43,7 +43,7 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 ### Cal.com setup
 
 - **Event types** (home visits only, no studio). The slug and length must match `booking.event` in `src/content/site.ts`:
-  - Home or office visit (`home-visit`), 45 min, Melbourne metro only, attendee enters an address, 30 min travel buffer
+  - Home or office visit (`home-visit`), 30 min, Melbourne metro only, attendee enters an address, 30 min travel buffer
   - Wedding party consult: after launch, with the Weddings page. Decide first whether it includes measuring.
   - Final fitting, 30 min (hidden: private link sent to clients, not shown publicly)
 - **Booking questions:** occasion, date needed by, number of suits (for wedding parties), budget range, style references (link or upload), mobile number for SMS, how they heard about you
