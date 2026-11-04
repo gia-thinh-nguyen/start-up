@@ -4,7 +4,7 @@ import { site } from "@/content/site";
 
 /** The short piece of card above the calendar: what the visit is and that it's free. */
 export function VisitPiece() {
-  const { event, terms } = site.booking;
+  const { event, noObligation } = site.booking;
   const [measurement] = site.payment;
 
   return (
@@ -31,7 +31,7 @@ export function VisitPiece() {
           <div>
             <dt className="text-small font-medium md:text-body">{measurement.label}</dt>
             <dd className="font-display text-numeral">{measurement.value}</dd>
-            <dd className="mt-1.5 text-small md:text-body">{terms}</dd>
+            <dd className="mt-1.5 text-small md:text-body">{noObligation}</dd>
           </div>
 
           <div className="col-span-2 mt-3 text-small md:text-body lg:mt-5">

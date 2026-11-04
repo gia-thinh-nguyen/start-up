@@ -2,7 +2,7 @@ import { CalEmbed } from "@/components/book/CalEmbed";
 import { isTodo, WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 
-/** The Cal.com calendar, or a labelled placeholder until Cal.com is connected. */
+/** The Cal.com calendar for the home visit, or a labelled placeholder until Cal.com is connected. */
 export function BookingCalendar() {
   const { calUsername, event } = site.booking;
   const { phone, phoneHref } = site.contact;
@@ -23,6 +23,7 @@ export function BookingCalendar() {
   return (
     <CalEmbed
       calLink={calLink}
+      bookedPath="/book/confirm"
       otherWays={
         <>
           <a href={`https://cal.com/${calLink}`} className="swap underline">

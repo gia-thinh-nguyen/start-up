@@ -35,7 +35,7 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 
 | Tool | Strengths | Weaknesses | Verdict |
 |---|---|---|---|
-| **Cal.com** | Embeds natively in Next.js (React embed), so booking feels like part of the site; unlimited event types; custom booking questions; Google Calendar sync; webhooks to send bookings to Airtable/Supabase; free for one user; SMS and WhatsApp reminder workflows on every plan | SMS to Australian numbers uses paid credits (only US/Canada SMS is free); its built-in payments are Stripe-only (not needed, since booking is free) | **Pick** |
+| **Cal.com** | Embeds natively in Next.js (React embed), so booking feels like part of the site; unlimited event types; custom booking questions; Google Calendar sync; webhooks to send bookings to Airtable/Supabase; free for one user; SMS and WhatsApp reminder workflows on every plan | SMS to Australian numbers uses paid credits (only US/Canada SMS is free); its built-in payments are Stripe-only and can't vary by address, so the site takes the $15 travel fee through its own Stripe account instead | **Pick** |
 | Square Appointments | Free plan for one staff member includes unlimited SMS and email reminders in Australia; same app as Square payments; customer directory for notes | Booking page looks like Square, less control over design and questions | Best alternative if you want booking, payments and client notes in one app |
 | Calendly | Polished, well known | SMS reminders, branding removal and workflows are on paid plans | Skip |
 | Acuity | Good intake forms | Only makes sense on Squarespace | Only for the no-code path |
@@ -43,7 +43,14 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 ### Cal.com setup
 
 - **Event types** (home visits only, no studio). The slug and length must match `booking.event` in `src/content/site.ts`:
-  - Home or office visit (`home-visit`), 30 min, Melbourne metro only, attendee enters an address, 30 min travel buffer
+  - Home or office visit (`home-visit`), 30 min, no price in Cal.com, attendee enters an address. The only event on `/book`.
+    - **Requires confirmation: off.** Bookings are confirmed at once; the site cancels the ones that are outside the area or don't pay the travel fee.
+    - **Booking question:** Postcode, required, short text, identifier `postcode` (`booking.event.postcodeField` in `site.ts`).
+    - **Travel time:** Limits → "After event" buffer (60 minutes, owner, 5 November 2026). Only "after", or the gap doubles.
+    - **Description** (Cal.com puts it in the confirmation email): say that visits 25 to 40 km from Keysborough pay the $15 travel fee straight after booking, and that unpaid bookings are cancelled after 30 minutes.
+    - **Redirect on booking** (optional): `https://<site>/book/confirm`, with "Forward parameters" on. It sends people who book on cal.com directly (the "Book on Cal.com" fallback link) to the payment step. Test that the embedded calendar still behaves with it on.
+  - **API key** (Settings → Developer → API keys) in `CAL_API_KEY`. The site uses it to read and cancel bookings.
+  - **Webhook** (Settings → Developer → Webhooks): `https://<site>/api/cal-webhook`, trigger "Booking created", with a secret in `CAL_WEBHOOK_SECRET`. It settles the fee even if the customer closes the page right after booking.
   - Wedding party consult: after launch, with the Weddings page. Decide first whether it includes measuring.
   - Final fitting, 30 min (hidden: private link sent to clients, not shown publicly)
 - **Booking questions:** occasion, date needed by, number of suits (for wedding parties), budget range, style references (link or upload), mobile number for SMS, how they heard about you
@@ -76,10 +83,16 @@ Keep client measurements and personal details **out of the CMS**. They go in Air
 
 ## Payments: Square
 
-**Payment model:** booking and measurement are free. Customers pay a 40% deposit when they place the order (after measuring and choosing fabric), and the balance at the final fitting.
+**Travel fee:** the one payment taken online, through Stripe, not Square (owner, 5 November 2026). $15 for visits 25 to 40 km from Keysborough, paid on Stripe's hosted payment page straight after booking; the page expires after 30 minutes and the booking is then cancelled. It's refunded if the customer cancels at least 24 hours ahead, and always if we cancel; refunds are made by hand in Stripe. The privacy policy must name Stripe.
+
+- Package: `stripe` (official, pinned). Code: `src/lib/booking.ts` decides each booking; `src/app/book/confirm` shows the result; `src/app/api/stripe-webhook` cancels bookings whose payment page expired.
+- Stripe dashboard: a webhook to `https://<site>/api/stripe-webhook` for the event `checkout.session.expired`, with its signing secret in `STRIPE_WEBHOOK_SECRET`. The secret key goes in `STRIPE_SECRET_KEY`. Use test keys until launch.
+- No database: each booking's state is its status in Cal.com and its payment page in Stripe.
+
+**Payment model:** the measurement is free. Customers pay a 40% deposit when they place the order (after measuring and choosing fabric), and the balance at the final fitting.
 
 - Square's card reader works anywhere, including home/office visits, for both the deposit and the balance.
 - Square Invoices cover anyone paying remotely.
 - Square Gift Cards cover the later gift-voucher phase.
 
-Card fees as of Oct 2026 are about 1.6% in person and 2.2% online in Australia; check current rates. Only add Stripe if you later build a custom online checkout.
+Card fees as of Oct 2026 are about 1.6% in person and 2.2% online in Australia; check current rates.

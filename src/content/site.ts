@@ -66,17 +66,17 @@ export type Site = {
   description: string;
   booking: Link & {
     note: string;
-    terms: string;
     /** What happens before any money changes hands. */
     beforeYouPay: string;
     noObligation: string;
-    depositNote: string;
     /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
     calUsername: string | null;
-    /** The Cal.com event type shown on the booking page. */
+    /** The Cal.com event type shown on the booking page. The site settles the travel fee after it's booked. */
     event: {
-      /** Must match the event's URL slug in Cal.com. */
+      /** Must match the event's URL slug in Cal.com. Bookings of other events are left alone. */
       slug: string;
+      /** Must match the identifier of the required Postcode question on the event in Cal.com. */
+      postcodeField: string;
       name: string;
       /** Must match the event's length in Cal.com. */
       minutes: number;
@@ -99,7 +99,17 @@ export type Site = {
   serviceArea: {
     summary: string;
     suburbs: string[];
+    /** Driving distances in km from Keysborough: no fee up to freeKm, the fee up to maxKm, a quote beyond. */
+    freeKm: number;
+    maxKm: number;
+    /** Whole AUD, paid through Stripe straight after booking. */
+    feeAud: number;
+    /** How long a booking that owes the fee is held before it's cancelled. Stripe's shortest is 30. */
+    payWithinMinutes: number;
     travelFee: string;
+    feeRefund: string;
+    /** Sent to the customer in Cal.com's cancellation email, so they read as complete sentences. */
+    cancelReasons: { outside: string; unpaid: string };
   };
   turnaroundWeeks: string;
   weddingLeadTime: string;
@@ -122,6 +132,11 @@ const turnaroundWeeks = "3–4 weeks";
 const weddingLeadTime = "[TODO: minimum wedding lead time, e.g. 3 months]";
 /** Must match the event's length in Cal.com. */
 const visitMinutes = 30;
+// The owner's area and fee (5 November 2026), by driving distance from Keysborough.
+const freeKm = 25;
+const maxKm = 40;
+const feeAud = 15;
+const payWithinMinutes = 30;
 
 export const site: Site = {
   name: "Saigon Tailors",
@@ -134,13 +149,12 @@ export const site: Site = {
     label: "Book a fitting",
     href: "/book",
     note: "Measurement is free",
-    terms: "Nothing to pay when you book.",
     beforeYouPay: "You choose your fabric and see the full price before you pay anything.",
     noObligation: "There's no obligation to order.",
-    depositNote: "If you go ahead, a 40% deposit places your order once you've chosen your fabric.",
     calUsername: "gia-thinh-nguyen",
     event: {
       slug: "home-visit",
+      postcodeField: "postcode",
       name: "Home or office visit",
       minutes: visitMinutes,
       where: "Your home or office in Melbourne",
@@ -165,13 +179,22 @@ export const site: Site = {
     email: "enquiries@saigontailors.com.au",
   },
 
-  // The owner's area and fee (5 November 2026). The fee is charged at the final fitting, never at the
-  // measurement, so "Measurement is free" stays true for everyone.
+  // The travel fee is paid through Stripe straight after booking (owner, 5 November 2026). It pays for the trip, so
+  // the measurement itself stays free; the fee must always sit beside "free" (see docs/redesign-notes.md).
   serviceArea: {
-    summary: "Your home or office, within 40 km of Keysborough.",
+    summary: `Your home or office, within ${maxKm} km of Keysborough.`,
     suburbs: [],
-    travelFee:
-      "No travel fee within 25 km of Keysborough. From 25 to 40 km it's $15, added to your balance at the final fitting. Further out, ask us for a quote.",
+    freeKm,
+    maxKm,
+    feeAud,
+    payWithinMinutes,
+    travelFee: `No travel fee within ${freeKm} km of Keysborough. From ${freeKm} to ${maxKm} km it's $${feeAud}, paid when you book. Further out, ask us for a quote.`,
+    // The owner's rule (5 November 2026). Have it checked with the refund policy.
+    feeRefund: `Cancel at least 24 hours before your visit and we'll refund the $${feeAud}. If we cancel, you always get it back.`,
+    cancelReasons: {
+      outside: `Your postcode is more than ${maxKm} km from Keysborough, or we couldn't find it. Send us a message from the contact page on our website and we'll give you a quote.`,
+      unpaid: `The $${feeAud} travel fee wasn't paid within ${payWithinMinutes} minutes, so we released the time. You're welcome to book again.`,
+    },
   },
 
   turnaroundWeeks,
@@ -269,7 +292,7 @@ export const site: Site = {
     {
       label: "Measurement",
       value: "Free",
-      detail: "Nothing to pay when you book or when you're measured.",
+      detail: "There's no charge to measure you, and no obligation to order.",
     },
     {
       label: "Deposit",
