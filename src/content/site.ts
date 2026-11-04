@@ -98,7 +98,6 @@ export type Site = {
   };
   serviceArea: {
     summary: string;
-    suburbs: string[];
     /** Driving distances in km from Keysborough: no fee up to freeKm, the fee up to maxKm, a quote beyond. */
     freeKm: number;
     maxKm: number;
@@ -183,7 +182,6 @@ export const site: Site = {
   // the measurement itself stays free; the fee must always sit beside "free" (see docs/redesign-notes.md).
   serviceArea: {
     summary: `Your home or office, within ${maxKm} km of Keysborough.`,
-    suburbs: [],
     freeKm,
     maxKm,
     feeAud,

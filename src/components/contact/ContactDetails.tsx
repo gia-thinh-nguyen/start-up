@@ -27,12 +27,7 @@ export function ContactDetails() {
           <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
         </Detail>
       )}
-      <Detail term="Where we fit">
-        <WithTodos text={serviceArea.summary} />
-        {serviceArea.suburbs.length > 0 && (
-          <span className="mt-1 block text-body">{serviceArea.suburbs.join(", ")}</span>
-        )}
-      </Detail>
+      {/* The footer already gives the area on every page; this line adds what it costs to get there. */}
       <Detail term="Travel">
         <WithTodos text={serviceArea.travelFee} />
       </Detail>
