@@ -3,7 +3,7 @@ import "server-only";
 /**
  * A simple rate limit kept in memory.
  *
- * Vercel runs the site as several short-lived copies that don't share memory, so this is
+ * Amplify runs the site as several short-lived copies that don't share memory, so this is
  * best-effort: a determined sender could get past it. Turnstile and the honeypot do most of
  * the work. If spam gets through, swap this file for @upstash/ratelimit (same function shape).
  */

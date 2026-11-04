@@ -6,7 +6,7 @@
 - **GST:** register once turnover reaches A$75,000 (or earlier if it suits you).
 - **Insurance:** public liability, especially for home and office visits.
 - **Order terms:**
-  - Deposit terms (e.g. the deposit becomes non-refundable once fabric is cut)
+  - Deposit terms: the owner's rule is that the 40% deposit is never refunded for a change of mind (5 November 2026). Ask the lawyer whether 40% is a fair amount to keep, since an unfair-terms challenge looks at whether the amount kept matches the real cost of a cancelled order.
   - What counts as an alteration vs a remake
   - How long the fit guarantee lasts
   - What happens if a client misses the final fitting

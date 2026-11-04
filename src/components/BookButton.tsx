@@ -6,13 +6,22 @@ const sizes = {
   lg: "px-7 py-4 text-lede",
 };
 
-export function BookButton({ size = "sm" }: { size?: keyof typeof sizes }) {
+/** The lantern booking button. It goes to /book unless it's given another step of booking, such as paying. */
+export function BookButton({
+  size = "sm",
+  href = site.booking.href,
+  label = site.booking.label,
+}: {
+  size?: keyof typeof sizes;
+  href?: string;
+  label?: string;
+}) {
   return (
     <Link
-      href={site.booking.href}
+      href={href}
       className={`notched inline-block font-semibold text-paper before:bg-lantern hover:before:bg-lantern-dark active:before:bg-lantern-dark ${sizes[size]}`}
     >
-      {site.booking.label}
+      {label}
     </Link>
   );
 }

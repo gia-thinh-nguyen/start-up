@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 /** Where a page closes, on card. The footer's edge rises over its bottom, so it leaves room for that. */
 export function BookVisit() {
-  const { event, terms, noObligation } = site.booking;
+  const { event, noObligation } = site.booking;
   const { serviceArea } = site;
 
   return (
@@ -25,7 +25,7 @@ export function BookVisit() {
         <div className="lg:col-span-7 lg:col-start-6 lg:self-end">
           <p className="font-display text-numeral">{event.minutes} minutes</p>
           <p className="mt-2 max-w-measure text-lede">
-            {event.where}. {terms} {noObligation}
+            {event.where}. {noObligation}
           </p>
           {/* The travel line names the area too, so the summary would only repeat "home or office" and Keysborough. */}
           <p className="mt-2 mb-6 max-w-measure">

@@ -1,6 +1,7 @@
 "use client";
 
 import Cal, { getCalApi } from "@calcom/embed-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 /** How long to wait for Cal.com before offering the other ways to book. */
@@ -20,8 +21,18 @@ function token(name: string) {
  * privacy policy (Step 6) must name it.
  *
  * `otherWays` is what to do if the calendar can't be used. It moves to the top if the calendar fails.
+ * Once a time is booked, the visitor goes to `bookedPath` with the booking's uid, where the travel fee is settled.
  */
-export function CalEmbed({ calLink, otherWays }: { calLink: string; otherWays: React.ReactNode }) {
+export function CalEmbed({
+  calLink,
+  bookedPath,
+  otherWays,
+}: {
+  calLink: string;
+  bookedPath: string;
+  otherWays: React.ReactNode;
+}) {
+  const router = useRouter();
   const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
 
   useEffect(() => {
@@ -51,10 +62,17 @@ export function CalEmbed({ calLink, otherWays }: { calLink: string; otherWays: R
         });
         cal("on", { action: "linkReady", callback: () => setStatus("ready") });
         cal("on", { action: "linkFailed", callback: () => setStatus("failed") });
+        cal("on", {
+          action: "bookingSuccessfulV2",
+          callback: (event) => {
+            const { uid } = event.detail.data;
+            if (uid) router.push(`${bookedPath}?uid=${encodeURIComponent(uid)}`);
+          },
+        });
       })
       .catch(() => setStatus("failed"));
     return () => clearTimeout(timeout);
-  }, []);
+  }, [bookedPath, router]);
 
   return (
     <>

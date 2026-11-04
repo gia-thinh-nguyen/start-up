@@ -40,13 +40,14 @@ export function Footer() {
     <footer className="surface-table relative">
       <HemEdge />
 
-      <div className="mx-auto grid max-w-page gap-12 px-gutter pt-10 pb-section lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg lg:pt-16">
-        <div className="lg:col-span-5">
+      <div className="mx-auto grid max-w-page grid-cols-1 gap-12 px-gutter pt-10 pb-section lg:grid-cols-12 lg:gap-8 lg:px-gutter-lg lg:pt-16">
+        <div className="lg:col-span-4">
           <p className="font-display text-title">{site.name}</p>
           <p className="mt-4 max-w-sm text-lede">{site.origin}</p>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-3 sm:gap-8 lg:col-span-7">
+        {/* Contact and Policies take their content's width so the email stays on one line. */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-[max-content_minmax(0,1fr)_max-content] sm:gap-8 lg:col-span-8">
           <section>
             <FooterHeading>Contact</FooterHeading>
             <ul className="space-y-2.5">

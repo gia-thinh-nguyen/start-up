@@ -1,13 +1,13 @@
 import "server-only";
+import { getSecret } from "@/lib/secrets";
 
-// Cloudflare's test secret: always passes. Only used in development.
+// Cloudflare's test secret: always passes. Used in development, where the widget uses the matching test site key.
 const testSecret = "1x0000000000000000000000000000000AA";
 
 /** Asks Cloudflare whether the Turnstile token from the form is genuine. Tokens are single-use. */
 export async function verifyTurnstile(token: string, ip: string | null) {
   const secret =
-    process.env.TURNSTILE_SECRET_KEY ||
-    (process.env.NODE_ENV === "development" ? testSecret : undefined);
+    process.env.NODE_ENV === "development" ? testSecret : await getSecret("TURNSTILE_SECRET_KEY");
   if (!secret) throw new Error("TURNSTILE_SECRET_KEY is not set");
   if (!token || token.length > 2048) return false;
 

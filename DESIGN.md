@@ -181,7 +181,7 @@ components:
 
 The site is a tailor's working pattern, marked by a hand you're about to meet. Every marketing page is mostly one flat ochre card laid on a navy cutting table. Sections are pieces cut from that card: their top edges carry real garment geometry (a neck curve, a shoulder slope, an armhole), drawn as inline SVG and rising over the piece before them. On the card, chalk draws the working marks: a dashed seam allowance inside each cut edge, triangular notches, a grainline double arrow, a punched hole. Timber is the Saigon ground, and the only sections set on it are the ones about Saigon.
 
-The world is flat, square and specific. There are no shadows, no radii, no soft gradients and no decorative motion; depth comes from one piece of card sitting on another, and a piece only sits on one that comes earlier in the process. Numbers carry the persuasion: $410, 40%, 45 minutes and Free are set in Besley numerals as the largest thing in their block. Unfilled facts stay visible as dashed `[TODO]` outlines, like a fitter's open question, rather than being hidden or invented.
+The world is flat, square and specific. There are no shadows, no radii, no soft gradients and no decorative motion; depth comes from one piece of card sitting on another, and a piece only sits on one that comes earlier in the process. Numbers carry the persuasion: $410, 40%, 30 minutes and Free are set in Besley numerals as the largest thing in their block. Unfilled facts stay visible as dashed `[TODO]` outlines, like a fitter's open question, rather than being hidden or invented.
 
 It refuses the luxury tailor (dark photography, hushed serif, gold) and the previous site (cream ground, high-contrast serif, red accent, hairlines). It is warm, plain and working, and it should never read as "too luxury".
 
@@ -236,7 +236,7 @@ A committed palette: ochre owns most of every marketing page, navy is both its i
 - **Title** (600, `clamp(2.75rem, …, 5.5rem)`, 1.1): every other page's h1, and the footer wordmark line. Leading stays at 1.1 so descenders clear the line below.
 - **Heading** (600, `clamp(2rem, …, 3.25rem)`, 1.08): h2.
 - **Subheading** (600, 1.375rem, 1.2): h3, price-piece names, footer column heads.
-- **Numeral** (700, `clamp(3.5rem, …, 7rem)`, 1, -0.03em): the figures that lead a block (45 minutes, Free, 40%, the lead price in home's Prices piece) in Besley.
+- **Numeral** (700, `clamp(3.5rem, …, 7rem)`, 1, -0.03em): the figures that lead a block (30 minutes, Free, 40%, the lead price in home's Prices piece) in Besley.
 - **Price / Price large** (700, `clamp(2.25rem, …, 4.5rem)` / `clamp(4rem, …, 6.5rem)`, 1): the "from" figure on each `/pricing` piece. On phones Price grows at `min(10vw, 18vw - 1.25rem)`, so a piece's figure leads it without crowding its list. The home swing tag keeps Price's weight and tracking but sets its own size, `--tag-price` (`clamp(2.25rem, 3.75vw, 3.75rem)`, 36px on phones), so the tag grows more slowly than the photo it hangs on.
 - **Wordmark** (600, `clamp(1.25rem, …, 1.75rem)`): "Saigon Tailors" in the header, about 22px on phones.
 - **Lede** (400, `clamp(1.0625rem, …, 1.375rem)`, 1.42): intro sentences, large buttons.
@@ -259,7 +259,7 @@ Mobile-first: most visitors arrive from Instagram on a phone. Content sits in a 
 
 A cut edge rises `hem` (3rem; `hem-lg` 4.5rem on desktop) over the piece before it, so the last block of every piece needs at least that much space below its content. The header is `header` (3.75rem; 5rem on desktop) tall on the navy table. On phones a 4rem lantern booking bar is fixed to the bottom of every page except `/book`, with a navy spacer so it never covers the end of the page and scroll padding so focus never lands under it.
 
-Pieces are full-width bands whose colour reaches the screen edge while their words keep to the page column; the long seam and the third price piece also reach past the column. Home's three numbered stops share one row grid: a 2.75rem numeral column beside the content on phones, and a 4.5rem numeral column plus 11 columns from 64rem, so every stop's numeral and heading line up on the same left edge. `/book` centres Cal.com in a `booker` (65rem) frame, or `booker-sm` (45rem) where Cal hides its event details below 1024px.
+Pieces are full-width bands whose colour reaches the screen edge while their words keep to the page column; the long seam and the third price piece also reach past the column. Home's three numbered stops share one row grid: a 2.75rem numeral column beside the content on phones, and a 4.5rem numeral column plus 11 columns from 64rem, so every stop's numeral and heading line up on the same left edge. `/book` is the ochre visit piece, then "Pick a time" and the calendar on chalk. `/book/confirm`, where the calendar sends people once they've booked, is one ochre piece cut with the collar: its h1 names the result ("You're booked", "Pay the travel fee", "We can't book that visit"), the visit's time leads as a Besley numeral with the day under it at heading size, and the lantern button is "Pay $15" or "Book a fitting". `/book` centres Cal.com in a `booker` (65rem) frame, or `booker-sm` (45rem) where Cal hides its event details below 1024px.
 
 Breakpoints are Tailwind's `sm` 40rem, `md` 48rem, `lg` 64rem and `xl` 80rem.
 

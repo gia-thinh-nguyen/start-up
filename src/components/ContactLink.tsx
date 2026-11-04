@@ -10,13 +10,23 @@ type Props = {
 export function ContactLink({ text, href, external }: Props) {
   if (isTodo(text) || isTodo(href)) return <WithTodos text={text} />;
 
+  // If an email address has to wrap on a narrow screen, it breaks after the @ rather than mid-word.
+  const [local, domain] = text.split("@");
+
   return (
     <a
       href={href}
       className="swap break-words underline"
       {...(external && { rel: "noopener noreferrer", target: "_blank" })}
     >
-      {text}
+      {domain === undefined ? (
+        text
+      ) : (
+        <>
+          {local}@<wbr />
+          {domain}
+        </>
+      )}
       {external && <span className="sr-only"> (opens in a new tab)</span>}
     </a>
   );

@@ -24,7 +24,8 @@ export function StickyBookButton() {
       >
         <span className="justify-self-end font-semibold">{site.booking.label}</span>
         <span aria-hidden="true" className="h-4 w-px bg-paper/45" />
-        <span className="text-fine">{site.booking.note}</span>
+        {/* Under 320px both halves can't fit on one line, so the note takes two. */}
+        <span className="text-fine max-[20rem]:whitespace-normal">{site.booking.note}</span>
       </Link>
     </div>
   );

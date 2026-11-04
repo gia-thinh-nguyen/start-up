@@ -199,7 +199,8 @@ async function shootPage(cdp, sessionId, options, page, viewport) {
       returnByValue: true,
       // The Next.js dev badge isn't part of the site, so keep it out of the screenshots.
       expression: `document.querySelector("nextjs-portal")?.remove(), ({
-        overflow: document.documentElement.scrollWidth - window.innerWidth,
+        // innerWidth grows with the overflow on a phone, so measure against the layout width instead.
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         h1s: document.querySelectorAll("h1").length,
       })`,
     },

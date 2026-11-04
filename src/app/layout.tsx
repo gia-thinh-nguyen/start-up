@@ -17,7 +17,8 @@ const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-be-vietnam-pro",
 });
 
-const isProduction = process.env.VERCEL_ENV === "production";
+// Set SITE_ENV=production on the live branch only, so every other build stays out of search results.
+const isProduction = process.env.SITE_ENV === "production";
 
 export const metadata: Metadata = {
   title: {

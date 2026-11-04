@@ -23,7 +23,7 @@ Saigon Cut is a Melbourne start-up selling made-to-measure suits: made in Saigon
 | Booking | Cal.com | MVP |
 | Payments | Square (card reader in person, Invoices remotely) | MVP |
 | Orders and clients | Airtable | MVP |
-| Email | Google Workspace (hello@) + Resend for form emails | MVP |
+| Email | Zoho Mail (business mailbox, also sends the form emails by SMTP) | MVP |
 | Spam protection | Cloudflare Turnstile + honeypot + rate limiting | MVP |
 | Analytics | Plausible or GA4 | MVP |
 | Fonts | Google Fonts | MVP |

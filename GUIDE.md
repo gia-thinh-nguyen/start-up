@@ -27,7 +27,7 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 - [ ] Standard turnaround (weeks) and the minimum lead time for weddings
 - [ ] Studio address or home-based? Home-visit service area and any travel fee
 - [ ] Fit guarantee terms (e.g. free alterations within X days of the final fitting)
-- [ ] When the deposit becomes non-refundable
+- [x] When the deposit becomes non-refundable (never refunded for a change of mind; see `docs/legal.md`)
 - [ ] Trading name: Saigon Cut or Saigon Cut Tailoring
 - [ ] Tagline: "Tailored in Saigon, Fitted in Melbourne" or "The Sharpest Cut from Saigon to Melbourne"
 
@@ -115,7 +115,7 @@ Done when: a test booking made from your site lands in the owner's Google Calend
 - [ ] Phone, email, service area and Instagram link
 - [ ] Short enquiry form (name, contact details, message) for people not ready to book
 - [ ] Form protection: server-side validation, a honeypot field, Cloudflare Turnstile and rate limiting
-- [ ] Form emails sent through Resend to the hello@ address (verify your domain in Resend first)
+- [ ] Form emails sent through the Zoho mailbox by SMTP, using a Zoho app-specific password
 
 Done when: a real enquiry arrives in the inbox, and a submission with the honeypot field filled in is rejected.
 

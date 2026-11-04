@@ -5,37 +5,17 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { sendEnquiry } from "@/app/contact/actions";
 import { BookButton } from "@/components/BookButton";
 import { Turnstile } from "@/components/contact/Turnstile";
+import { ErrorText, fieldClass, inputClass, NotchMark, sendButtonClass } from "@/components/FormParts";
 import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 import { honeypotField, limits, type EnquiryField, type EnquiryState } from "@/lib/enquiry";
 
 const initialState: EnquiryState = { status: "idle" };
 
-const fieldClass =
-  "block w-full bg-transparent focus-visible:outline-offset-1 autofill:shadow-[inset_0_0_0_100vmax_var(--color-paper)] autofill:[-webkit-text-fill-color:var(--color-navy)]";
-const inputClass = `${fieldClass} min-h-11 border-b-2 border-navy pt-1 pb-1.5 aria-[invalid=true]:border-b-4 aria-[invalid=true]:border-lantern`;
 const messageClass = `${fieldClass} ruled resize-y aria-[invalid=true]:[--rule-color:var(--color-lantern)]`;
 
 /** How long to wait for Cloudflare's script before saying the form can't send. */
 const spamCheckTimeoutMs = 10_000;
-
-/** A notch-shaped mark, so an error stands out by shape as well as colour. */
-function NotchMark({ className = "" }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 14 14" className={`size-3.5 shrink-0 ${className}`}>
-      <path d="M0 0H14L7 14Z" />
-    </svg>
-  );
-}
-
-function ErrorText({ children, className = "", ...props }: React.ComponentProps<"p">) {
-  return (
-    <p {...props} className={`flex gap-2 font-medium text-lantern outline-none ${className}`}>
-      <NotchMark className="mt-1 fill-lantern" />
-      <span>{children}</span>
-    </p>
-  );
-}
 
 function Field({
   name,
@@ -175,7 +155,7 @@ export function EnquiryForm() {
           // Not `disabled`, which would throw keyboard focus off the button while it sends.
           aria-disabled={pending}
           onClick={pending ? (event) => event.preventDefault() : undefined}
-          className="notched w-full px-7 py-4 text-lede font-semibold text-paper before:bg-navy hover:before:bg-timber active:before:bg-timber aria-disabled:cursor-wait aria-disabled:text-navy aria-disabled:outline-2 aria-disabled:-outline-offset-2 aria-disabled:outline-navy aria-disabled:outline-dashed aria-disabled:before:bg-transparent sm:w-auto sm:min-w-56"
+          className={`${sendButtonClass} w-full aria-disabled:cursor-wait aria-disabled:text-navy aria-disabled:outline-2 aria-disabled:-outline-offset-2 aria-disabled:outline-navy aria-disabled:outline-dashed aria-disabled:before:bg-transparent sm:w-auto sm:min-w-56`}
         >
           {pending ? "Sending…" : "Send message"}
         </button>
