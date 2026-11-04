@@ -1,21 +1,23 @@
 import "server-only";
 import nodemailer, { type Transporter } from "nodemailer";
+import { config } from "@/config";
 import type { Enquiry } from "@/lib/enquiry";
+import { getSecret } from "@/lib/secrets";
+
+// Enquiries are sent from and to the business's own Zoho mailbox, so a reply comes from the address customers know.
+const { host, port, mailbox } = config.smtp;
 
 let transport: Transporter | undefined;
 
-function smtp() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) return null;
+async function smtp() {
+  const password = await getSecret("SMTP_PASS");
+  if (!password) return null;
 
-  const port = Number(SMTP_PORT || 465);
   transport ??= nodemailer.createTransport({
-    host: SMTP_HOST,
+    host,
     port,
-    // 465 is encrypted from the start; 587 upgrades to TLS, which requireTLS makes compulsory.
-    secure: port === 465,
-    requireTLS: port !== 465,
-    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    secure: true,
+    auth: { user: mailbox, pass: password },
     connectionTimeout: 10_000,
     greetingTimeout: 10_000,
     socketTimeout: 15_000,
@@ -30,17 +32,14 @@ function smtp() {
  * app-specific password, so it can be revoked without changing the mailbox's own login.
  */
 export async function sendEnquiryEmail(enquiry: Enquiry) {
-  const transport = smtp();
-  const to = process.env.CONTACT_TO_EMAIL;
-  // Zoho only sends from the signed-in mailbox or one of its aliases.
-  const from = process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER;
+  const transport = await smtp();
 
-  if (!transport || !to || !from) {
+  if (!transport) {
     if (process.env.NODE_ENV === "development") {
-      console.info("[enquiry] SMTP is not configured, so the email was not sent.");
+      console.info("[enquiry] SMTP_PASS is not set, so the email was not sent.");
       return;
     }
-    throw new Error("SMTP environment variables are not set");
+    throw new Error("SMTP_PASS is not set");
   }
 
   const text = [
@@ -56,8 +55,8 @@ export async function sendEnquiryEmail(enquiry: Enquiry) {
 
   // Never log the enquiry or the server's reply, only that it failed (the caller logs the error message).
   await transport.sendMail({
-    from,
-    to,
+    from: mailbox,
+    to: mailbox,
     replyTo: enquiry.email,
     // A line break in a header could add headers of the visitor's own, so the name is kept to one line.
     subject: `Website enquiry from ${enquiry.name.replace(/[\r\n]+/g, " ")}`,

@@ -69,14 +69,11 @@ export type Site = {
     /** What happens before any money changes hands. */
     beforeYouPay: string;
     noObligation: string;
-    /** Cal.com username, e.g. "saigoncut". null shows a labelled placeholder. */
-    calUsername: string | null;
-    /** The Cal.com event type shown on the booking page. The site settles the travel fee after it's booked. */
+    /**
+     * The Cal.com event type shown on the booking page (its slug and username are in src/config.ts).
+     * The site settles the travel fee after it's booked.
+     */
     event: {
-      /** Must match the event's URL slug in Cal.com. Bookings of other events are left alone. */
-      slug: string;
-      /** Must match the identifier of the required Postcode question on the event in Cal.com. */
-      postcodeField: string;
       name: string;
       /** Must match the event's length in Cal.com. */
       minutes: number;
@@ -150,10 +147,7 @@ export const site: Site = {
     note: "Measurement is free",
     beforeYouPay: "You choose your fabric and see the full price before you pay anything.",
     noObligation: "There's no obligation to order.",
-    calUsername: "gia-thinh-nguyen",
     event: {
-      slug: "home-visit",
-      postcodeField: "postcode",
       name: "Home or office visit",
       minutes: visitMinutes,
       where: "Your home or office in Melbourne",

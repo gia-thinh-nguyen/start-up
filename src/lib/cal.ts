@@ -1,4 +1,5 @@
 import "server-only";
+import { getSecret } from "@/lib/secrets";
 
 /**
  * The few Cal.com API v2 calls the booking flow needs: read a booking and cancel it.
@@ -28,7 +29,7 @@ export type Booking = {
 export const bookingUidPattern = /^[A-Za-z0-9_-]{6,64}$/;
 
 async function calFetch(path: string, init?: RequestInit) {
-  const apiKey = process.env.CAL_API_KEY;
+  const apiKey = await getSecret("CAL_API_KEY");
   if (!apiKey) throw new Error("CAL_API_KEY is not set");
 
   return fetch(`${apiBase}${path}`, {

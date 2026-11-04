@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import { config } from "@/config";
 
 type TurnstileApi = {
   render: (container: HTMLElement, options: Record<string, unknown>) => string;
@@ -15,10 +16,9 @@ declare global {
   }
 }
 
-// Cloudflare's test site key: always passes. Only used in development.
-const siteKey =
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-  (process.env.NODE_ENV === "development" ? "1x00000000000000000000AA" : "");
+// In development Cloudflare's test site key is used, which always passes, paired with the test secret in
+// src/lib/turnstile.ts. One widget serves every deployed branch.
+const siteKey = process.env.NODE_ENV === "development" ? "1x00000000000000000000AA" : config.turnstile.siteKey;
 
 /**
  * Cloudflare Turnstile: checks the visitor is a person, usually without them doing anything.

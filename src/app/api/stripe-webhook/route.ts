@@ -1,5 +1,6 @@
 import type Stripe from "stripe";
 import { settleBooking } from "@/lib/booking";
+import { getSecret } from "@/lib/secrets";
 import { getStripe } from "@/lib/stripe";
 
 /**
@@ -8,13 +9,13 @@ import { getStripe } from "@/lib/stripe";
  * Stripe retries a failed call for up to three days, so an error here isn't lost.
  */
 export async function POST(request: Request) {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const secret = await getSecret("STRIPE_WEBHOOK_SECRET");
   const signature = request.headers.get("stripe-signature");
   if (!secret || !signature) return new Response(null, { status: 401 });
 
   let event: Stripe.Event;
   try {
-    event = getStripe().webhooks.constructEvent(await request.text(), signature, secret);
+    event = (await getStripe()).webhooks.constructEvent(await request.text(), signature, secret);
   } catch {
     return new Response(null, { status: 401 });
   }

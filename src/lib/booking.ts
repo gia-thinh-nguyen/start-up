@@ -1,5 +1,6 @@
 import "server-only";
 import type Stripe from "stripe";
+import { config } from "@/config";
 import { site } from "@/content/site";
 import { cancelBooking, getBooking, type Booking } from "@/lib/cal";
 import { getStripe } from "@/lib/stripe";
@@ -15,17 +16,14 @@ export type Settled =
   | { kind: "cancelled" }
   | { kind: "not-found" };
 
-const { slug, postcodeField } = site.booking.event;
+const { slug, postcodeField } = config.cal.event;
 const { feeAud, payWithinMinutes, cancelReasons } = site.serviceArea;
 
-/** The site's own address, for Stripe to send people back to. Vercel sets these; SITE_URL overrides them. */
+/** The site's own address, for Stripe to send people back to. Set SITE_URL for each Amplify branch. */
 function siteUrl() {
-  if (process.env.SITE_URL) return process.env.SITE_URL;
-  const host =
-    process.env.VERCEL_ENV === "production"
-      ? process.env.VERCEL_PROJECT_PRODUCTION_URL
-      : process.env.VERCEL_URL;
-  return host ? `https://${host}` : "http://localhost:3000";
+  if (process.env.SITE_URL) return process.env.SITE_URL.replace(/\/+$/, "");
+  if (process.env.NODE_ENV === "development") return "http://localhost:3000";
+  throw new Error("SITE_URL is not set");
 }
 
 /** In Melbourne time whatever the visitor's own time zone, e.g. "Thursday 12 November" and "10:30 am". */
@@ -48,7 +46,8 @@ function feeZone(booking: Booking) {
 async function feeSessions(booking: Booking) {
   const sessions: Stripe.Checkout.Session[] = [];
   const since = Math.floor(new Date(booking.createdAt).getTime() / 1000) - 60;
-  for await (const session of getStripe().checkout.sessions.list({ created: { gte: since }, limit: 100 })) {
+  const stripe = await getStripe();
+  for await (const session of stripe.checkout.sessions.list({ created: { gte: since }, limit: 100 })) {
     if (session.metadata?.bookingUid === booking.uid) sessions.push(session);
   }
   return sessions;
@@ -65,7 +64,8 @@ async function openFeeSession(booking: Booking) {
   const back = `${siteUrl()}/book/confirm?uid=${booking.uid}`;
   const { date, time } = visitTime(booking.start);
 
-  return getStripe().checkout.sessions.create(
+  const stripe = await getStripe();
+  return stripe.checkout.sessions.create(
     {
       mode: "payment",
       // Cards only (Apple Pay and Google Pay count as cards), so the fee is paid the moment the page completes.

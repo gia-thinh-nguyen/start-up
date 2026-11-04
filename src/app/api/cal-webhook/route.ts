@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { settleBooking } from "@/lib/booking";
 import { bookingUidPattern } from "@/lib/cal";
+import { getSecret } from "@/lib/secrets";
 
 /**
  * Cal.com calls this when a booking is created (Cal.com → Settings → Developer → Webhooks, trigger
@@ -8,8 +9,8 @@ import { bookingUidPattern } from "@/lib/cal";
  * straight after booking, so the payment window starts either way.
  */
 
-function signedByCal(body: string, signature: string | null) {
-  const secret = process.env.CAL_WEBHOOK_SECRET;
+async function signedByCal(body: string, signature: string | null) {
+  const secret = await getSecret("CAL_WEBHOOK_SECRET");
   if (!secret || !signature) return false;
   const expected = Buffer.from(createHmac("sha256", secret).update(body).digest("hex"));
   const received = Buffer.from(signature);
@@ -18,7 +19,7 @@ function signedByCal(body: string, signature: string | null) {
 
 export async function POST(request: Request) {
   const body = await request.text();
-  if (!signedByCal(body, request.headers.get("x-cal-signature-256"))) {
+  if (!(await signedByCal(body, request.headers.get("x-cal-signature-256")))) {
     return new Response(null, { status: 401 });
   }
 

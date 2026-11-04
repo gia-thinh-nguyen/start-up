@@ -18,10 +18,11 @@ export async function sendEnquiry(_previous: EnquiryState, formData: FormData): 
     values: enquiry,
   });
 
-  // Vercel sets x-forwarded-for itself, so visitors can't fake it.
+  // CloudFront adds the visitor's address to the end of x-forwarded-for. Earlier entries can be sent by the
+  // visitor, so only the last one is trusted.
   const requestHeaders = await headers();
   const ip =
-    requestHeaders.get("x-forwarded-for")?.split(",")[0].trim() ??
+    requestHeaders.get("x-forwarded-for")?.split(",").at(-1)?.trim() ||
     requestHeaders.get("x-real-ip");
 
   if (isRateLimited(ip ?? "unknown")) {
