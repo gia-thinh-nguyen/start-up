@@ -19,7 +19,7 @@ Saigon Cut is a Melbourne start-up selling made-to-measure suits: made in Saigon
 | Layer | Pick | When |
 |---|---|---|
 | Website | Next.js (App Router, TypeScript) | MVP |
-| Hosting | Vercel Pro (~US$20/month) | MVP |
+| Hosting | AWS Amplify, set up with Terraform (a few US$/month) | MVP |
 | Booking | Cal.com | MVP |
 | Payments | Square (card reader in person, Invoices remotely) | MVP |
 | Orders and clients | Airtable | MVP |

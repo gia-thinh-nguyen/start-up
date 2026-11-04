@@ -2,7 +2,7 @@
 
 Start this after the website has launched.
 
-A separate backend for the order pipeline in "Behind the scenes", built to show cloud engineering skills: microservices, AWS, Kubernetes and system design. The public website stays on Vercel as planned. Use **fake seeded data only**: Airtable stays the real order tracker until this platform is proven.
+A separate backend for the order pipeline in "Behind the scenes", built to show cloud engineering skills: microservices, AWS, Kubernetes and system design. The public website stays on AWS Amplify as planned. Use **fake seeded data only**: Airtable stays the real order tracker until this platform is proven.
 
 ## Core set (nothing else for now)
 
