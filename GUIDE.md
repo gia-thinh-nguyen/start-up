@@ -11,7 +11,7 @@ Your step-by-step to-do list for getting the Saigon Cut website live. Work from 
 | Part | When | What |
 |---|---|---|
 | 1. Decisions and materials | Start now | Prices, terms, photos |
-| 2. Accounts and setup | Week 1 | ABN, domain, Cal.com, Square, GitHub, Vercel |
+| 2. Accounts and setup | Week 1 | ABN, domain, Cal.com, Square, GitHub, AWS |
 | 3. Build | Weeks 2–4 | 7 build steps |
 | 4. Launch | Week 5 | Checks, domain, soft launch |
 
@@ -57,7 +57,8 @@ The code isn't what holds up a launch; these are. You can build with `[TODO]` pl
 - [ ] **Square:** create the account, order a card reader, and turn on sandbox mode for testing
 - [ ] **Airtable:** create the order tracker with the stages in [docs/operations-and-marketing.md](docs/operations-and-marketing.md#behind-the-scenes-not-on-the-website)
 - [ ] **GitHub:** create a **private** repo and push this project to it
-- [ ] **Vercel:** import the repo so every push gets a preview link you can open on your phone
+- [ ] **AWS:** turn on MFA for the root user, create an IAM Identity Center user for daily work, and set a billing budget alarm
+- [ ] **Amplify (with Terraform):** connect the repo so every push to `main` or `development` builds and deploys, with a link you can open on your phone. Follow [infra/README.md](infra/README.md). Create the Parameter Store secrets listed in `.env.example`
 
 Done when: a test booking made on Cal.com shows up in the owner's Google Calendar and sends a confirmation email.
 
@@ -72,7 +73,7 @@ The build rules are in [CLAUDE.md](CLAUDE.md), which Claude Code loads automatic
 1. Run `/clear`, then name the step, e.g. `Do Step 2 (Home page).` CLAUDE.md already loads this guide and `docs/website.md`.
 2. Read Claude's plan, approve it, and let it build.
 3. Run the three review prompts (design and copy, security, legal) from [docs/claude-prompts.md](docs/claude-prompts.md#review-prompts).
-4. Check it on your phone using the Vercel preview link.
+4. Check it on your phone using the Amplify branch link.
 5. Commit and push.
 
 ### Step 1. Foundations
@@ -144,7 +145,7 @@ Done when: Lighthouse on mobile scores 90+ and securityheaders.com passes.
 - [ ] Every `[TODO]` and placeholder is replaced with real content
 - [ ] The lawyer-checked policies are on the site
 - [ ] Work through the whole [pre-launch checklist](docs/claude-prompts.md#pre-launch-checklist) yourself
-- [ ] Upgrade Vercel to Pro (~US$20/month; the free Hobby plan doesn't allow commercial sites) and connect the domain
+- [ ] Connect the domain to the Amplify `main` branch ([infra/README.md](infra/README.md), step 7)
 - [ ] Add the website link to the Google Business Profile and the Instagram bio
 - [ ] Soft launch: friends and family book test fittings and tell you what confused them
 - [ ] Print a small card with a QR code to ask every client for a Google review at the final fitting

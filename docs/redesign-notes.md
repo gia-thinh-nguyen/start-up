@@ -30,7 +30,7 @@ The Pattern Card: each page is a flat ochre tailor's pattern piece, with cut edg
   - whether to hide Cal's 12h/24h toggle
   - the reversible design choices listed under each step below
 - **Setup:**
-  - the Turnstile keys in Vercel
+  - the Turnstile secret key in Parameter Store (the site key is in `src/config.ts`)
   - the policy pages
   - security headers (GUIDE Steps 6 and 7)
   - confirmation that "Saigon Tailors" is free as a business name, trademark and domain
@@ -281,7 +281,7 @@ The audit's own contrast sweep flagged Deposit and Balance on `/pricing` at 2.02
 - The "Sending…" state since its change to `aria-disabled`. The code is simple, but it was never captured, because sends return too fast to catch without a throttle.
 - A real phone: keyboard behaviour with the bar, and Instagram's in-app browser.
 - A screen reader. The code follows the patterns, but nobody has listened to it.
-- A Lighthouse score. It isn't on the allowed commands. Run it on the Vercel preview, since dev server numbers mean little.
+- A Lighthouse score. It isn't on the allowed commands. Run it on the Amplify branch link, since dev server numbers mean little.
 - 360 wide was not rendered. 320 and 390 both pass.
 - Seam drawing on scroll, still unseen with motion on (see step 04).
 
@@ -307,7 +307,7 @@ The audit's own contrast sweep flagged Deposit and Balance on `/pricing` at 2.02
 
 ### Only the owner can supply
 
-- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` in Vercel. In production an empty site key means the form has no real spam check, and `Turnstile.tsx` is frozen, so the missing key is untested.
+- `TURNSTILE_SECRET_KEY` in Parameter Store. The site key is now in `src/config.ts`, so it can't be missing.
 - How soon you reply to messages, and who reads them, if you want the sent message to say so.
 - What a customer should have ready for the visit, and how to reschedule.
 - Everything still open in earlier steps: photos, the `[TODO]` facts, confirmed prices and the policy pages.
@@ -340,14 +340,14 @@ Nothing here can be fixed in this step, because the files are protected or the w
 | Severity | Finding | Where | Suggested fix |
 |---|---|---|---|
 | High before launch | No security headers. The dev server's response has no CSP, HSTS, `X-Content-Type-Options`, `Referrer-Policy` or `frame-ancestors`, and it sends `X-Powered-By: Next.js`. | `next.config.ts` | Add them in Step 7, and set `poweredByHeader: false`. The CSP must allow `app.cal.com` and `challenges.cloudflare.com`. Test bookings and the form on a preview afterwards. |
-| Medium | The rate limit lives in memory, so each Vercel instance counts separately and it resets when the instance does. Turnstile and the honeypot carry most of the load. | `src/lib/rate-limit.ts` | Swap to `@upstash/ratelimit` before launch, or as soon as any spam gets through. |
-| Medium | If the Turnstile site key is missing in production, the widget can't work and every real message is refused. It fails safely, but enquiries stop with an unhelpful "wait for the tick" message. The `spamCheckMissing` notice only covers the script not loading. | `Turnstile.tsx`, `src/lib/turnstile.ts`, Vercel settings | Set the keys, then send one real test message from the production URL. |
+| Medium | The rate limit lives in memory, so each running copy counts separately and it resets when the instance does. Turnstile and the honeypot carry most of the load. | `src/lib/rate-limit.ts` | Swap to `@upstash/ratelimit` before launch, or as soon as any spam gets through. |
+| Medium | The Turnstile site key is now in `src/config.ts`, but if `TURNSTILE_SECRET_KEY` is missing from Parameter Store, or the page's hostname isn't on the widget, every real message is refused. It fails safely, but enquiries stop. | `src/lib/turnstile.ts`, Parameter Store, the Cloudflare widget | Send one real test message from each branch's URL after deploying. |
 | Low | Failed validation counts toward the 10-an-hour limit, so someone correcting a form repeatedly could be locked out. | `src/app/contact/actions.ts` | Check the limit only after validation passes, leaving the honeypot and Turnstile where they are. |
-| Low | The rate limit's IP header can only be trusted on Vercel. Elsewhere a visitor could fake it. | `src/app/contact/actions.ts` | No change while hosted on Vercel. Revisit if hosting moves. |
+| Low | On Amplify the IP is taken from the last `x-forwarded-for` entry, the one CloudFront adds. If Amplify adds its own hop after CloudFront, the last entry is CloudFront's address and visitors would share one limit. | `src/app/contact/actions.ts` | Check on the first Amplify deploy. |
 | Low | C1 control characters (`\u0080`–`\u009F`) aren't stripped from form input. Line breaks are handled, so a name still can't add lines to an email. | `src/lib/enquiry.ts` | Extend `controlChars`. |
 | Low | `@types/node`, `@types/react`, `@types/react-dom`, `eslint` and `typescript` use `^` ranges, and `CLAUDE.md` says to pin versions. | `package.json` | Pin them after the redesign. |
 | Low | `npm audit` reports 17 issues (16 moderate, 1 high), all in dev tooling under ESLint. `npm audit --omit=dev` finds none. | `package-lock.json` | `npm audit fix` after the redesign, without `--force`. |
-| Low | If `calUsername` is ever set to null, the placeholder shows a source file path to visitors. | `BookingCalendar.tsx` | Keep it set in production. |
+| Fixed | The placeholder that showed a source file path when `calUsername` was null is gone: the username now lives in `src/config.ts` and can't be null. | `BookingCalendar.tsx` | None. |
 
 Checked with nothing found:
 
@@ -373,7 +373,7 @@ Fonts, both under the SIL Open Font Licence through Google Fonts: Besley and Be 
 | `site.ts` `origin`, `intro`, `tagline` | **LAWYER.** "Made in Saigon" names a city, and the first screen doesn't say Vietnam. Fabric origin isn't stated. | Ask whether this is clear enough as a country-of-origin claim. `intro` is the contract's wording, so it was left. |
 | `site.ts` `name`; footer | **LAWYER.** "Saigon Tailors" hasn't been checked as a business name, trademark or domain, and the ABN is a `[TODO]`. Nothing was checked in this step. | Search ASIC and IP Australia before printing or buying anything. |
 | `site.ts` `photos` | Sources are all `[TODO]`. The `fitter` alt example shows a customer, who would have to agree to appear. | Record each source and get written consent from anyone pictured. |
-| Cal.com account | Visitors see the owner's personal name in the booking link (`gia-thinh-nguyen`) and on the calendar. | The owner's choice. Change the username and `calUsername` together if the business name should show. |
+| Cal.com account | Visitors see the owner's personal name in the booking link (`gia-thinh-nguyen`) and on the calendar. | The owner's choice. Change the username and `cal.username` in `src/config.ts` together if the business name should show. |
 
 ### Not built: GUIDE Steps 6 and 7
 

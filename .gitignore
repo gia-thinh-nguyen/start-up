@@ -34,6 +34,12 @@ yarn-error.log*
 .env*
 !.env.example
 
+# terraform: state and providers stay out of git; .terraform.lock.hcl is committed
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
 # vercel
 .vercel
 

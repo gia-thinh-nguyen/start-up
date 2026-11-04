@@ -19,7 +19,7 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 | Layer | Pick | Why | Cost to start |
 |---|---|---|---|
 | Framework | Next.js (App Router) | Fast, good SEO, works with every tool below | Free |
-| Hosting | Vercel Pro | Best fit for Next.js. The free Hobby plan is for non-commercial use only, so a business site needs Pro (or use Netlify / Cloudflare Pages, whose free tiers allow commercial use) | ~US$20/month |
+| Hosting | AWS Amplify Hosting, set up with Terraform | Builds and deploys every push. Commercial use is allowed on pay-as-you-go pricing. Secrets live in Parameter Store and are read at runtime through the SSR Compute role, never copied into the build. AWS's docs list Next.js support up to 15, so test every Next.js upgrade on a branch first | A few US$/month at this traffic |
 | CMS | Sanity (after launch) | See comparison below | Free plan |
 | Booking | Cal.com | See comparison below | Free plan (AU SMS uses credits) |
 | Payments | Square | Deposits and balances are taken in person, including at home/office visits; card reader + invoices | Per-transaction fees only |
@@ -45,7 +45,7 @@ If you need to be live in a week, Squarespace + Acuity is still a fine stopgap a
 - **Event types** (home visits only, no studio). The slug and length must match `booking.event` in `src/content/site.ts`:
   - Home or office visit (`home-visit`), 30 min, no price in Cal.com, attendee enters an address. The only event on `/book`.
     - **Requires confirmation: off.** Bookings are confirmed at once; the site cancels the ones that are outside the area or don't pay the travel fee.
-    - **Booking question:** Postcode, required, short text, identifier `postcode` (`booking.event.postcodeField` in `site.ts`).
+    - **Booking question:** Postcode, required, short text, identifier `postcode` (`cal.event.postcodeField` in `src/config.ts`).
     - **Travel time:** Limits → "After event" buffer (60 minutes, owner, 5 November 2026). Only "after", or the gap doubles.
     - **Description** (Cal.com puts it in the confirmation email): say that visits 25 to 40 km from Keysborough pay the $15 travel fee straight after booking, and that unpaid bookings are cancelled after 30 minutes.
     - **Redirect on booking** (optional): `https://<site>/book/confirm`, with "Forward parameters" on. It sends people who book on cal.com directly (the "Book on Cal.com" fallback link) to the payment step. Test that the embedded calendar still behaves with it on.

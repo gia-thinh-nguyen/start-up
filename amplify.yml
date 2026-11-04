@@ -1,0 +1,31 @@
+# Amplify Hosting build settings. Every push to a connected branch runs this, then deploys the result.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 24
+        - nvm use 24
+        - npm ci
+    build:
+      commands:
+        # Each branch's settings, worked out from the branch name Amplify gives this build (AWS_BRANCH, AWS_APP_ID).
+        # The running site only sees them through .env.production. Secrets never go here: the site reads those
+        # from Parameter Store at runtime (src/lib/secrets.ts).
+        - |
+          if [ "$AWS_BRANCH" = main ]; then
+            echo "SITE_ENV=production" >> .env.production
+            echo "SITE_URL=https://saigontailors.com.au" >> .env.production
+          else
+            echo "SITE_URL=https://$AWS_BRANCH.$AWS_APP_ID.amplifyapp.com" >> .env.production
+          fi
+          echo "SECRETS_PATH=/saigon-tailors/$AWS_BRANCH" >> .env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

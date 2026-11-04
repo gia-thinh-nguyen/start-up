@@ -33,7 +33,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 
 - Routes today: `/`, `/pricing`, `/book`, `/contact`. The footer links to `/policies/privacy`, `/policies/refunds` and `/policies/order-terms`, which are not built yet.
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
-- Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
+- Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on AWS Amplify (Terraform).
 - Undecided, shown on the site as `[TODO]` markers: wedding lead time, fit guarantee, alteration terms, and a sentence about the workshop.
 - The deposit is never refunded for a change of mind (owner, 5 November 2026). The site says so with the Australian Consumer Law line beside it, and never "non-refundable" or "no refunds", because a refund is still owed if the suit can't be delivered or has a major fault.
 - The tagline is not final.
