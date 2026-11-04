@@ -4,17 +4,14 @@ import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
 
 /**
- * The Saigon workshop, on timber. Its bottom padding leaves room for the Prices piece's edge, which
+ * The Saigon workshop, on timber, rising straight onto the chalk "Every suit from $410 includes" piece. Its bottom padding leaves room for the Prices piece's edge, which
  * rises over it straight onto the timber.
  */
 export function Saigon() {
   const { saigon, photos } = site;
 
   return (
-    <section
-      aria-labelledby="saigon"
-      className="surface-timber relative mt-[calc(var(--spacing-section)+var(--spacing-hem))] lg:mt-[calc(var(--spacing-section)+var(--spacing-hem-lg))]"
-    >
+    <section aria-labelledby="saigon" className="surface-timber relative">
       <CutEdge shape="shoulderRight" fill="fill-timber" />
       <div className="mx-auto grid max-w-page gap-8 px-gutter pt-10 pb-[calc(var(--spacing-hem)+3rem)] md:grid-cols-12 lg:px-gutter-lg lg:pt-14 lg:pb-[calc(var(--spacing-hem-lg)+4rem)]">
         {/* Level with the foot of the photo, so the text and the photo read as one block. */}

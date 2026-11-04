@@ -114,7 +114,11 @@ export function Hero() {
         </div>
       </section>
 
-      <section aria-labelledby="fitted-in-melbourne" className="relative pt-3 lg:pt-6">
+      {/* Bottom padding leaves room for the chalk "Every suit from $410 includes" piece's edge, which rises over it. */}
+      <section
+        aria-labelledby="fitted-in-melbourne"
+        className="relative pt-3 pb-[calc(var(--spacing-hem)+1.5rem)] lg:pt-6 lg:pb-[calc(var(--spacing-hem-lg)+2rem)]"
+      >
         <CutEdge shape="armhole" fill="fill-ochre" />
         {/* The hem's one notch, showing the timber behind, where the armhole curve sits 68% down
             its edge. Drawn apart from the stretched edge so it can't distort. */}

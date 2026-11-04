@@ -103,8 +103,6 @@ export type Site = {
   weddingLeadTime: string;
   /** Measured in Melbourne, made in Saigon, fitted in Melbourne. */
   stops: [Stop, Stop, Stop];
-  /** What to say about the fabric the suits are made from. */
-  fabric: string;
   saigon: Place;
   photos: {
     workshop: Photo;
@@ -188,13 +186,10 @@ export const site: Site = {
     },
     {
       title: "Fitted in Melbourne",
-      text: "When your suit arrives, we fit it on you at home or at work and make any adjustments.",
+      // Changes aren't made in Melbourne: they're marked at the fitting and the suit goes back to Saigon (owner, 4 November 2026).
+      text: "When your suit arrives, we fit it on you at home or at work. Any changes are made back in Saigon.",
     },
   ],
-
-  // The owner wants to say the fabric is their own range. Confirm the facts before this goes live,
-  // and don't name a mill or brand unless it's actually stocked.
-  fabric: "[TODO: a sentence about your fabric, e.g. how many fabrics you keep and where they come from]",
 
   saigon: {
     city: "Saigon",
@@ -234,7 +229,9 @@ export const site: Site = {
         "Cut and sewn to your measurements in Saigon",
         "Your choice of lapels, buttons and lining",
         "Shipping from Saigon to Melbourne",
-        "Final fitting and adjustments in Melbourne",
+        "Final fitting in Melbourne",
+        // Owner, 4 November 2026: if the fit isn't right, that's on us, so the owner covers the work and the shipping both ways.
+        "Any changes to get the fit right, made in Saigon, with shipping both ways",
       ],
     },
     {
@@ -292,7 +289,7 @@ export const site: Site = {
     {
       question: "What if it needs alterations?",
       answer:
-        "Adjustments at your final fitting are included in the price. [TODO: what counts as an alteration and what counts as a remake, and whether later alterations cost extra]",
+        "If the fit isn't right, we mark the changes at your final fitting in Melbourne and send the suit back to Saigon to be altered or remade. We cover everything, including the shipping both ways. When it returns, we fit it on you again. [TODO: how long the return trip takes, and what happens if you want to change something you chose, such as the lapels, after it's made]",
     },
     {
       question: "Is the fit guaranteed?",

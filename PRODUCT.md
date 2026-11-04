@@ -22,7 +22,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 
 ## Operating Context
 
-- The customer path is: book, measure, choose fabric, made in Saigon, final fitting and adjustments in Melbourne.
+- The customer path is: book, measure, choose fabric, made in Saigon, final fitting in Melbourne. Any changes are marked at the fitting and made in Saigon, so the suit goes back and is fitted again when it returns (owner, 4 November 2026). If the fit isn't right, the owner covers everything, alteration or remake and the shipping both ways, because it's their fault. The return time, and what happens when a customer changes something they chose, are `[TODO]`.
 - Payment: free measurement, 40% deposit when ordering, balance at the final fitting. Payments are taken outside the site with Square.
 - Bookings run through a Cal.com calendar embedded in an iframe on `/book`.
 - People not ready to book use the enquiry form on `/contact`, protected by a honeypot, Cloudflare Turnstile and rate limiting.
@@ -33,7 +33,7 @@ Suits are cut and sewn to measure in Saigon, Vietnam. The owner measures and fit
 - Routes today: `/`, `/pricing`, `/book`, `/contact`. The footer links to `/policies/privacy`, `/policies/refunds` and `/policies/order-terms`, which are not built yet.
 - All content and business facts live in `src/content/site.ts`, which moves to Sanity CMS after launch.
 - Stack: Next.js App Router, TypeScript strict mode, Tailwind CSS v4, hosted on Vercel.
-- Undecided, shown on the site as `[TODO]` markers: wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, the fabric line, and a sentence about the workshop.
+- Undecided, shown on the site as `[TODO]` markers: wedding lead time, phone, email, Instagram, ABN, service area, travel fee, fit guarantee, alteration terms, when the deposit stops being refundable, and a sentence about the workshop.
 - The tagline is not final.
 - Suits are from $410, the owner's figure (4 November 2026), which already includes $30 shipping from Saigon to Melbourne; the site says "including shipping" and doesn't show the $30. A shirt is an add-on to a suit order, from $85, and ships with the suit at no extra shipping cost. The wedding package has no published price: visitors ask for a group price.
 - Not registered for GST, so prices don't mention it.
@@ -53,7 +53,7 @@ Binding, from the owner's `CLAUDE.md`:
 ## Evidence on Hand
 
 - Photos on the home page: the workshop (`workshop.png`, 1520 by 855, first screen under "Made in Saigon, Vietnam") and the handshake in a dinner suit (`hero.jpg`, 1289 by 1970, Saigon section). Both were taken in Saigon, so neither may sit with Melbourne content. Each is shown at its own shape and never cropped in CSS, so nobody in a photo is cut off (owner, 4 November 2026); if a layout needs another shape, the owner supplies the crop. There is no photo of the owner in Melbourne, and the home page has no Melbourne section (removed by the owner, 4 November 2026). The photographer and consent are `[TODO]` for each. The unused `workshop-4x3.png`, `hero.png` and `tailor-saigon.jpg` were moved to `unused-photos/`, outside `public/` and ignored by git, so they are not published or committed.
-- Fabric: the owner wants to say the fabric is their own range. No wording or facts confirmed yet; it shows as `[TODO]` in "What a suit includes", not on the first screen's price tag.
+- Fabric: an in-house Vietnamese range that isn't known outside Vietnam, so the site doesn't describe or name it (owner, 4 November 2026). The "Fabric" block was removed from "Every suit from $410 includes"; visitors still choose their fabric at the measurement.
 - Turnaround: 3–4 weeks from placing the order to the final fitting (owner, 4 November 2026).
 - Logo: none. A text wordmark is the identity for now.
 - Reviews, testimonials, ratings, client names, customer counts, awards and press: none exist. Never invent them. Fake reviews breach Australian Consumer Law.
