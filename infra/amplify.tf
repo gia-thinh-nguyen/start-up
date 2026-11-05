@@ -15,7 +15,9 @@ resource "aws_amplify_app" "site" {
   # Next.js with server rendering (API routes, the booking confirmation page).
   platform = "WEB_COMPUTE"
 
-  iam_service_role_arn = aws_iam_role.amplify_service.arn
+  # Built from the role's name so it's known at plan time. The provider treats an unknown service role as removed,
+  # and since a service role can't be removed it plans to replace (delete) the app.
+  iam_service_role_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.amplify_service.name}"
   compute_role_arn     = aws_iam_role.amplify_compute.arn
 
   enable_branch_auto_build = true

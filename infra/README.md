@@ -72,7 +72,7 @@ Terraform adds its role. Copy the **App ID** (App settings → General, it start
 
 ```powershell
 cd infra
-terraform init -backend-config=backend.hcl
+terraform init "-backend-config=backend.hcl"   # quotes stop PowerShell splitting at the dot
 terraform plan
 ```
 
