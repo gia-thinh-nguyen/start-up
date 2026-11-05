@@ -203,7 +203,7 @@ A committed palette: ochre owns most of every marketing page, navy is both its i
 - **Deep Card Ochre** (#cf9833): an empty photo slot on the card, just deep enough to read as a hole waiting for a photo.
 
 ### Secondary
-- **Cutting Table Navy** (#14233a): the ink on card and chalk, and the table behind the card: header, footer, the `/pricing` rail, home's Prices piece, the page background and scrollbar track. Also fills notches cut into ochre (the notch shows the table behind), the punched holes on price pieces and the swing tag, the includes-list markers, and the route map when it is drawn on the card.
+- **Cutting Table Navy** (#14233a): the ink on card and chalk, and the table behind the card: header, footer, the `/pricing` rail, home's Prices piece, the page background and scrollbar track. Also fills notches cut into ochre (the notch shows the table behind), the punched holes on price pieces and the swing tag, the list markers (home's includes list and the travel distances on `/contact`), and the route map when it is drawn on the card.
 - **Saigon Timber** (#2e1c11): the Saigon ground. Used only for home's "Made in Saigon, Vietnam" piece and the Saigon section, and for the Send button's hover.
 
 ### Tertiary
@@ -287,15 +287,15 @@ The cut-edge vocabulary, each a 100 by 48 SVG stretched to the full width, with 
 
 Home's first edge is the one exception to stretching: a neck curve then a long shoulder falling to the right, cut out of the navy table and drawn in real pixels from the page's left, so a wider screen shows more of the shoulder rather than a distorted one. It has one navy notch, and its seam turns down into the long chalk seam.
 
-Notches are small triangles (14px; 10 by 16 where they sit on the long seam beside each stop, and as includes-list markers) drawn apart from the stretched edge so they never distort. Price pieces each have their own outline (a jacket front, a shirt yoke, a back panel) and their own hem, so no two are alike. The swing tag has its top corners cut away (from 22% to 78% across, down 15% of its height).
+Notches are small triangles (14px; 10 by 16 where they sit on the long seam beside each stop, and as list markers) drawn apart from the stretched edge so they never distort. Price pieces each have their own outline (a jacket front, a shirt yoke, a back panel) and their own hem, so no two are alike. The swing tag has its top corners cut away (from 22% to 78% across, down 15% of its height).
 
 ## Components
 
 ### Buttons
 Square, flat, and cut with one small notch in the top edge, 1.5rem in from the right (0.75rem wide, 0.5rem deep), which shows whatever is behind the button. The fill is a pseudo-element so the notch never clips the focus ring.
 - **Shape:** square corners (0px), one notch.
-- **Book a fitting:** lantern with chalk text, semibold; small (0.625rem by 1.25rem padding, small text) in the header, large (1rem by 1.75rem, lede text) in closing sections and on `/contact` and `/pricing`.
-- **One per screen:** home's first screen has no in-page Book button (owner, 4 November 2026). The header's small button is its booking action, and below 48rem the booking bar is.
+- **Book a fitting:** lantern with chalk text, semibold; small (0.625rem by 1.25rem padding, small text) in the header, large (1rem by 1.75rem, lede text) in closing sections and on `/pricing`.
+- **One per screen:** home's first screen has no in-page Book button (owner, 4 November 2026). The header's small button is its booking action, and below 48rem the booking bar is. `/contact` has none either, in "Reach us directly" or after a message is sent, because it repeated the header's (owner, 6 November 2026).
 - **Hover / Active:** flat swap to lantern-dark over 120ms. No lift, no shadow.
 - **Focus:** 2px outline in the surface's focus colour, 3px offset.
 - **Send message:** the same notched rectangle in navy, swapping to timber on hover. Pending turns into a dashed 2px navy outline reading "Sending…", the same language as a `[TODO]`.

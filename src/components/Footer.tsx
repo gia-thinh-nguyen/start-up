@@ -34,7 +34,7 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
 }
 
 export function Footer() {
-  const { contact, serviceArea } = site;
+  const { contact } = site;
 
   return (
     <footer className="surface-table relative">
@@ -46,8 +46,9 @@ export function Footer() {
           <p className="mt-4 max-w-sm text-lede">{site.origin}</p>
         </div>
 
-        {/* Contact and Policies take their content's width so the email stays on one line. */}
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-[max-content_minmax(0,1fr)_max-content] sm:gap-8 lg:col-span-8">
+        {/* Side by side from sm. Contact is never narrower than the email, so it stays on one line. From lg
+            the two split the eight columns, so Policies starts on the page grid at column 9. */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-[max-content_max-content] sm:gap-x-24 lg:col-span-8 lg:grid-cols-[minmax(max-content,1fr)_1fr] lg:gap-x-8">
           <section>
             <FooterHeading>Contact</FooterHeading>
             <ul className="space-y-2.5">
@@ -63,13 +64,6 @@ export function Footer() {
                 </li>
               )}
             </ul>
-          </section>
-
-          <section>
-            <FooterHeading>Where we fit</FooterHeading>
-            <p>
-              <WithTodos text={serviceArea.summary} />
-            </p>
           </section>
 
           <section>

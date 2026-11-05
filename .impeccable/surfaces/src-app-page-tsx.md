@@ -45,7 +45,7 @@ Suits from $410 including shipping ($30 of it is shipping from Saigon; the page 
 
 - `/pricing`: each price hangs as its own pattern piece with a punched hole; payment terms drawn to scale, notched at 40%; FAQ on chalk.
 - `/book`: a short ochre piece with 30 minutes, Free and the travel line, then chalk with "Pick a time" and one calendar. `/book/confirm` shows the result on one ochre piece: booked, pay the $15 travel fee, or outside the area (owner, 5 November 2026). No sticky bar on either.
-- `/contact`: chalk, form first, contact details on one ochre piece with their `[TODO]` markers.
+- `/contact`: chalk, form first, contact details on one ochre piece with their `[TODO]` markers. No in-page Book button, beside the details or after sending; the header and the phone bar are the actions (owner, 6 November 2026).
 - Shared: header and footer on the navy table.
 
 ## Unresolved

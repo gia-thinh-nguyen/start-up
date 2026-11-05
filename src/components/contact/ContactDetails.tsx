@@ -1,5 +1,5 @@
 import { ContactLink } from "@/components/ContactLink";
-import { WithTodos } from "@/components/Todo";
+import { ItemNotch } from "@/components/ItemNotch";
 import { site } from "@/content/site";
 
 function Detail({ term, children }: { term: string; children: React.ReactNode }) {
@@ -27,9 +27,17 @@ export function ContactDetails() {
           <ContactLink text={contact.instagram.label} href={contact.instagram.href} external />
         </Detail>
       )}
-      {/* The footer already gives the area on every page; this line adds what it costs to get there. */}
-      <Detail term="Travel">
-        <WithTodos text={serviceArea.travelFee} />
+      <Detail term="Travel from Keysborough">
+        <ul className="mt-1 space-y-1.5">
+          {serviceArea.travelBands.map(({ distance, cost }) => (
+            <li key={distance} className="flex gap-3">
+              <ItemNotch />
+              <span>
+                <span className="font-semibold">{distance}:</span> {cost}
+              </span>
+            </li>
+          ))}
+        </ul>
       </Detail>
     </dl>
   );

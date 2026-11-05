@@ -1,11 +1,10 @@
-import { BookButton } from "@/components/BookButton";
 import { ContactDetails } from "@/components/contact/ContactDetails";
 import { CutEdge } from "@/components/CutEdge";
 
 /**
- * The one piece of card on the page: contact details, the travel fee and the way to booking. On phones
- * it runs across the screen below the form. On desktop it lies beside the form and off the right of
- * the page, with a shoulder and armhole cut into it, and the footer's edge rises over its bottom.
+ * The one piece of card on the page: the contact details. Booking is left to the header and the phone
+ * bar. On phones it runs across the screen below the form. On desktop it lies beside the form and off
+ * the right of the page, with a shoulder and armhole cut into it, and the footer's edge rises over its bottom.
  */
 export function ContactPiece() {
   return (
@@ -32,11 +31,6 @@ export function ContactPiece() {
       <div className="mt-6">
         <ContactDetails />
       </div>
-
-      <p className="mt-12 mb-6 max-w-measure text-lede">
-        If you already know you want a suit, skip the message and book a free measurement.
-      </p>
-      <BookButton size="lg" />
     </section>
   );
 }

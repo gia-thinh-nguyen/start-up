@@ -1,16 +1,8 @@
 import { CutEdge } from "@/components/CutEdge";
 import { priceAmount } from "@/components/figures";
+import { ItemNotch } from "@/components/ItemNotch";
 import { WithTodos } from "@/components/Todo";
 import { site } from "@/content/site";
-
-/** A small notch cut toward the text, marking each item like a notch on a pattern edge. */
-function ItemNotch() {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 10 16" className="mt-[0.35em] h-4 w-2.5 shrink-0 fill-navy">
-      <path d="M0 0 10 8 0 16Z" />
-    </svg>
-  );
-}
 
 /**
  * The long seam is chalk, so on this chalk piece it is redrawn in navy, above it. It starts where the

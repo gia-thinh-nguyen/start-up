@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { sendEnquiry } from "@/app/contact/actions";
-import { BookButton } from "@/components/BookButton";
 import { Turnstile } from "@/components/contact/Turnstile";
 import { ErrorText, fieldClass, inputClass, NotchMark, sendButtonClass } from "@/components/FormParts";
 import { WithTodos } from "@/components/Todo";
@@ -76,10 +75,9 @@ export function EnquiryForm() {
         <h2 ref={sent} tabIndex={-1} className="mt-5 outline-none">
           Thanks, your message is on its way.
         </h2>
-        <p className="mt-4 mb-6 max-w-measure text-lede">
+        <p className="mt-4 max-w-measure text-lede">
           We&apos;ll reply by email, or by phone if you left a number.
         </p>
-        <BookButton size="lg" />
       </div>
     );
   }

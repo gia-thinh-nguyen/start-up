@@ -94,7 +94,6 @@ export type Site = {
     instagram?: Link;
   };
   serviceArea: {
-    summary: string;
     /** Driving distances in km from Keysborough: no fee up to freeKm, the fee up to maxKm, a quote beyond. */
     freeKm: number;
     maxKm: number;
@@ -103,6 +102,8 @@ export type Site = {
     /** How long a booking that owes the fee is held before it's cancelled. Stripe's shortest is 30. */
     payWithinMinutes: number;
     travelFee: string;
+    /** The same rule as travelFee, one line per distance, for /contact. */
+    travelBands: { distance: string; cost: string }[];
     feeRefund: string;
     /** Sent to the customer in Cal.com's cancellation email, so they read as complete sentences. */
     cancelReasons: { outside: string; unpaid: string };
@@ -175,12 +176,16 @@ export const site: Site = {
   // The travel fee is paid through Stripe straight after booking (owner, 5 November 2026). It pays for the trip, so
   // the measurement itself stays free; the fee must always sit beside "free" (see docs/redesign-notes.md).
   serviceArea: {
-    summary: `Your home or office, within ${maxKm} km of Keysborough.`,
     freeKm,
     maxKm,
     feeAud,
     payWithinMinutes,
     travelFee: `No travel fee within ${freeKm} km of Keysborough. From ${freeKm} to ${maxKm} km it's $${feeAud}, paid when you book. Further out, ask us for a quote.`,
+    travelBands: [
+      { distance: `Up to ${freeKm} km`, cost: "no travel fee" },
+      { distance: `${freeKm} to ${maxKm} km`, cost: `$${feeAud}, paid when you book` },
+      { distance: `Over ${maxKm} km`, cost: "ask us for a quote" },
+    ],
     // The owner's rule (5 November 2026). Have it checked with the refund policy.
     feeRefund: `Cancel at least 24 hours before your visit and we'll refund the $${feeAud}. If we cancel, you always get it back.`,
     cancelReasons: {
@@ -271,7 +276,6 @@ export const site: Site = {
       includes: [
         "Suits for the groom and groomsmen in matching fabric",
         "Everyone measured and fitted in Melbourne",
-        `Book at least ${weddingLeadTime} before the wedding`,
       ],
     },
   ],
